@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>FluentSpecification</AssemblyName>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCpu</PlatformTarget>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Common implementation of small reusable Specifications - Null, NotEmpty, LessThan or GreaterThan etc.</Description>
+  </PropertyGroup>
+
+  <Import Project="..\Shared.msbuild" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
+    <ProjectReference Include="..\FluentSpecification.Core\FluentSpecification.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<div class="mermaid">
+graph TD;
+AppVeyor-->Upload-AppVeyor-Artifacts;
+AppVeyor-->Publish-MyGet-Packages;
+AppVeyor-->Publish-Nuget-Packages;
+AppVeyor-->Publish-GitHub-Release;
+AppVeyor-->Publish-Documentation;
+AppVeyor-->Upload-Coverage-Report;
+AppVeyor-->Publish-Chocolatey-Packages;
+Publish-Chocolatey-Packages-->Package;
+Package-->Export-Release-Notes;
+Package-->Analyze;
+Package-->Test;
+Package-->Create-NuGet-Packages;
+Package-->Create-Chocolatey-Packages;
+Package-->DotNetCore-Pack;
+DotNetCore-Pack-->DotNetCore-Build;
+DotNetCore-Build-->Clean;
+DotNetCore-Build-->DotNetCore-Restore;
+Clean-->Show-Info;
+Clean-->Print-AppVeyor-Environment-Variables;
+Test-->DotNetCore-Test;
+DotNetCore-Test-->Install-OpenCover;
+Install-OpenCover-->Install-ReportGenerator;
+Analyze-->DupFinder;
+Analyze-->InspectCode;
+Analyze-->CreateIssuesReport;
+Upload-Coverage-Report-->Upload-Coveralls-Report;
+Upload-Coverage-Report-->Upload-Codecov-Report;
+Publish-Documentation-->Clean-Documentation;
+Publish-Documentation-->Deploy-Graph-Documentation;
+</div>

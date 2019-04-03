@@ -1,0 +1,7 @@
+@{
+	IReadOnlyList<ReferenceComment> exceptions = Model.List<ReferenceComment>(CodeAnalysisKeys.Exceptions);
+	if (exceptions != null)
+	{
+		@Html.Partial("Section\\_Exceptions")
+	}
+}

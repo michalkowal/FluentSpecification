@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <AssemblyName>FluentSpecification.Tests.Sdk</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.4.1" />
+  </ItemGroup>
+  
+  <Import Project="..\Shared.msbuild" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
+  </ItemGroup>
+  
+</Project>

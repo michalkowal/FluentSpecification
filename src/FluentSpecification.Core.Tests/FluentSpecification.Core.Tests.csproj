@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<AssemblyName>FluentSpecification.Core.Tests</AssemblyName>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <Import Project="..\Shared.msbuild" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
+    <ProjectReference Include="..\FluentSpecification.Core\FluentSpecification.Core.csproj" />
+    <ProjectReference Include="..\FluentSpecification.Tests.Sdk\FluentSpecification.Tests.Sdk.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>FluentSpecification.Core</AssemblyName>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCpu</PlatformTarget>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Core implementation of Specification design pattern (composition, negation, error handling etc).</Description>
+  </PropertyGroup>
+
+  <Import Project="..\Shared.msbuild" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
