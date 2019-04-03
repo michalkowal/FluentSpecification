@@ -10,6 +10,7 @@ Package-->DotNetCore-Pack;
 DotNetCore-Pack-->DotNetCore-Build;
 DotNetCore-Build-->Clean;
 DotNetCore-Build-->DotNetCore-Restore;
+DotNetCore-Build-->Restore;
 Clean-->Show-Info;
 Clean-->Print-AppVeyor-Environment-Variables;
 Test-->DotNetCore-Test;
