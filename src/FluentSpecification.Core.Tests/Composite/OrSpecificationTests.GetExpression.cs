@@ -47,7 +47,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var expression = sut.GetExpression();
                 var result = expression.ToString();
 
-                Assert.Matches(@"candidate => \(.*.IsSatisfiedBy\(candidate\) OrElse .*.IsSatisfiedBy\(candidate\)\)",
+                Assert.Matches(@"candidate => \(.*\.IsSatisfiedBy\(candidate\) OrElse .*.IsSatisfiedBy\(candidate\)\)",
                     result);
             }
 
@@ -62,7 +62,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var result = expression.ToString();
 
                 Assert.Matches(
-                    @"obj => \(value\(FluentSpecification.Core.Tests.Mocks.TrueMockComplexSpecification\).IsSatisfiedBy\(obj\) OrElse .*.IsSatisfiedBy\(obj\)\)",
+                    @"obj => \(value\(FluentSpecification.Core.Tests.Mocks.TrueMockComplexSpecification\).IsSatisfiedBy\(obj\) OrElse .*\.IsSatisfiedBy\(obj\)\)",
                     result);
             }
 

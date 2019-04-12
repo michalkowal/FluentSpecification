@@ -20,7 +20,7 @@ namespace FluentSpecification.Tests.Sdk.Data
         public SpecificationDataRow(bool overall, object[] data)
         {
             _overall = overall;
-            _data = data ?? Array.Empty<object>();
+            _data = data ?? new object[0];
         }
 
         FailedSpecificationDataRow ISpecificationResultCreator.FailedSpecification(Type specificationType,

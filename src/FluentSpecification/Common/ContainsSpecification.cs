@@ -36,9 +36,9 @@ namespace FluentSpecification.Common
             _comparer = comparer;
             _hasCheckNullExpression = !linqToEntities;
 
-            var baseMethod = typeof(Enumerable)
-                .GetMethods().First(m =>
-                    m.Name == nameof(Enumerable.Contains) && m.GetParameters().Length == (comparer == null ? 2 : 3));
+            var baseMethod = typeof(Enumerable).GetTypeInfo()
+                .GetDeclaredMethods(nameof(Enumerable.Contains)).First(m =>
+                    m.GetParameters().Length == (comparer == null ? 2 : 3));
             _containsMethodInfo = baseMethod.MakeGenericMethod(typeof(TType));
         }
 

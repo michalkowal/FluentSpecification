@@ -90,7 +90,7 @@ namespace FluentSpecification.Abstractions.Validation
         {
             TotalSpecificationsCount = totalSpecificationsCount;
             OverallResult = overallResult;
-            FailedSpecifications = failedSpecifications ?? Array.Empty<FailedSpecification>();
+            FailedSpecifications = failedSpecifications ?? new FailedSpecification[0];
             Trace = trace;
         }
 

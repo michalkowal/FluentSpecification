@@ -35,9 +35,9 @@ namespace FluentSpecification.Core.Tests.Data
 
             Invalid(typeof(string));
             Invalid(typeof(FakeType));
+            Invalid(typeof(ChildComparableFakeType));
             Invalid(typeof(KeyValuePair<string, int>));
             Invalid(typeof(KeyValuePair<string, int>?));
-            Invalid(null);
         }
     }
 
@@ -46,6 +46,7 @@ namespace FluentSpecification.Core.Tests.Data
         public TypeIsEnumerableData()
         {
             Valid(typeof(FakeType));
+            Valid(typeof(ChildFakeType));
             Valid(typeof(string[]));
             Valid(typeof(string));
             Valid(typeof(List<int>));
@@ -66,12 +67,25 @@ namespace FluentSpecification.Core.Tests.Data
         public TypeEnumerableAttributeData()
         {
             Valid(typeof(FakeType), typeof(char));
+            Valid(typeof(ChildFakeType), typeof(char));
             Valid(typeof(string[]), typeof(string));
             Valid(typeof(string), typeof(char));
             Valid(typeof(List<int>), typeof(int));
             Valid(typeof(Dictionary<string, bool>), typeof(KeyValuePair<string, bool>));
             Valid(typeof(IReadOnlyCollection<int>), typeof(int));
             Valid(typeof(IEnumerable<int>), typeof(int));
+        }
+    }
+
+    public class TypeComparableData : SpecificationData<Type>
+    {
+        public TypeComparableData()
+        {
+            Valid(typeof(ComparableFakeType));
+            Valid(typeof(ChildComparableFakeType));
+
+            Invalid(typeof(FakeType));
+            Invalid(typeof(ChildFakeType));
         }
     }
 }

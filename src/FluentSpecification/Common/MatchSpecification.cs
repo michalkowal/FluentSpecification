@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -34,11 +35,12 @@ namespace FluentSpecification.Common
             _pattern = regexPattern;
             _options = options;
 
-            _isMatchMethodInfo = typeof(Regex).GetMethod(nameof(Regex.IsMatch),
-                BindingFlags.Public | BindingFlags.Static,
-                null,
-                new[] {typeof(string), typeof(string), typeof(RegexOptions)},
-                null);
+            _isMatchMethodInfo = typeof(Regex).GetTypeInfo()
+                .GetDeclaredMethods(nameof(Regex.IsMatch))
+                .First(m => m.GetParameters().Length == 3 &&
+                            m.GetParameters()[0].ParameterType == typeof(string) &&
+                            m.GetParameters()[1].ParameterType == typeof(string) &&
+                            m.GetParameters()[2].ParameterType == typeof(RegexOptions));
         }
 
         /// <inheritdoc />

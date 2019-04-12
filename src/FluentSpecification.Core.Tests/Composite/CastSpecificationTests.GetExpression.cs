@@ -32,7 +32,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sutExpression = sut.GetExpression();
                 var result = sutExpression.ToString();
 
-                Assert.Matches(@"candidate => .*.IsSatisfiedBy\(Convert\(candidate, Object\)\)", result);
+                Assert.Matches(@"candidate => .*\.IsSatisfiedBy\(Convert\(candidate.*\)\)", result);
             }
 
             [Fact]

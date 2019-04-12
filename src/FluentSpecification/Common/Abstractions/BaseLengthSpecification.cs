@@ -35,8 +35,8 @@ namespace FluentSpecification.Common.Abstractions
             _isString = typeof(string) == typeof(T);
             if (!_isString)
             {
-                var baseMethod = typeof(Enumerable)
-                    .GetMethods().First(m => m.Name == nameof(Enumerable.Count) && m.GetParameters().Length == 1);
+                var baseMethod = typeof(Enumerable).GetTypeInfo()
+                    .GetDeclaredMethods(nameof(Enumerable.Count)).First(m => m.GetParameters().Length == 1);
 
                 if (typeof(T).IsGenericEnumerable())
                 {
@@ -47,7 +47,8 @@ namespace FluentSpecification.Common.Abstractions
                 {
                     _cast = true;
                     _countMethodInfo = baseMethod.MakeGenericMethod(typeof(object));
-                    var baseCast = typeof(Enumerable).GetMethod(nameof(Enumerable.Cast), new[] {typeof(IEnumerable)});
+                    var baseCast = typeof(Enumerable).GetTypeInfo()
+                        .GetDeclaredMethod(nameof(Enumerable.Cast));
                     if (baseCast != null)
                         _castMethodInfo = baseCast.MakeGenericMethod(typeof(object));
                 }

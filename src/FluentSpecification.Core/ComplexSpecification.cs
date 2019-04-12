@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using JetBrains.Annotations;
@@ -34,7 +35,7 @@ namespace FluentSpecification.Core
         {
             var arg = Expression.Parameter(typeof(T), "candidate");
 
-            var expression = typeof(T).IsValueType && !_isNullable
+            var expression = typeof(T).GetTypeInfo().IsValueType && !_isNullable
                 ? BuildValueTypeExpressionBody(arg)
                 : BuildExpressionBody(arg);
 

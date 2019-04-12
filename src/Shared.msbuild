@@ -1,6 +1,15 @@
 ﻿<Project>
 
   <PropertyGroup>
+    <TargetFrameworks>netstandard1.1;netstandard1.6;netstandard2.0;net45</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCpu</PlatformTarget>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>$(AssemblyName)</PackageId>
     <Copyright>Copyright © Michał Kowal 2019</Copyright>
     <Authors>Michał Kowal</Authors>
@@ -12,32 +21,19 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>Specification;Pattern;Fluent;DDD;Domain;Driven;Design</PackageTags>
   </PropertyGroup>
-  
-  <PropertyGroup>
-    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netcoreapp2.2' ">2.2.0</NetStandardImplicitPackageVersion>
-  </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   
   <ItemGroup>
-	<Compile Include="$(MSBuildThisFileDirectory)\SolutionInfo.cs">
+	  <Compile Include="$(MSBuildThisFileDirectory)\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
   </ItemGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.2' ">
-    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   
   <PropertyGroup>

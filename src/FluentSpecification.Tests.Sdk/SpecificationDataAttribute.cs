@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using FluentSpecification.Tests.Sdk.Data;
 using JetBrains.Annotations;
 using Xunit.Sdk;
@@ -10,7 +11,7 @@ namespace FluentSpecification.Tests.Sdk
     {
         protected SpecificationDataAttribute(Type @class)
         {
-            if (!typeof(SpecificationData).IsAssignableFrom(@class))
+            if (!typeof(SpecificationData).GetTypeInfo().IsAssignableFrom(@class))
                 throw new ArgumentException("Incorrect SpecificationData class", nameof(@class));
             Class = @class;
         }

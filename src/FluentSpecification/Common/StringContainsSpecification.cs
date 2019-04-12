@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using FluentSpecification.Core;
@@ -26,7 +27,10 @@ namespace FluentSpecification.Common
                 throw new ArgumentNullException(nameof(expected));
 
             _expected = expected;
-            _containsMethodInfo = typeof(string).GetMethod(nameof(string.Contains), new[] {typeof(string)});
+            _containsMethodInfo = typeof(string).GetTypeInfo()
+                .GetDeclaredMethods(nameof(string.Contains))
+                .First(m => m.GetParameters().Length == 1 &&
+                            m.GetParameters().First().ParameterType == typeof(string));
         }
 
         /// <inheritdoc />

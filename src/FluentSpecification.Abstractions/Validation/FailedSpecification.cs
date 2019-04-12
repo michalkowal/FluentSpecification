@@ -46,7 +46,7 @@ namespace FluentSpecification.Abstractions.Validation
             SpecificationType = specificationType;
             Parameters = parameters ?? new Dictionary<string, object>();
             Candidate = candidate;
-            Errors = errors ?? Array.Empty<string>();
+            Errors = errors ?? new string[0];
         }
 
         /// <summary>

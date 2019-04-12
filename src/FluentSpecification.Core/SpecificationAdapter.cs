@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
@@ -192,26 +194,46 @@ namespace FluentSpecification.Core
             return new SpecificationResult(overall, trace, failedSpecifications);
         }
 
+        private MethodInfo GetBaseSpecificationMethodInfo(string methodName, Type specType)
+        {
+            return specType.GetTypeInfo()
+                       .GetDeclaredMethods(methodName)
+                       .FirstOrDefault(m => m.ReturnParameter != null &&
+                                            m.ReturnParameter.ParameterType == typeof(bool) &&
+                                            m.GetParameters().Length == 1 &&
+                                            m.GetParameters().First().ParameterType == typeof(T)) ??
+                   GetBaseSpecificationMethodInfo(methodName, specType.GetTypeInfo().BaseType);
+        }
+
+        private MethodInfo GetIsNotSatisfiedByMethodInfo(Type specType)
+        {
+            return GetBaseSpecificationMethodInfo(nameof(INegatableSpecification<T>.IsNotSatisfiedBy), specType);
+        }
+
+        private MethodInfo GetIsSatisfiedByMethodInfo(Type specType)
+        {
+            return GetBaseSpecificationMethodInfo(nameof(ISpecification<T>.IsSatisfiedBy), specType);
+        }
+
         [NotNull]
         private Expression<Func<T, bool>> GetExpression(bool negatable)
         {
             var arg = Expression.Parameter(typeof(T), "candidate");
 
-            Func<T, bool> func;
             Expression callExpression;
             if (negatable && _baseSpecification is INegatableSpecification<T> negatableSpecification)
             {
-                func = negatableSpecification.IsNotSatisfiedBy;
-                callExpression = Expression.Call(Expression.Constant(_baseSpecification), func.Method, arg);
+                var funcInfo = GetIsNotSatisfiedByMethodInfo(negatableSpecification.GetType());
+                callExpression = Expression.Call(Expression.Constant(_baseSpecification), funcInfo, arg);
             }
             else
             {
-                func = _baseSpecification.IsSatisfiedBy;
+                var funcInfo = GetIsSatisfiedByMethodInfo(_baseSpecification.GetType());
                 if (negatable)
                     callExpression =
-                        Expression.Not(Expression.Call(Expression.Constant(_baseSpecification), func.Method, arg));
+                        Expression.Not(Expression.Call(Expression.Constant(_baseSpecification), funcInfo, arg));
                 else
-                    callExpression = Expression.Call(Expression.Constant(_baseSpecification), func.Method, arg);
+                    callExpression = Expression.Call(Expression.Constant(_baseSpecification), funcInfo, arg);
             }
 
             return Expression.Lambda<Func<T, bool>>(callExpression, arg);

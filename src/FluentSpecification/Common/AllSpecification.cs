@@ -22,8 +22,8 @@ namespace FluentSpecification.Common
         public AllSpecification([NotNull] ISpecification<TType> specificationForAll, bool linqToEntities = false) :
             base(specificationForAll, linqToEntities)
         {
-            var baseMethod = typeof(Enumerable)
-                .GetMethods().First(m => m.Name == nameof(Enumerable.All) && m.GetParameters().Length == 2);
+            var baseMethod = typeof(Enumerable).GetTypeInfo()
+                .GetDeclaredMethod(nameof(Enumerable.All));
             CollectionElementCallMethodInfo = baseMethod.MakeGenericMethod(typeof(TType));
         }
 

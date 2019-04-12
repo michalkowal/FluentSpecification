@@ -12,6 +12,29 @@ namespace FluentSpecification.Core.Utils
     /// </summary>
     public static class TypeExtensions
     {
+        private static bool IsByte(Type type)
+        {
+            return type == typeof(byte) ||
+                   type == typeof(sbyte);
+        }
+
+        private static bool IsInteger(Type type)
+        {
+            return type == typeof(ushort) ||
+                   type == typeof(uint) ||
+                   type == typeof(ulong) ||
+                   type == typeof(short) ||
+                   type == typeof(int) ||
+                   type == typeof(long);
+        }
+
+        private static bool IsFloating(Type type)
+        {
+            return type == typeof(decimal) ||
+                   type == typeof(double) ||
+                   type == typeof(float);
+        }
+
         /// <summary>
         ///     Checks if current type is numeric.
         /// </summary>
@@ -21,31 +44,24 @@ namespace FluentSpecification.Core.Utils
         ///     false - <paramref name="type" /> is not numeric
         /// </returns>
         /// <exception cref="InvalidOperationException">Thrown when cannot get underlying type of nullable.</exception>
+        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool IsNumericType([NotNull] this Type type)
         {
-            switch (Type.GetTypeCode(type))
-            {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                case TypeCode.Object:
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
-                        return IsNumericType(Nullable.GetUnderlyingType(type) ?? throw new InvalidOperationException());
+            type = type ?? throw new NullReferenceException();
 
-                    return false;
-                default:
-                    return false;
+            if (IsByte(type) || IsInteger(type) || IsFloating(type))
+            {
+                return true;
             }
+
+            var typeInfo = type.GetTypeInfo();
+            if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                return IsNumericType(Nullable.GetUnderlyingType(type) ?? throw new InvalidOperationException());
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -56,7 +72,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasEqualityOperator([NotNull] this Type type)
         {
@@ -71,7 +87,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasInequalityOperator([NotNull] this Type type)
         {
@@ -86,7 +102,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasLessThanOperator([NotNull] this Type type)
         {
@@ -101,7 +117,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasLessThanOrEqualOperator([NotNull] this Type type)
         {
@@ -116,7 +132,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasGreaterThanOperator([NotNull] this Type type)
         {
@@ -131,7 +147,7 @@ namespace FluentSpecification.Core.Utils
         ///     true - <paramref name="type" /> has operator;
         ///     false - <paramref name="type" /> hasn't
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool HasGreaterThanOrEqualOperator([NotNull] this Type type)
         {
@@ -143,13 +159,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> equality operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetEqualityOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_Equality",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_Equality") ??
+                type.GetTypeInfo().BaseType?.GetEqualityOperator();
         }
 
         /// <summary>
@@ -157,13 +173,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> inequality operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetInequalityOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_Inequality",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_Inequality") ??
+                   type.GetTypeInfo().BaseType?.GetInequalityOperator();
         }
 
         /// <summary>
@@ -171,13 +187,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> less than operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetLessThanOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_LessThan",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_LessThan") ??
+                   type.GetTypeInfo().BaseType?.GetLessThanOperator();
         }
 
         /// <summary>
@@ -185,13 +201,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> less than or equal operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetLessThanOrEqualOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_LessThanOrEqual",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_LessThanOrEqual") ??
+                   type.GetTypeInfo().BaseType?.GetLessThanOrEqualOperator();
         }
 
         /// <summary>
@@ -199,13 +215,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> greater than operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetGreaterThanOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_GreaterThan",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_GreaterThan") ??
+                   type.GetTypeInfo().BaseType?.GetGreaterThanOperator();
         }
 
         /// <summary>
@@ -213,13 +229,13 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> greater than or equal operator.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetGreaterThanOrEqualOperator([NotNull] this Type type)
         {
-            return type.GetMethod("op_GreaterThanOrEqual",
-                BindingFlags.Static | BindingFlags.Public, null, new[] {type, type}, null);
+            return type.GetTypeInfo().GetDeclaredMethod("op_GreaterThanOrEqual") ??
+                   type.GetTypeInfo().BaseType?.GetGreaterThanOrEqualOperator();
         }
 
         /// <summary>
@@ -233,7 +249,7 @@ namespace FluentSpecification.Core.Utils
         /// <typeparam name="T">Type of <c>Equals</c> method parameter.</typeparam>
         /// <param name="type">Self type.</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> <c>Equals</c> method.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetEqualsMethod<T>([NotNull] this Type type)
@@ -248,14 +264,18 @@ namespace FluentSpecification.Core.Utils
         /// <param name="type">Self type.</param>
         /// <param name="genericType">Type of <c>Equals</c> method parameter.</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> <c>Equals</c> method.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="genericType" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static MethodInfo GetEqualsMethod([NotNull] this Type type, [NotNull] Type genericType)
         {
-            return type.GetMethod(nameof(IEquatable<object>.Equals),
-                new[] {genericType ?? throw new ArgumentNullException(nameof(genericType))});
+            if (genericType == null)
+                throw new ArgumentNullException(nameof(genericType));
+
+            return type.GetTypeInfo().GetDeclaredMethods(nameof(IEquatable<object>.Equals))
+                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
+                type.GetTypeInfo().BaseType?.GetEqualsMethod(genericType);
         }
 
         /// <summary>
@@ -263,14 +283,16 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type.</param>
         /// <returns><see cref="MethodInfo" /> of <paramref name="type" /> base <c>Equals</c> method.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         /// <exception cref="InvalidOperationException">Thrown when cannot get <c>Equals</c> method.</exception>
         [PublicAPI]
         [NotNull]
         public static MethodInfo GetEqualsMethod([NotNull] this Type type)
         {
-            return type.GetMethod(nameof(object.Equals), new[] {typeof(object)})
-                   ?? throw new InvalidOperationException();
+            return type.GetTypeInfo().GetDeclaredMethods(nameof(object.Equals))
+                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == typeof(object)) ??
+                   type.GetTypeInfo().BaseType?.GetEqualsMethod() ??
+                throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -301,7 +323,12 @@ namespace FluentSpecification.Core.Utils
         [CanBeNull]
         public static MethodInfo GetCompareToMethod([NotNull] this Type type, [NotNull] Type genericType)
         {
-            return type.GetMethod(nameof(IComparable.CompareTo), new[] {genericType});
+            if (genericType == null)
+                throw new ArgumentNullException(nameof(genericType));
+
+            return type.GetTypeInfo().GetDeclaredMethods(nameof(IComparable.CompareTo))
+                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
+                   type.GetTypeInfo().BaseType?.GetCompareToMethod(genericType);
         }
 
         /// <summary>
@@ -315,7 +342,9 @@ namespace FluentSpecification.Core.Utils
         [CanBeNull]
         public static MethodInfo GetCompareToMethod([NotNull] this Type type)
         {
-            return type.GetMethod(nameof(IComparable.CompareTo), new[] {typeof(object)});
+            return type.GetTypeInfo().GetDeclaredMethods(nameof(IComparable.CompareTo))
+                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == typeof(object)) ??
+                   type.GetTypeInfo().BaseType?.GetCompareToMethod();
         }
 
         /// <summary>
@@ -326,12 +355,12 @@ namespace FluentSpecification.Core.Utils
         ///     <para>true - type is <see cref="IEnumerable{T}" />.</para>
         ///     <para>false - type is not.</para>
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         public static bool IsGenericEnumerable([NotNull] this Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>) || type
-                       .GetInterfaces()
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>) || 
+                   type.GetTypeInfo().ImplementedInterfaces
                        .Any(i => i.Name.StartsWith(nameof(IEnumerable)) && i.GenericTypeArguments.Length == 1);
         }
 
@@ -340,7 +369,7 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="type">Self type.</param>
         /// <returns>Generic type argument.</returns>
-        /// <exception cref="NullReferenceException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
         [PublicAPI]
         [CanBeNull]
         public static Type GetEnumerableGenericTypeArgument([NotNull] this Type type)
@@ -348,9 +377,9 @@ namespace FluentSpecification.Core.Utils
             if (!type.IsGenericEnumerable())
                 return null;
 
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
                 ? type.GenericTypeArguments.First()
-                : type.GetInterfaces()
+                : type.GetTypeInfo().ImplementedInterfaces
                     .Where(i => i.Name.StartsWith(nameof(IEnumerable)) && i.GenericTypeArguments.Length == 1)
                     .Select(t => t.GenericTypeArguments.First())
                     .FirstOrDefault();

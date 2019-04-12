@@ -49,12 +49,13 @@ namespace FluentSpecification.Core.Tests.Api
 
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+            [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
             public void Compose_ReturnAndWithNegatedRight()
             {
                 var sut = new AndNotFluentProxy<object>(MockSpecification.True());
                 var andNot = sut.Compose(MockSpecification.True());
 
-                var fieldInfo = andNot.GetType().BaseType
+                var fieldInfo = andNot.GetType().GetTypeInfo().BaseType
                     .GetField("_right", BindingFlags.Instance | BindingFlags.NonPublic);
                 var result = fieldInfo.GetValue(andNot);
 
@@ -109,12 +110,13 @@ namespace FluentSpecification.Core.Tests.Api
             }
 
             [Fact]
+            [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
             public void Compose_ReturnOrWithNegatedRight()
             {
                 var sut = new OrNotFluentProxy<object>(MockSpecification.True());
                 var orNot = sut.Compose(MockSpecification.True());
 
-                var fieldInfo = orNot.GetType().BaseType
+                var fieldInfo = orNot.GetType().GetTypeInfo().BaseType
                     .GetField("_right", BindingFlags.Instance | BindingFlags.NonPublic);
                 var result = fieldInfo.GetValue(orNot);
 

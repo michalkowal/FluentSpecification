@@ -58,8 +58,8 @@ namespace FluentSpecification.Common
             if (_isCollection)
             {
                 var enumerableType = typeof(T).GetEnumerableGenericTypeArgument();
-                var baseMethod = typeof(Enumerable)
-                    .GetMethods().First(m => m.Name == nameof(Enumerable.Any) && m.GetParameters().Length == 1);
+                var baseMethod = typeof(Enumerable).GetTypeInfo()
+                    .GetDeclaredMethods(nameof(Enumerable.Any)).First(m => m.GetParameters().Length == 1);
                 _anyMethodInfo = baseMethod.MakeGenericMethod(enumerableType);
             }
         }

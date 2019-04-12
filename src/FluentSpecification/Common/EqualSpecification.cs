@@ -98,12 +98,26 @@ namespace FluentSpecification.Common
             };
         }
 
+        private MethodInfo GetComparerEqualsMethodInfo(Type comparerType)
+        {
+            return comparerType.GetTypeInfo()
+                       .GetDeclaredMethods(nameof(IEqualityComparer<T>.Equals))
+                       .FirstOrDefault(m => m.ReturnParameter != null &&
+                                   m.ReturnParameter.ParameterType == typeof(bool) &&
+                                   m.GetParameters().Length == 2 &&
+                                   m.GetParameters().First().ParameterType == typeof(T) &&
+                                   m.GetParameters().Last().ParameterType == typeof(T)) ??
+                   (comparerType.GetTypeInfo().BaseType != null
+                       ? GetComparerEqualsMethodInfo(comparerType.GetTypeInfo().BaseType)
+                       : null);
+        }
+
         private bool GetComparerExpression(Expression arg, out Expression comparerExpression)
         {
             if (_comparer != null)
             {
-                comparerExpression = Expression.Call(Expression.Constant(_comparer),
-                    ((Func<T, T, bool>) _comparer.Equals).Method,
+                var equalsInfo = GetComparerEqualsMethodInfo(_comparer.GetType());
+                comparerExpression = Expression.Call(Expression.Constant(_comparer), equalsInfo,
                     arg, Expression.Constant(_expected, typeof(T)));
                 return true;
             }

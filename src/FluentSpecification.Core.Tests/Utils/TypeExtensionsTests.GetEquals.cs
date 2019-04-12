@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
 using FluentSpecification.Core.Utils;
+using FluentSpecification.Tests.Sdk;
 using Xunit;
 
 namespace FluentSpecification.Core.Tests.Utils
@@ -10,14 +12,13 @@ namespace FluentSpecification.Core.Tests.Utils
     {
         public class GetEqualsMethod
         {
-            [Fact]
-            public void InvalidType_ReturnBaseMethodInfo()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetEqualsMethod(typeof(FakeType));
 
-                Assert.NotNull(result);
+                Assert.Null(result);
             }
 
             [Fact]
@@ -27,7 +28,7 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetEqualsMethod(typeof(FakeType)));
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
             [Fact]
@@ -42,11 +43,10 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetEqualsMethod(typeof(ComparableFakeType));
 
                 Assert.NotNull(result);
@@ -55,14 +55,13 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetGenericEqualsMethod
         {
-            [Fact]
-            public void InvalidType_ReturnBaseMethodInfo()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetEqualsMethod<FakeType>();
 
-                Assert.NotNull(result);
+                Assert.Null(result);
             }
 
             [Fact]
@@ -72,14 +71,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetEqualsMethod<FakeType>());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetEqualsMethod<ComparableFakeType>();
 
                 Assert.NotNull(result);
@@ -88,11 +86,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetBaseEqualsMethod
         {
-            [Fact]
-            public void InvalidType_ReturnBaseMethodInfo()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnBaseMethodInfo(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetEqualsMethod();
 
                 Assert.NotNull(result);
@@ -105,14 +102,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetEqualsMethod());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetEqualsMethod();
 
                 Assert.NotNull(result);

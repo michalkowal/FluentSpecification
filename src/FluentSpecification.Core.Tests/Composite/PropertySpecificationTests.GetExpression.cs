@@ -63,7 +63,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sutExpression = sut.GetExpression();
                 var result = sutExpression.ToString();
 
-                Assert.Matches(@"ft => .*.IsSatisfiedBy\(ft.Second\)", result);
+                Assert.Matches(@"ft => .*\.IsSatisfiedBy\(ft.Second\)", result);
             }
 
             [Fact]

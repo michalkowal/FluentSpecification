@@ -70,7 +70,7 @@ namespace FluentSpecification.Core.Tests
                 var expression = sut.GetExpression();
                 var result = expression.ToString();
 
-                Assert.Matches(@"candidate => .*.IsSatisfiedBy\(candidate\)", result);
+                Assert.Matches(@"candidate => .*\.IsSatisfiedBy\(candidate\)", result);
             }
 
             [Fact]

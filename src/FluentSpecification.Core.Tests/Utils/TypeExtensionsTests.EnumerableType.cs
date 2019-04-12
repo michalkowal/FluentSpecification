@@ -36,7 +36,7 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).IsGenericEnumerable());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
         }
 
@@ -67,7 +67,7 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetEnumerableGenericTypeArgument());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
         }
     }

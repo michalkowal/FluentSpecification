@@ -40,9 +40,7 @@ namespace FluentSpecification.Common.Abstractions
             var nullableType = Nullable.GetUnderlyingType(typeof(T));
             IsNullable = nullableType != null;
 
-            _hasOperator = nullableType == null
-                ? typeof(T).HasLessThanOrEqualOperator()
-                : nullableType.HasLessThanOrEqualOperator();
+            _hasOperator = nullableType?.HasLessThanOrEqualOperator() ?? typeof(T).HasLessThanOrEqualOperator();
             _compareToMethodInfo = nullableType == null
                 ? typeof(T).GetCompareToMethod<T>() ?? typeof(T).GetCompareToMethod()
                 : nullableType.GetCompareToMethod(nullableType) ?? nullableType.GetCompareToMethod();
@@ -61,6 +59,20 @@ namespace FluentSpecification.Common.Abstractions
         /// </summary>
         protected T Limit { get; }
 
+        private MethodInfo GetComparerCompareMethodInfo(Type comparerType)
+        {
+            return comparerType.GetTypeInfo()
+                .GetDeclaredMethods(nameof(IComparer<T>.Compare))
+                .FirstOrDefault(m => m.ReturnParameter != null &&
+                            m.ReturnParameter.ParameterType == typeof(int) &&
+                            m.GetParameters().Length == 2 &&
+                            m.GetParameters().First().ParameterType == typeof(T) &&
+                            m.GetParameters().Last().ParameterType == typeof(T)) ??
+                   (comparerType.GetTypeInfo().BaseType != null 
+                       ? GetComparerCompareMethodInfo(comparerType.GetTypeInfo().BaseType) 
+                       : null);
+        }
+
         /// <summary>
         ///     Gets <c>Expression</c> for <see cref="_comparer" /> method call with values.
         /// </summary>
@@ -75,8 +87,9 @@ namespace FluentSpecification.Common.Abstractions
         {
             if (_comparer != null)
             {
+                var compareInfo = GetComparerCompareMethodInfo(_comparer.GetType());
                 comparerExpression = _compareExpression(
-                    Expression.Call(Expression.Constant(_comparer), ((Func<T, T, int>) _comparer.Compare).Method,
+                    Expression.Call(Expression.Constant(_comparer), compareInfo,
                         arg, Expression.Constant(Limit, typeof(T))),
                     Expression.Constant(0));
                 return true;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Validation;
@@ -16,14 +17,13 @@ namespace FluentSpecification.Core.Validation
     {
         private const string SpecificationShortNameRegex = "[a-zA-Z][a-zA-Z0-9]*";
 
-        [NotNull]
         private static string MergeTraces([ItemNotNull] List<string> traces, TraceMessageModifier traceModifier)
         {
             if (!string.IsNullOrWhiteSpace(traceModifier.MergeFormat))
                 for (var i = 0; i < traces.Count; i++)
                     if (i != 0 || traces.Count == 1)
                         traces[i] = string.Format(traceModifier.MergeFormat, traces[i]);
-            var finalTrace = string.Join($" {traceModifier.Connector} ", traces);
+            string finalTrace = string.Join($" {traceModifier.Connector} ", traces);
             if (!string.IsNullOrWhiteSpace(traceModifier.OverallFormat) && !string.IsNullOrEmpty(finalTrace))
                 finalTrace = string.Format(
                     traceModifier.OverallFormat,
@@ -95,7 +95,7 @@ namespace FluentSpecification.Core.Validation
                 ? $"{GetTypeShortName(type.GetElementType() ?? throw new InvalidOperationException())}[]"
                 : Regex.Match(type.Name, SpecificationShortNameRegex).Value;
 
-            if (type.IsGenericType)
+            if (type.GetTypeInfo().IsGenericType)
                 shortName += $"<{string.Join(",", type.GenericTypeArguments.Select(GetTypeShortName))}>";
 
             return shortName;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -49,13 +50,14 @@ namespace FluentSpecification.Common
         [PublicAPI]
         public CreditCardSpecification()
         {
-            _isMatchMethodInfo = typeof(Regex).GetMethod(nameof(Regex.IsMatch),
-                BindingFlags.Public | BindingFlags.Static,
-                null,
-                new[] {typeof(string), typeof(string)},
-                null);
-            _replaceMethodInfo = typeof(Regex).GetMethod(nameof(Regex.Replace),
-                new[] {typeof(string), typeof(string), typeof(string)});
+            _isMatchMethodInfo = typeof(Regex).GetTypeInfo()
+                .GetDeclaredMethods(nameof(Regex.IsMatch))
+                .First(m => m.GetParameters().Length == 2 &&
+                            m.GetParameters().All(p => p.ParameterType == typeof(string)));
+            _replaceMethodInfo = typeof(Regex).GetTypeInfo()
+                .GetDeclaredMethods(nameof(Regex.Replace))
+                .First(m => m.GetParameters().Length == 3 &&
+                            m.GetParameters().All(p => p.ParameterType == typeof(string)));
         }
 
         /// <inheritdoc />

@@ -161,7 +161,7 @@ namespace FluentSpecification.Common.Abstractions
                 checkNullExpression, invokeAnyExpression);
 
             return Expression.Lambda<Func<T, bool>>(
-                !typeof(T).IsValueType && _hasCheckNullExpression ? (Expression) andExpression : invokeAnyExpression,
+                !typeof(T).GetTypeInfo().IsValueType && _hasCheckNullExpression ? (Expression) andExpression : invokeAnyExpression,
                 arg);
         }
 

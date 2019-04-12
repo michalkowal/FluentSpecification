@@ -86,7 +86,7 @@ namespace FluentSpecification.Core.Tests
                 var expression = sut.GetNegationExpression();
                 var result = expression.ToString();
 
-                Assert.Matches(@"candidate => Not\(.*.IsSatisfiedBy\(candidate\)\)", result);
+                Assert.Matches(@"candidate => Not\(.*\.IsSatisfiedBy\(candidate\)\)", result);
             }
         }
     }

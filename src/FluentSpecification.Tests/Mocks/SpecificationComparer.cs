@@ -57,7 +57,7 @@ namespace FluentSpecification.Tests.Mocks
                 return true;
             }
 
-            if (type == typeof(string) || type.IsValueType)
+            if (type == typeof(string) || type.GetTypeInfo().IsValueType)
             {
                 Assert.Equal(expected, other);
                 return true;

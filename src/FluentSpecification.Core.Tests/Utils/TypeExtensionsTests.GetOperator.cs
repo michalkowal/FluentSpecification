@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using FluentSpecification.Core.Tests.Mocks;
+using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Utils;
+using FluentSpecification.Tests.Sdk;
 using Xunit;
 
 namespace FluentSpecification.Core.Tests.Utils
@@ -10,11 +11,10 @@ namespace FluentSpecification.Core.Tests.Utils
     {
         public class GetEqualityOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetEqualityOperator();
 
                 Assert.Null(result);
@@ -27,14 +27,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetEqualityOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetEqualityOperator();
 
                 Assert.NotNull(result);
@@ -43,11 +42,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetInequalityOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetInequalityOperator();
 
                 Assert.Null(result);
@@ -60,14 +58,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetInequalityOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetInequalityOperator();
 
                 Assert.NotNull(result);
@@ -76,11 +73,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetLessThanOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetLessThanOperator();
 
                 Assert.Null(result);
@@ -93,14 +89,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetLessThanOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetLessThanOperator();
 
                 Assert.NotNull(result);
@@ -109,11 +104,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetLessThanOrEqualOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetLessThanOrEqualOperator();
 
                 Assert.Null(result);
@@ -126,14 +120,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetLessThanOrEqualOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetLessThanOrEqualOperator();
 
                 Assert.NotNull(result);
@@ -142,11 +135,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetGreaterThanOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetGreaterThanOperator();
 
                 Assert.Null(result);
@@ -159,14 +151,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetGreaterThanOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetGreaterThanOperator();
 
                 Assert.NotNull(result);
@@ -175,11 +166,10 @@ namespace FluentSpecification.Core.Tests.Utils
 
         public class GetGreaterThanOrEqualOperator
         {
-            [Fact]
-            public void InvalidType_ReturnNull()
+            [Theory]
+            [IncorrectData(typeof(TypeComparableData))]
+            public void InvalidType_ReturnNull(Type sut)
             {
-                var sut = typeof(FakeType);
-
                 var result = sut.GetGreaterThanOrEqualOperator();
 
                 Assert.Null(result);
@@ -192,14 +182,13 @@ namespace FluentSpecification.Core.Tests.Utils
                 var exception = Record.Exception(() => ((Type) null).GetGreaterThanOrEqualOperator());
 
                 Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
+                Assert.IsType<ArgumentNullException>(exception);
             }
 
-            [Fact]
-            public void ValidType_ReturnMethodInfo()
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
             {
-                var sut = typeof(ComparableFakeType);
-
                 var result = sut.GetGreaterThanOrEqualOperator();
 
                 Assert.NotNull(result);

@@ -26,13 +26,14 @@ namespace FluentSpecification.Core.Tests.Api
             }
 
             [Fact]
+            [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
             public void CorrectSpecification_ReturnAndWithNegatedRight()
             {
                 var other = MockSpecification.True();
                 var sut = MockSpecification.True();
 
                 var andNot = sut.AndNot(other);
-                var fieldInfo = andNot.GetType().BaseType
+                var fieldInfo = andNot.GetType().GetTypeInfo().BaseType
                     .GetField("_right", BindingFlags.Instance | BindingFlags.NonPublic);
                 var result = fieldInfo.GetValue(andNot);
 
@@ -67,12 +68,13 @@ namespace FluentSpecification.Core.Tests.Api
             }
 
             [Fact]
+            [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
             public void CorrectSpecification_ReturnAndWithNegatedRight()
             {
                 var sut = MockSpecification.True();
 
                 var andNot = sut.AndNot<object, TrueMockSpecification>();
-                var fieldInfo = andNot.GetType().BaseType
+                var fieldInfo = andNot.GetType().GetTypeInfo().BaseType
                     .GetField("_right", BindingFlags.Instance | BindingFlags.NonPublic);
                 var result = fieldInfo.GetValue(andNot);
 
