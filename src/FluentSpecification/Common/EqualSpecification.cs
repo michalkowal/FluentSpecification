@@ -103,10 +103,10 @@ namespace FluentSpecification.Common
             return comparerType.GetTypeInfo()
                        .GetDeclaredMethods(nameof(IEqualityComparer<T>.Equals))
                        .FirstOrDefault(m => m.ReturnParameter != null &&
-                                   m.ReturnParameter.ParameterType == typeof(bool) &&
-                                   m.GetParameters().Length == 2 &&
-                                   m.GetParameters().First().ParameterType == typeof(T) &&
-                                   m.GetParameters().Last().ParameterType == typeof(T)) ??
+                                            m.ReturnParameter.ParameterType == typeof(bool) &&
+                                            m.GetParameters().Length == 2 &&
+                                            m.GetParameters().First().ParameterType == typeof(T) &&
+                                            m.GetParameters().Last().ParameterType == typeof(T)) ??
                    (comparerType.GetTypeInfo().BaseType != null
                        ? GetComparerEqualsMethodInfo(comparerType.GetTypeInfo().BaseType)
                        : null);

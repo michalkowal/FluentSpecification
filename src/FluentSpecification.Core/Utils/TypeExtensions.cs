@@ -50,16 +50,11 @@ namespace FluentSpecification.Core.Utils
         {
             type = type ?? throw new NullReferenceException();
 
-            if (IsByte(type) || IsInteger(type) || IsFloating(type))
-            {
-                return true;
-            }
+            if (IsByte(type) || IsInteger(type) || IsFloating(type)) return true;
 
             var typeInfo = type.GetTypeInfo();
             if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>))
-            {
                 return IsNumericType(Nullable.GetUnderlyingType(type) ?? throw new InvalidOperationException());
-            }
 
             return false;
         }
@@ -165,7 +160,7 @@ namespace FluentSpecification.Core.Utils
         public static MethodInfo GetEqualityOperator([NotNull] this Type type)
         {
             return type.GetTypeInfo().GetDeclaredMethod("op_Equality") ??
-                type.GetTypeInfo().BaseType?.GetEqualityOperator();
+                   type.GetTypeInfo().BaseType?.GetEqualityOperator();
         }
 
         /// <summary>
@@ -274,8 +269,9 @@ namespace FluentSpecification.Core.Utils
                 throw new ArgumentNullException(nameof(genericType));
 
             return type.GetTypeInfo().GetDeclaredMethods(nameof(IEquatable<object>.Equals))
-                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
-                type.GetTypeInfo().BaseType?.GetEqualsMethod(genericType);
+                       .FirstOrDefault(m =>
+                           m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
+                   type.GetTypeInfo().BaseType?.GetEqualsMethod(genericType);
         }
 
         /// <summary>
@@ -290,9 +286,11 @@ namespace FluentSpecification.Core.Utils
         public static MethodInfo GetEqualsMethod([NotNull] this Type type)
         {
             return type.GetTypeInfo().GetDeclaredMethods(nameof(object.Equals))
-                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == typeof(object)) ??
+                       .FirstOrDefault(m =>
+                           m.GetParameters().Length == 1 &&
+                           m.GetParameters().First().ParameterType == typeof(object)) ??
                    type.GetTypeInfo().BaseType?.GetEqualsMethod() ??
-                throw new InvalidOperationException();
+                   throw new InvalidOperationException();
         }
 
         /// <summary>
@@ -327,7 +325,8 @@ namespace FluentSpecification.Core.Utils
                 throw new ArgumentNullException(nameof(genericType));
 
             return type.GetTypeInfo().GetDeclaredMethods(nameof(IComparable.CompareTo))
-                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
+                       .FirstOrDefault(m =>
+                           m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == genericType) ??
                    type.GetTypeInfo().BaseType?.GetCompareToMethod(genericType);
         }
 
@@ -343,7 +342,9 @@ namespace FluentSpecification.Core.Utils
         public static MethodInfo GetCompareToMethod([NotNull] this Type type)
         {
             return type.GetTypeInfo().GetDeclaredMethods(nameof(IComparable.CompareTo))
-                       .FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == typeof(object)) ??
+                       .FirstOrDefault(m =>
+                           m.GetParameters().Length == 1 &&
+                           m.GetParameters().First().ParameterType == typeof(object)) ??
                    type.GetTypeInfo().BaseType?.GetCompareToMethod();
         }
 
@@ -359,7 +360,7 @@ namespace FluentSpecification.Core.Utils
         [PublicAPI]
         public static bool IsGenericEnumerable([NotNull] this Type type)
         {
-            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>) || 
+            return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
                    type.GetTypeInfo().ImplementedInterfaces
                        .Any(i => i.Name.StartsWith(nameof(IEnumerable)) && i.GenericTypeArguments.Length == 1);
         }

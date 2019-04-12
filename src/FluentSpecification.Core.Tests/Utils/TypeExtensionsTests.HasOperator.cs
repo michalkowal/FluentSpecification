@@ -22,6 +22,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasEqualityOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -30,15 +39,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasEqualityOperator();
-
-                Assert.True(result);
             }
         }
 
@@ -53,6 +53,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasInequalityOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -61,15 +70,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasInequalityOperator();
-
-                Assert.True(result);
             }
         }
 
@@ -84,6 +84,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasLessThanOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -92,15 +101,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasLessThanOperator();
-
-                Assert.True(result);
             }
         }
 
@@ -115,6 +115,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasLessThanOrEqualOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -123,15 +132,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasLessThanOrEqualOperator();
-
-                Assert.True(result);
             }
         }
 
@@ -146,6 +146,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasGreaterThanOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -154,15 +163,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasGreaterThanOperator();
-
-                Assert.True(result);
             }
         }
 
@@ -177,6 +177,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.False(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnTrue(Type sut)
+            {
+                var result = sut.HasGreaterThanOrEqualOperator();
+
+                Assert.True(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullType_Exception()
@@ -185,15 +194,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnTrue(Type sut)
-            {
-                var result = sut.HasGreaterThanOrEqualOperator();
-
-                Assert.True(result);
             }
         }
     }

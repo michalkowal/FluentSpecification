@@ -1,5 +1,5 @@
-﻿using JetBrains.Annotations;
-using FluentSpecification.Abstractions.Validation;
+﻿using FluentSpecification.Abstractions.Validation;
+using JetBrains.Annotations;
 
 namespace FluentSpecification.Abstractions.Generic
 {

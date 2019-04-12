@@ -21,6 +21,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.Null(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
+            {
+                var result = sut.GetEqualsMethod(typeof(ComparableFakeType));
+
+                Assert.NotNull(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullSelf_Exception()
@@ -42,15 +51,6 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
             }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnMethodInfo(Type sut)
-            {
-                var result = sut.GetEqualsMethod(typeof(ComparableFakeType));
-
-                Assert.NotNull(result);
-            }
         }
 
         public class GetGenericEqualsMethod
@@ -64,6 +64,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.Null(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
+            {
+                var result = sut.GetEqualsMethod<ComparableFakeType>();
+
+                Assert.NotNull(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullSelf_Exception()
@@ -72,15 +81,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnMethodInfo(Type sut)
-            {
-                var result = sut.GetEqualsMethod<ComparableFakeType>();
-
-                Assert.NotNull(result);
             }
         }
 
@@ -95,6 +95,15 @@ namespace FluentSpecification.Core.Tests.Utils
                 Assert.NotNull(result);
             }
 
+            [Theory]
+            [CorrectData(typeof(TypeComparableData))]
+            public void ValidType_ReturnMethodInfo(Type sut)
+            {
+                var result = sut.GetEqualsMethod();
+
+                Assert.NotNull(result);
+            }
+
             [Fact]
             [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullSelf_Exception()
@@ -103,15 +112,6 @@ namespace FluentSpecification.Core.Tests.Utils
 
                 Assert.NotNull(exception);
                 Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Theory]
-            [CorrectData(typeof(TypeComparableData))]
-            public void ValidType_ReturnMethodInfo(Type sut)
-            {
-                var result = sut.GetEqualsMethod();
-
-                Assert.NotNull(result);
             }
         }
     }

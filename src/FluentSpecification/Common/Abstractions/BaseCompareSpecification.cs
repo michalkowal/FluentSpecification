@@ -62,14 +62,14 @@ namespace FluentSpecification.Common.Abstractions
         private MethodInfo GetComparerCompareMethodInfo(Type comparerType)
         {
             return comparerType.GetTypeInfo()
-                .GetDeclaredMethods(nameof(IComparer<T>.Compare))
-                .FirstOrDefault(m => m.ReturnParameter != null &&
-                            m.ReturnParameter.ParameterType == typeof(int) &&
-                            m.GetParameters().Length == 2 &&
-                            m.GetParameters().First().ParameterType == typeof(T) &&
-                            m.GetParameters().Last().ParameterType == typeof(T)) ??
-                   (comparerType.GetTypeInfo().BaseType != null 
-                       ? GetComparerCompareMethodInfo(comparerType.GetTypeInfo().BaseType) 
+                       .GetDeclaredMethods(nameof(IComparer<T>.Compare))
+                       .FirstOrDefault(m => m.ReturnParameter != null &&
+                                            m.ReturnParameter.ParameterType == typeof(int) &&
+                                            m.GetParameters().Length == 2 &&
+                                            m.GetParameters().First().ParameterType == typeof(T) &&
+                                            m.GetParameters().Last().ParameterType == typeof(T)) ??
+                   (comparerType.GetTypeInfo().BaseType != null
+                       ? GetComparerCompareMethodInfo(comparerType.GetTypeInfo().BaseType)
                        : null);
         }
 

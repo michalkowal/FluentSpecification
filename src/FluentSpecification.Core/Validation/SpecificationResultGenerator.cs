@@ -23,7 +23,7 @@ namespace FluentSpecification.Core.Validation
                 for (var i = 0; i < traces.Count; i++)
                     if (i != 0 || traces.Count == 1)
                         traces[i] = string.Format(traceModifier.MergeFormat, traces[i]);
-            string finalTrace = string.Join($" {traceModifier.Connector} ", traces);
+            var finalTrace = string.Join($" {traceModifier.Connector} ", traces);
             if (!string.IsNullOrWhiteSpace(traceModifier.OverallFormat) && !string.IsNullOrEmpty(finalTrace))
                 finalTrace = string.Format(
                     traceModifier.OverallFormat,
