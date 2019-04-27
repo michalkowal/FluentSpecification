@@ -5,7 +5,17 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Description>Common implementation of small reusable Specifications - Null, NotEmpty, LessThan or GreaterThan etc.</Description>
+    <Description>Common implementation of small reusable Specifications. All Specifications are based on Specification design pattern. 
+Specifications support validation scenarios and also can be used like Linq expressions, 
+because they are designed and implemented especially for Entity Framework Core support and partially for Entity Framework 6 and tested with these frameworks.
+Contains Specifications:
+- Null, NotNull
+- Empty, NotEmpty
+- MinLength, MaxLength
+- LessThan, GreaterThan
+- Contains, NotContains
+- Equals, NotEquals
+- And more...</Description>
   </PropertyGroup>
 
   <Import Project="..\Shared.msbuild" />

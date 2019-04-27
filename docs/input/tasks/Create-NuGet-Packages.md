@@ -1,9 +1,0 @@
-<div class="mermaid">
-graph TD;
-Create-NuGet-Packages-->Clean;
-Create-NuGet-Packages-->DotNetCore-Build;
-DotNetCore-Build-->DotNetCore-Restore;
-DotNetCore-Build-->Restore;
-Clean-->Show-Info;
-Clean-->Print-AppVeyor-Environment-Variables;
-</div>

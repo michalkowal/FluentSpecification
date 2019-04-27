@@ -17,6 +17,7 @@ BuildParameters.SetParameters(context: Context,
 							appVeyorAccountName: owner,
 							webBaseEditUrl: $"https://github.com/{owner}/{title}/tree/master/docs/input/",
 							wyamSourceFiles: wyamSourceFiles,
+							shouldDeployGraphDocumentation: false,
 							
                             shouldRunGitVersion: true,
 							shouldRunDotNetCorePack: true,
