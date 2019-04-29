@@ -40,6 +40,12 @@ else
 		</section>
 	}
 	<section class="content">
+		@Html.Partial("_Support") 
+		@if(Model.Bool("DisplayDescription", false) && Model.ContainsKey(DocsKeys.Description))
+		{
+			<h1>Info</h1>
+			<p>@Html.Raw(Model.String(DocsKeys.Description))</p>
+		}
 		@RenderBody()
 	</section>
 }

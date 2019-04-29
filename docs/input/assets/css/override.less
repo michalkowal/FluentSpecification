@@ -2,6 +2,7 @@
 @import "bootstrap/mixins.less";
 @import "adminlte/variables.less";
 @import "adminlte/mixins.less";
+@import (less) "font-awesome.min.css";
 
 @media (min-width: 819px) { 
 	.main-header .logo {
@@ -120,4 +121,46 @@ body.layout-boxed.no-gutter .top-banner {
 a[class*="github-button"], a[class*="github-button"]:active, 
 a[class*="github-button"]:hover, a[class*="github-button"]:focus {
 	color: #fff;
+}
+
+.full-support {
+	.fa;
+	
+	font-size: 1.25em;
+	color: green;
+	&:before {
+		content: "\f00c";
+	}
+}
+
+.partial-support {
+	.fa;
+	
+	font-size: 1.25em;
+	color: orange;
+	&:before {
+		content: "\f12a";
+	}
+}
+
+.not-supported {
+	.fa;
+	
+	font-size: 1.25em;
+	color: red;
+	&:before {
+		content: "\f068";
+	}
+}
+
+table.support {
+	width: 25%;
+}
+
+table.support > thead > tr > th {
+	text-align: center;
+}
+
+table.support > tbody > tr > td {
+	text-align: center;
 }

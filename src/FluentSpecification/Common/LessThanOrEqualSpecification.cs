@@ -13,7 +13,7 @@ namespace FluentSpecification.Common
     ///     <c>Specification</c> for comparison use:
     ///     <list type="number">
     ///         <item>
-    ///             <term>Comparer</term><description><see cref="IEqualityComparer{T}" /> - if available.</description>
+    ///             <term>Comparer</term><description><see cref="IComparer{T}" /> - if available.</description>
     ///         </item>
     ///         <item>
     ///             <term>LessThan operator</term><description>if defined for <typeparamref name="T" />.</description>

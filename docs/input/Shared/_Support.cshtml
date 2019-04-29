@@ -1,0 +1,41 @@
+@functions {
+	public string GetSupportIcon(string supportType)
+	{
+		string supportClass;
+		switch (supportType)
+		{
+			case "Full":
+				supportClass = "full-support";
+				break;
+			case "Partial":
+				supportClass = "partial-support";
+				break;
+			default:
+				supportClass = "not-supported";
+				break;
+		}
+		
+		return $"<i class=\"{supportClass}\"></i>";
+	}
+}
+
+@if(Model.ContainsKey("Support"))
+{
+	var support = Model.String("Support").Split(new char[] { ';' });
+	<table class="table support">
+		<thead>
+			<th>Feature</th>
+			<th>Is supported</th>
+		</thead>
+		<tbody>
+			<tr><td>Null safe</td><td>@Html.Raw(GetSupportIcon(support[0]))</td></tr>
+			<tr><td>Validation</td><td>@Html.Raw(GetSupportIcon(support[1]))</td></tr>
+			<tr><td>EF Core</td><td>@Html.Raw(GetSupportIcon(support[2]))</td></tr>
+			<tr><td>EF 6</td><td>@Html.Raw(GetSupportIcon(support[3]))</td></tr>
+			@if (support.Length == 5)
+			{
+				<tr><td>External Comparer</td><td>@Html.Raw(GetSupportIcon(support[4]))</td></tr>
+			}
+		</tbody>
+	</table>
+}

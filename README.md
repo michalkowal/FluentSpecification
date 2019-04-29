@@ -11,7 +11,7 @@
 ![.NET Core 2.x](https://img.shields.io/badge/Core-2.x-blue.svg?style=popout-square&logo=.net)
 ![.NET Framework 4.5+](https://img.shields.io/badge/Framework-4.5%2B-blue.svg?style=popout-square&logo=.net)
 
-**FluentSpecification** is implementation of *Specification design pattern* with many small, built-in reusable specifications, perfect for validation of *Domain Model* in *Domain-Driven-Design* approach and other similar, where system is built around domain objects.  
+**FluentSpecification** is .NET implementation of *Specification design pattern* with many small, built-in reusable specifications, perfect for validation of *Domain Model* in *Domain-Driven-Design* approach and other similar, where system is built around domain objects.  
 Other important features:
 - **`Fluent API`** - allows to build and combine specifications in simple and clear way. 
 - **`Built-in specifications`** - with validation and *Linq expression* support. Many of them available as negation
