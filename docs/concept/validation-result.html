@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html><html><head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description">
+        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <title>FluentSpecification - Validation Result</title>
+        <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/theme/theme.css" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,400i,700,700i" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/FluentSpecification/assets/css/override.css" rel="stylesheet">
+        <script src="/FluentSpecification/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="/FluentSpecification/assets/js/bootstrap.min.js"></script>        
+        <script src="/FluentSpecification/assets/js/app.min.js"></script>         
+        <script src="/FluentSpecification/assets/js/highlight.pack.js"></script>   
+        <script src="/FluentSpecification/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="/FluentSpecification/assets/js/jquery.sticky-kit.min.js"></script>
+        <script src="/FluentSpecification/assets/js/mermaid.min.js"></script>
+        <script src="/FluentSpecification/assets/js/svg-pan-zoom.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/FluentSpecification/assets/js/html5shiv.min.js"></script>
+        <script src="/FluentSpecification/assets/js/respond.min.js"></script>
+        <![endif]-->  
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139052199-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139052199-1');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    </head>
+    <body class="hold-transition wyam layout-boxed  ">    
+        <div class="top-banner"></div>
+        <div class="wrapper with-container">
+            <!-- Header -->
+            <header class="main-header">   
+                     
+                <a href="/FluentSpecification/" class="logo">
+
+                                <!-- mini logo for sidebar mini 50x50 pixels -->
+									<span class="logo-mini"><img src="/FluentSpecification/assets/img/logo-mini.png"></span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg"><img src="/FluentSpecification/assets/img/logo-small.png"></span>
+                                            </a>   
+                         
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
+                                        
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+            
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">                            
+                                    <li class="active"><a href="/FluentSpecification/docs">Documentation</a></li>
+        <li><a href="/FluentSpecification/built-in">Built-in Specifications</a></li>
+        <li><a href="/FluentSpecification/api">API</a></li>
+ 
+                        </ul>       
+                    </div>
+                    <!-- /.navbar-collapse -->
+                
+                    <!-- Navbar Right Menu -->
+                </nav>
+            </header>
+            
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar ">
+                <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
+                    	
+        <div><p><a href="https://github.com/michalkowal/FluentSpecification/tree/master/docs/input/docs/concept/validation-result.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+    <div id="infobar-headings"></div>
+
+                </section>
+                <section class="sidebar">    
+                                     
+                    
+
+                    <ul class="sidebar-menu">
+                        
+
+                <li class="treeview active">
+                    <a href="/FluentSpecification/docs/concept">Concept</a> <a href="#" class="expand"></a>
+                    <ul class="treeview-menu">
+                        
+                <li><a href="/FluentSpecification/docs/concept/specification-design-pattern">Specification Design Pattern</a></li>
+                <li><a href="/FluentSpecification/docs/concept/abstraction">Abstraction</a></li>
+                <li class="selected"><a href="/FluentSpecification/docs/concept/validation-result">Validation Result</a></li>
+                <li><a href="/FluentSpecification/docs/concept/core-specifications">Core Specifications</a></li>
+                <li><a href="/FluentSpecification/docs/concept/common-specifications">Common Specifications</a></li>
+                <li><a href="/FluentSpecification/docs/concept/entity-framework-support">Entity Framework Support</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/FluentSpecification/docs/usage">Usage</a> <a href="#" class="expand"></a>
+                    <ul class="treeview-menu">
+                        
+                <li><a href="/FluentSpecification/docs/usage/installation">Installation</a></li>
+                <li><a href="/FluentSpecification/docs/usage/building-specifications">Building Specifications</a></li>
+                <li><a href="/FluentSpecification/docs/usage/candidate-verification">Candidate Verification</a></li>
+
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="/FluentSpecification/docs/custom-specifications">Custom Specifications</a> <a href="#" class="expand"></a>
+                    <ul class="treeview-menu">
+                        
+                <li><a href="/FluentSpecification/docs/custom-specifications/specification">Specification</a></li>
+                <li><a href="/FluentSpecification/docs/custom-specifications/validation-specification">Validation Specification</a></li>
+                <li><a href="/FluentSpecification/docs/custom-specifications/linq-specification">Linq Specification</a></li>
+                <li><a href="/FluentSpecification/docs/custom-specifications/negatable-specification">Negatable Specification</a></li>
+                <li><a href="/FluentSpecification/docs/custom-specifications/all-in-one">All in one</a></li>
+                <li><a href="/FluentSpecification/docs/custom-specifications/extensions">Fluent API extensions</a></li>
+
+                    </ul>
+                </li>
+
+                    </ul>
+                            
+                </section>                
+            </aside>
+            
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                
+
+
+
+		<section class="content-header">
+			<h1 class="no-anchor">Validation Result</h1>
+		</section>
+	<section class="content">
+		
+
+		 
+		<p><code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> interface provide special structure with validation result, error message and types of visited <em>Specification</em> - <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult">SpecificationResult</a></code>.<br>
+Below is description of each property with examples.</p>
+<p>We start of <em>Specification</em>:</p>
+<pre><code class="language-csharp">var spec = Specification
+    .Length&lt;Dictionary&lt;int, string&gt;&gt;(3)
+    .And()
+    .Null(d =&gt; d.Comparer)
+    .And()
+    .All(Specification
+        .LessThan&lt;KeyValuePair&lt;int, string&gt;, int&gt;(
+            kv =&gt; kv.Key, 100));
+
+spec.IsSatisfiedBy(new Dictionary&lt;int, string&gt;
+{
+    {1, "First"},
+    {100, "Last"}
+}, out var result);
+result.ToString();
+// Object length is not [3]
+// Field 'Comparer' value is not valid
+// Field 'Comparer': [Object is not null]
+// One or more elements are not specified
+// [1] Field 'Key' value is not valid
+// [1] Field 'Key': [Object is greater than or equal to [100]]
+</code></pre>
+<ul>
+<li><strong>OverallResult</strong> - overall result returned for current candidate.<br>
+In example - false.</li>
+<li><strong>TotalSpecificationsCount</strong> - count of all executed <em>Specifications</em> in chain.<br>
+In example - 8.<br>
+Two Ands, Length, Null, All, LessThan and two properties <em>Specifications</em> (for 'Comparer' and 'Key').</li>
+<li><strong>FailedSpecificationsCount</strong> - count of failed <em>Specifications</em> (returned false).<br>
+In example - 6.<br>
+And <em>Specifications</em> are "neutral" - thats why 6 but not 8.</li>
+<li><strong>Errors</strong> - list with all failed <em>Specifications</em> errors.
+In example:
+<ul>
+<li>Object length is not [3]</li>
+<li>Field 'Comparer' value is not valid</li>
+<li>Field 'Comparer': [Object is not null]</li>
+<li>One or more elements are not specified</li>
+<li>[1] Field 'Key' value is not valid</li>
+<li>[1] Field 'Key': [Object is greater than or equal to [100]]</li>
+</ul>
+</li>
+<li><strong>FailedSpecifications</strong> - list of failed <em>Specifications</em> (<code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/FailedSpecification">FailedSpecification</a></code> structure).
+<ul>
+<li><strong>SpecificationType</strong> - type of failed <em>Specification</em>.<br>
+In example, in sequence - <code>LengthSpecification&lt;Dictionary&lt;int, string&gt;&gt;</code>, <code>PropertySpecification&lt;Dictionary&lt;int, string&gt;, IEqualityComparer&lt;int&gt;</code>, <code>NullSpecification&lt;IEqualityComparer&lt;int&gt;&gt;</code>,
+<code>AllSpecification&lt;Dictionary&lt;int, string&gt;, KeyValuePair&lt;int, string&gt;&gt;</code>, <code>PropertySpecification&lt;KeyValuePair&lt;int, string&gt;, int&gt;</code> and <code>LessThanSpecification&lt;int&gt;</code>.</li>
+<li><strong>Parameters</strong> - <code>Dictionary&lt;string, object&gt;</code> - parameters used during candidate verification.<br>
+In example:
+<ul>
+<li><em>Length</em> - { "Length", 3 }</li>
+<li><em>Comparer Property</em> - { "PropertySelector", d =&gt; d.Comparer }, { "PropertyName", "Comparer" }, { "PropertySpecification", <code>NullSpecification&lt;IEqualityComparer&lt;int&gt;&gt;</code> object }</li>
+<li><em>Null</em> - none</li>
+<li><em>All</em> - { "SpecificationForAll", <code>PropertySpecification&lt;KeyValuePair&lt;int, string&gt;, int&gt;</code> object }</li>
+<li><em>Key proerty</em> - { "PropertySelector", kv =&gt; kv.Key }, { "PropertyName", "Key" }, { "PropertySpecification", <code>LessThanSpecification&lt;int&gt;</code> object }</li>
+<li><em>Less Than</em> - { "LessThan", 100 }</li>
+</ul>
+</li>
+<li><strong>Candidate</strong> - used candidate.<br>
+In example:
+<ul>
+<li><em>Length</em> - <code>Dictionary&lt;int, string&gt;</code> object</li>
+<li><em>Comparer Property</em> - <code>Dictionary&lt;int, string&gt;</code> object</li>
+<li><em>Null</em> - <code>GenericEqualityComparer&lt;int&gt;</code> object</li>
+<li><em>All</em> - <code>Dictionary&lt;int, string&gt;</code> object</li>
+<li><em>Key proerty</em> - { 100, "Last" }</li>
+<li><em>Less Than</em> - 100</li>
+</ul>
+</li>
+<li><strong>Errors</strong> - list of errors generated by this <em>Specification</em>.<br>
+In example:
+<ul>
+<li><em>Length</em> - "Object length is not [3]"</li>
+<li><em>Comparer Property</em> - "Field 'Comparer' value is not valid"</li>
+<li><em>Null</em> - "Field 'Comparer': [Object is not null]"</li>
+<li><em>All</em> - "One or more elements are not specified"</li>
+<li><em>Key proerty</em> - "[1] Field 'Key' value is not valid"</li>
+<li><em>Less Than</em> - "[1] Field 'Key': [Object is greater than or equal to [100]]"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Trace</strong> - trace message. Excellent for debugging <em>Specifications</em> chain behavior from left to right.<br>
+In example - "<strong>Length</strong>Specification&lt;Dictionary&lt;Int32,String&gt;&gt;+<strong>Failed</strong> <strong>And</strong>
+<strong>Property</strong>Specification&lt;Dictionary&lt;Int32,String&gt;,IEqualityComparer<int32>&gt;<strong>(Null</strong>Specification&lt;IEqualityComparer<int32>&gt;+<strong>Failed)</strong>+<strong>Failed</strong> <strong>And</strong>
+<strong>All</strong>Specification&lt;Dictionary&lt;Int32,String&gt;,KeyValuePair&lt;Int32,String&gt;&gt;<strong>([0](Property</strong>Specification&lt;KeyValuePair&lt;Int32,String&gt;,Int32&gt;
+<strong>(LessThan</strong>Specification<int32><strong>))</strong> <strong>And</strong> <strong>[1](Property</strong>Specification&lt;KeyValuePair&lt;Int32,String&gt;,Int32&gt;
+<strong>(LessThan</strong>Specification<int32>+<strong>Failed)</strong>+<strong>Failed))</strong>+<strong>Failed</strong>"</int32></int32></int32></int32></li>
+</ul>
+
+	</section>
+                
+            </div>           
+            
+            <!-- Footer -->
+            <footer class="main-footer">
+            </footer>
+            
+        </div>
+        <div class="wrapper bottom-wrapper">
+            <footer class="bottom-footer">
+                <p class="text-muted">
+    <a href="https://github.com/michalkowal/FluentSpecification"><i class="fa fa-github"></i> GitHub</a>
+    <br>
+    Copyright © <a href="https://github.com/michalkowal">Michał Kowal</a>.
+    <br>
+    Generated by <a href="http://wyam.io">Wyam</a>
+</p>
+            </footer>
+        </div>
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        <a href="https://github.com/michalkowal/FluentSpecification">
+	<div class="github-button"><i class="fa fa-github"></i> GitHub</div>
+</a>
+
+<script>
+	anchors.add('h1, h2, h3').remove('.no-anchor');
+</script>
+        <script>           
+            // Close the sidebar if we select an anchor link
+            $(".main-sidebar a[href^='#']:not('.expand')").click(function(){
+                $(document.body).removeClass('sidebar-open');
+            });
+            
+            $(document).ready(function() {
+                mermaid.initialize(
+                {
+                    flowchart:
+                    {
+                        useMaxWidth: false
+                    },
+					startOnLoad: false,
+					cloneCssStyles: false
+                });     
+                mermaid.init(undefined, ".mermaid");
+
+                // Remove the max-width setting that Mermaid sets
+                var mermaidSvg = $('.mermaid svg');
+                mermaidSvg.addClass('img-responsive');
+                mermaidSvg.css('max-width', '');
+
+                // Make it scrollable
+				var target = document.querySelector(".mermaid svg");
+				if(target !== null)
+				{
+					var panZoom = window.panZoom = svgPanZoom(target, {
+						zoomEnabled: true,
+						controlIconsEnabled: true,
+						fit: true,
+						center: true,
+                        maxZoom: 20,
+                        zoomScaleSensitivity: 0.6
+					});			                          
+
+                    // Do the reset once right away to fit the diagram
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                    
+                    $(window).resize(function(){
+                        panZoom.resize();
+                        panZoom.fit();
+                        panZoom.center();
+                    });
+				}
+                
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });  
+            });
+
+            hljs.initHighlightingOnLoad();
+
+            // Back to top
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= 200) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(1000);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(1000);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function() {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop : 0                       // Scroll to top of body
+                }, 500);
+            });
+        </script>
+    
+</body></html>

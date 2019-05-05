@@ -1,0 +1,617 @@
+﻿<!DOCTYPE html><html><head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description">
+        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <title>FluentSpecification - API - Specification.NotEqual&lt;T, TProperty&gt;(ICompositeSpecification&lt;T&gt;, Expression&lt;Func&lt;T, TProperty&gt;&gt;, TProperty, IEqualityComparer&lt;TProperty&gt;) Method</title>
+        <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/theme/theme.css" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,400i,700,700i" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/FluentSpecification/assets/css/override.css" rel="stylesheet">
+        <script src="/FluentSpecification/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="/FluentSpecification/assets/js/bootstrap.min.js"></script>        
+        <script src="/FluentSpecification/assets/js/app.min.js"></script>         
+        <script src="/FluentSpecification/assets/js/highlight.pack.js"></script>   
+        <script src="/FluentSpecification/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="/FluentSpecification/assets/js/jquery.sticky-kit.min.js"></script>
+        <script src="/FluentSpecification/assets/js/mermaid.min.js"></script>
+        <script src="/FluentSpecification/assets/js/svg-pan-zoom.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/FluentSpecification/assets/js/html5shiv.min.js"></script>
+        <script src="/FluentSpecification/assets/js/respond.min.js"></script>
+        <![endif]-->  
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139052199-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139052199-1');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    </head>
+    <body class="hold-transition wyam layout-boxed  ">    
+        <div class="top-banner"></div>
+        <div class="wrapper with-container">
+            <!-- Header -->
+            <header class="main-header">   
+                     
+                <a href="/FluentSpecification/" class="logo">
+
+                                <!-- mini logo for sidebar mini 50x50 pixels -->
+									<span class="logo-mini"><img src="/FluentSpecification/assets/img/logo-mini.png"></span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg"><img src="/FluentSpecification/assets/img/logo-small.png"></span>
+                                            </a>   
+                         
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
+                                        
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+            
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">                            
+                                    <li><a href="/FluentSpecification/docs">Documentation</a></li>
+        <li><a href="/FluentSpecification/built-in">Built-in Specifications</a></li>
+        <li class="active"><a href="/FluentSpecification/api">API</a></li>
+ 
+                        </ul>       
+                    </div>
+                    <!-- /.navbar-collapse -->
+                
+                    <!-- Navbar Right Menu -->
+                </nav>
+            </header>
+            
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar ">
+                <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
+                    	
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
+<p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Attributes">Attributes</a></p>
+<p><a href="#TypeParameters">Type Parameters</a></p>
+<p><a href="#Parameters">Parameters</a></p>
+<p><a href="#ReturnValue">Return Value</a></p>
+<p><a href="#Exceptions">Exceptions</a></p>
+<hr class="infobar-hidden">
+</div>
+
+                </section>
+                <section class="sidebar">    
+                                     
+                    	
+	    <script src="/FluentSpecification/assets/js/lunr.min.js"></script>
+    <script src="/FluentSpecification/assets/js/searchIndex.js"></script>
+    <div class="sidebar-form">
+        <div class="input-group">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search Types...">
+            <span class="input-group-btn">
+                <button class="btn btn-flat"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+    <div id="search-results">
+    </div>
+    <script>
+        function runSearch(query){
+            $("#search-results").empty();			
+            if( query.length < 2 ){
+                return;
+            }			
+            var results = searchModule.search("*" + query + "*");
+            var listHtml = "<ul class='sidebar-menu'>";	
+            listHtml += "<li class='header'>Type Results</li>";	
+            if(results.length == 0 ){
+                listHtml += "<li>No results found</li>";
+            } else {					
+                for(var i = 0; i < results.length; ++i){
+                    var res = results[i];
+                    listHtml += "<li><a href='" + res.url + "'>" + htmlEscape(res.title) + "</a></li>";
+                }				
+            }
+            listHtml += "</ul>";				
+            $("#search-results").append(listHtml);
+        }
+
+        $(document).ready(function(){
+            $("#search").on('input propertychange paste', function() {
+                runSearch($("#search").val());
+            });
+        });
+
+        function htmlEscape(html) {
+            return document.createElement('div')
+                .appendChild(document.createTextNode(html))
+                .parentNode
+                .innerHTML;
+        }
+    </script>
+	
+    <hr>
+
+                    <ul class="sidebar-menu">
+                        
+			<li class="header">Namespace</li>
+		<li><a href="/FluentSpecification/api/FluentSpecification">FluentSpecification</a></li>
+		<li class="header">Type</li>
+		<li><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a></li>
+		<li role="separator" class="divider"></li>
+			<li class="header">Method Members</li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B888CC4B">All<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1DC3A313">All<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5C0D7176">All<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(ISpecification<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E9D403E2">All<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/AF32167C">And<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1206EB2C">And<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/16093309">AndNot<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/90E30DD9">AndNot<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5D3ED771">Any<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/BE117084">Any<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F9180147">Any<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(ISpecification<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5E128E55">Any<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/AD45E8E4">Cast<wbr>&lt;T, <wbr>TCast&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TCast&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B929FE07">Cast<wbr>&lt;T, <wbr>TProperty, <wbr>TCast&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TCast&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/20960AE4">Cast<wbr>&lt;T, <wbr>TCast&gt;<wbr><wbr>(ISpecification<wbr>&lt;TCast&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/6EBE354E">Cast<wbr>&lt;T, <wbr>TProperty, <wbr>TCast&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TCast&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/54BE869E">Contains<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>TType, <wbr>IEqualityComparer<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/70B4DAB8">Contains<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CB0FC17F">Contains<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>TPropertyType, <wbr>IEqualityComparer<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DFE97A77">Contains<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/8AF1DED1">Contains<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(TType, <wbr>IEqualityComparer<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7E47AAE6">Contains<wbr>(string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1CBEA6A9">Contains<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>TPropertyType, <wbr>IEqualityComparer<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D1D0BD42">Contains<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/AB0D4369">CreditCard<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/502C5421">CreditCard<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/8BF166D5">CreditCard<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/353A1AC5">CreditCard<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FC125B80">Email<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F97BD0DA">Email<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B4B8FD26">Email<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/C5F0FC8C">Email<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2ADEB666">Empty<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D484CB1B">Empty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F4A0CF99">Empty<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9F2DC230">Empty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F07D4E44">Equal<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IEqualityComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1BBA3663">Equal<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/BA7A0E5B">Equal<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IEqualityComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/0218D80C">Equal<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4B5CE4CC">ExclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/961FEC82">ExclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/86D42C6C">ExclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/599610ED">ExclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/471CB6CC">Expression<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/EE85B832">Expression<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;TProperty, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D6FA17D0">Expression<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DD588F0A">Expression<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;TProperty, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7302C6BB">False<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;bool&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/66D26DE3">False<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F0ACA2EA">False<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/01A5BB7D">False<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7443FC1E">ForProperty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9A1EB6CD">ForProperty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3604D0B4">GreaterThan<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/0C51AF4A">GreaterThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/C227478E">GreaterThan<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D41CD6B4">GreaterThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FBD56E2B">GreaterThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4C4288B3">GreaterThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/308E71EC">GreaterThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/305A9385">GreaterThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/0AEE943A">InclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D1FA9C52">InclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7100D6DA">InclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D8701728">InclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DC8E8B63">IsNotType<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/366BF2EF">IsNotType<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9A65E9FA">IsNotType<wbr>&lt;T&gt;<wbr><wbr>(Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/81F3ADC4">IsNotType<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/49A3BA7D">IsType<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/57A1BA24">IsType<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4E7CF72C">IsType<wbr>&lt;T&gt;<wbr><wbr>(Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4CC688F7">IsType<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>Type)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2A366DD9">Length<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F753725E">Length<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E0FEDB9C">Length<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CAF1129E">Length<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/AAE148A9">LengthBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CFA7F7BA">LengthBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/355D56F9">LengthBetween<wbr>&lt;T&gt;<wbr><wbr>(int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4079115E">LengthBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/02411976">LessThan<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9E2D9B23">LessThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/99D5E443">LessThan<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7FC27612">LessThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/42639610">LessThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2C4EB0A5">LessThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F2585926">LessThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B4792CF0">LessThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1798EAF5">Match<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/784E7116">Match<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DD38675B">Match<wbr>(string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CAE63340">Match<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/464BE9BE">MaxLength<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5D223BFE">MaxLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/6CF22044">MaxLength<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4EE64AC8">MaxLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DC68E44D">MinLength<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5F99B2C7">MinLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B64C7DA7">MinLength<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/A3E45125">MinLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/47DC0B1A">NotContains<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>TType, <wbr>IEqualityComparer<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DA9871C4">NotContains<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DEE463A5">NotContains<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>TPropertyType, <wbr>IEqualityComparer<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/06F9D802">NotContains<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/930334AE">NotContains<wbr>&lt;T, <wbr>TType&gt;<wbr><wbr>(TType, <wbr>IEqualityComparer<wbr>&lt;TType&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FAFBDD30">NotContains<wbr>(string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E1C236CA">NotContains<wbr>&lt;T, <wbr>TPropertyType&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>IEnumerable<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>&gt;<wbr>&gt;<wbr>, <wbr>TPropertyType, <wbr>IEqualityComparer<wbr>&lt;<wbr>T<wbr>Property<wbr>Type&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/C43B1F98">NotContains<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E93F1F5D">NotCreditCard<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3CCD6F08">NotCreditCard<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9AA39E78">NotCreditCard<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FD00CC27">NotCreditCard<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/423D59F7">NotEmail<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/6BBDC20D">NotEmail<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/54424B4E">NotEmail<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/16092255">NotEmail<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/A5274A3F">NotEmpty<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/89D4D62A">NotEmpty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B26F7CFC">NotEmpty<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DA18DDD6">NotEmpty<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/85A33DFB">NotEqual<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IEqualityComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3BA5ABC5">NotEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3B593A21">NotEqual<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IEqualityComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li class="selected"><a href="/FluentSpecification/api/FluentSpecification/Specification/E3C58F71">NotEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4B1AE3A1">NotExclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3C3347FE">NotExclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E61C5693">NotExclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/915F01F5">NotExclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5443B3B7">NotGreaterThan<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/38411CB6">NotGreaterThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/BAA29729">NotGreaterThan<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/A4AFF7F2">NotGreaterThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/90103DE9">Not<wbr>Greater<wbr>Than<wbr>Or<wbr>Equal<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4D1AA577">Not<wbr>Greater<wbr>Than<wbr>Or<wbr>Equal<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F2CBC224">Not<wbr>Greater<wbr>Than<wbr>Or<wbr>Equal<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/95EA7BB7">Not<wbr>Greater<wbr>Than<wbr>Or<wbr>Equal<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/0AA89357">NotInclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/7BD6372E">NotInclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/11C8AC25">NotInclusiveBetween<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/10B90630">NotInclusiveBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/717EF5D3">NotLength<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/8EA75ABC">NotLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/6442AC4A">NotLength<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/032D52F0">NotLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/804B18AF">NotLengthBetween<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9A7F7CD1">NotLengthBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2C6DBDEC">NotLengthBetween<wbr>&lt;T&gt;<wbr><wbr>(int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/63B47A54">NotLengthBetween<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/BADD44E3">NotLessThan<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DC1FC717">NotLessThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/0BC3C907">NotLessThan<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/4C73F3FD">NotLessThan<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/51AEB523">NotLessThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E6C13CBD">NotLessThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/BEFAA6A6">NotLessThanOrEqual<wbr>&lt;T&gt;<wbr><wbr>(T, <wbr>IComparer<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/27682B4F">NotLessThanOrEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/3D32BAF3">NotMatch<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;string&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F7B78D4F">NotMatch<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D90C5F74">NotMatch<wbr>(string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/AA0F0CDE">NotMatch<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>string&gt;<wbr>&gt;<wbr>, <wbr>string, <wbr>RegexOptions)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/66547418">NotMaxLength<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/23FD7EE0">NotMaxLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CD440D24">NotMaxLength<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/6C80650D">NotMaxLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FC7779EB">NotMinLength<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2146F7D9">NotMinLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/17FA50C7">NotMinLength<wbr>&lt;T&gt;<wbr><wbr>(int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/81827EE0">NotMinLength<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>int)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/8012048D">NotNull<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D6E28413">NotNull<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/2E962918">NotNull<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5304B872">NotNull<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/FC8AC0C2">Null<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/78505A60">Null<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/76163F1B">Null<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/1C40D10E">Null<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D405D88F">Or<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/E35F4356">Or<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/D7C14CBD">OrNot<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>, <wbr>ISpecification<wbr>&lt;TProperty&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/CA377FDE">OrNot<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>, <wbr>ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/5BDFA6B7">True<wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;bool&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/9CEABA2E">True<wbr>&lt;T&gt;<wbr><wbr>(Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/B32725F3">True<wbr>()<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/DBDF114A">True<wbr>&lt;T&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr>)<wbr></a></li>
+			<li class="header">Property Members</li>
+				<li><a href="/FluentSpecification/api/FluentSpecification/Specification/F0932233">LinqToEntities</a></li>
+
+
+                    </ul>
+                            
+                </section>                
+            </aside>
+            
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                
+
+
+
+<section class="content-header">
+			<h3 class="no-anchor"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>.</h3>
+	<h1 class="no-anchor">NotEqual<wbr>&lt;T, <wbr>TProperty&gt;<wbr><wbr>(<wbr>I<wbr>Composite<wbr>Specification<wbr>&lt;T&gt;<wbr>, <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr>, <wbr>TProperty, <wbr>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr>)<wbr> <small>Method</small></h1>
+</section>
+<section class="content">
+	
+	
+		<h1 id="Summary">Summary</h1>
+	<div class="lead">
+        <p>
+            Composes <span name="self" class="paramref">self</span> <code class="cs">Specification</code> with <code class="cs"><a href="/FluentSpecification/api/FluentSpecification.Common/EqualSpecification_1">EqualSpecification&lt;T&gt;</a></code> negation
+            for candidate property:
+        </p>
+        <p>
+            Checks if candidate property is not equal to expected object.
+        </p>
+    </div>
+
+		<div class="panel panel-default">
+  			<div class="panel-body">	
+				<dl class="dl-horizontal">	
+						
+						<dt>Namespace</dt>
+						<dd><a href="/FluentSpecification/api/FluentSpecification">FluentSpecification</a></dd>
+					
+						<dt>Containing Type</dt>
+						<dd><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a></dd>		
+					
+				</dl>
+  			</div>
+		</div>
+
+	<h1 id="Syntax">Syntax</h1>
+	<pre><code>[PublicAPI]
+[NotNull]
+public static IComplexSpecification&lt;T&gt; NotEqual&lt;T, TProperty&gt;(this ICompositeSpecification&lt;T&gt; self, Expression&lt;Func&lt;T, TProperty&gt;&gt; selector, TProperty notExpected, IEqualityComparer&lt;TProperty&gt; comparer = null)</code></pre>
+
+
+
+	<h1 id="Attributes">Attributes</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>PublicAPI</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>NotNull</td>
+						<td></td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+	<h1 id="TypeParameters">Type Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr id="typeparam-T">
+						<td>T</td>
+						<td>Type of candidate.</td>
+					</tr>
+					<tr id="typeparam-TProperty">
+						<td>TProperty</td>
+						<td>Type of candidate property to verify.</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+	<h1 id="Parameters">Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover three-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>self</td>
+						<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1">I<wbr>Composite<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+						<td>Self specification.</td>
+					</tr>
+					<tr>
+						<td>selector</td>
+						<td>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>TProperty&gt;<wbr>&gt;<wbr></td>
+						<td>Candidate property selector.</td>
+					</tr>
+					<tr>
+						<td>notExpected</td>
+						<td>TProperty</td>
+						<td>Not expected object.</td>
+					</tr>
+					<tr>
+						<td>comparer</td>
+						<td>IEqualityComparer<wbr>&lt;TProperty&gt;<wbr></td>
+						<td>Equality comparer.</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+	<h1 id="ReturnValue">Return Value</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody><tr>
+					<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+					<td>Composed complex <code class="cs">Specification</code>.</td>
+				</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+
+		<h1 id="Exceptions">Exceptions</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>System.ArgumentNullException</td>
+						<td>Thrown when <span name="self" class="paramref">self</span> or <span name="selector" class="paramref">selector</span> is null.</td>
+					</tr>
+					<tr>
+						<td>System.ArgumentException</td>
+						<td>Thrown when <span name="selector" class="paramref">selector</span> is not valid.</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+</section>                
+            </div>           
+            
+            <!-- Footer -->
+            <footer class="main-footer">
+            </footer>
+            
+        </div>
+        <div class="wrapper bottom-wrapper">
+            <footer class="bottom-footer">
+                <p class="text-muted">
+    <a href="https://github.com/michalkowal/FluentSpecification"><i class="fa fa-github"></i> GitHub</a>
+    <br>
+    Copyright © <a href="https://github.com/michalkowal">Michał Kowal</a>.
+    <br>
+    Generated by <a href="http://wyam.io">Wyam</a>
+</p>
+            </footer>
+        </div>
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        <a href="https://github.com/michalkowal/FluentSpecification">
+	<div class="github-button"><i class="fa fa-github"></i> GitHub</div>
+</a>
+
+<script>
+	anchors.add('h1, h2, h3').remove('.no-anchor');
+</script>
+        <script>           
+            // Close the sidebar if we select an anchor link
+            $(".main-sidebar a[href^='#']:not('.expand')").click(function(){
+                $(document.body).removeClass('sidebar-open');
+            });
+            
+            $(document).ready(function() {
+                mermaid.initialize(
+                {
+                    flowchart:
+                    {
+                        useMaxWidth: false
+                    },
+					startOnLoad: false,
+					cloneCssStyles: false
+                });     
+                mermaid.init(undefined, ".mermaid");
+
+                // Remove the max-width setting that Mermaid sets
+                var mermaidSvg = $('.mermaid svg');
+                mermaidSvg.addClass('img-responsive');
+                mermaidSvg.css('max-width', '');
+
+                // Make it scrollable
+				var target = document.querySelector(".mermaid svg");
+				if(target !== null)
+				{
+					var panZoom = window.panZoom = svgPanZoom(target, {
+						zoomEnabled: true,
+						controlIconsEnabled: true,
+						fit: true,
+						center: true,
+                        maxZoom: 20,
+                        zoomScaleSensitivity: 0.6
+					});			                          
+
+                    // Do the reset once right away to fit the diagram
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                    
+                    $(window).resize(function(){
+                        panZoom.resize();
+                        panZoom.fit();
+                        panZoom.center();
+                    });
+				}
+                
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });  
+            });
+
+            hljs.initHighlightingOnLoad();
+
+            // Back to top
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= 200) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(1000);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(1000);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function() {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop : 0                       // Scroll to top of body
+                }, 500);
+            });
+        </script>
+    
+</body></html>

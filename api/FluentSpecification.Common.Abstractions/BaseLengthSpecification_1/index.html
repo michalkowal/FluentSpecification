@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html><html><head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description">
+        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
+        <title>FluentSpecification - API - BaseLengthSpecification&lt;T&gt; Class</title>
+        <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/theme/theme.css" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,400i,700,700i" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="/FluentSpecification/assets/css/override.css" rel="stylesheet">
+        <script src="/FluentSpecification/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="/FluentSpecification/assets/js/bootstrap.min.js"></script>        
+        <script src="/FluentSpecification/assets/js/app.min.js"></script>         
+        <script src="/FluentSpecification/assets/js/highlight.pack.js"></script>   
+        <script src="/FluentSpecification/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="/FluentSpecification/assets/js/jquery.sticky-kit.min.js"></script>
+        <script src="/FluentSpecification/assets/js/mermaid.min.js"></script>
+        <script src="/FluentSpecification/assets/js/svg-pan-zoom.min.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/FluentSpecification/assets/js/html5shiv.min.js"></script>
+        <script src="/FluentSpecification/assets/js/respond.min.js"></script>
+        <![endif]-->  
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139052199-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-139052199-1');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    </head>
+    <body class="hold-transition wyam layout-boxed  ">    
+        <div class="top-banner"></div>
+        <div class="wrapper with-container">
+            <!-- Header -->
+            <header class="main-header">   
+                     
+                <a href="/FluentSpecification/" class="logo">
+
+                                <!-- mini logo for sidebar mini 50x50 pixels -->
+									<span class="logo-mini"><img src="/FluentSpecification/assets/img/logo-mini.png"></span>
+                                <!-- logo for regular state and mobile devices -->
+                                <span class="logo-lg"><img src="/FluentSpecification/assets/img/logo-small.png"></span>
+                                            </a>   
+                         
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
+                                        
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </button>
+                    </div>
+            
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ul class="nav navbar-nav">                            
+                                    <li><a href="/FluentSpecification/docs">Documentation</a></li>
+        <li><a href="/FluentSpecification/built-in">Built-in Specifications</a></li>
+        <li class="active"><a href="/FluentSpecification/api">API</a></li>
+ 
+                        </ul>       
+                    </div>
+                    <!-- /.navbar-collapse -->
+                
+                    <!-- Navbar Right Menu -->
+                </nav>
+            </header>
+            
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar ">
+                <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
+                    	
+	<div id="infobar-headings"><h6>On This Page</h6><p><a href="#Summary">Summary</a></p>
+<p><a href="#Syntax">Syntax</a></p>
+<p><a href="#Attributes">Attributes</a></p>
+<p><a href="#TypeParameters">Type Parameters</a></p>
+<p><a href="#Constructors">Constructors</a></p>
+<p><a href="#Methods">Methods</a></p>
+<p><a href="#Operators">Operators</a></p>
+<p><a href="#ExtensionMethods">Extension Methods</a></p>
+<hr class="infobar-hidden">
+</div>
+
+                </section>
+                <section class="sidebar">    
+                                     
+                    	
+	    <script src="/FluentSpecification/assets/js/lunr.min.js"></script>
+    <script src="/FluentSpecification/assets/js/searchIndex.js"></script>
+    <div class="sidebar-form">
+        <div class="input-group">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search Types...">
+            <span class="input-group-btn">
+                <button class="btn btn-flat"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+    <div id="search-results">
+    </div>
+    <script>
+        function runSearch(query){
+            $("#search-results").empty();			
+            if( query.length < 2 ){
+                return;
+            }			
+            var results = searchModule.search("*" + query + "*");
+            var listHtml = "<ul class='sidebar-menu'>";	
+            listHtml += "<li class='header'>Type Results</li>";	
+            if(results.length == 0 ){
+                listHtml += "<li>No results found</li>";
+            } else {					
+                for(var i = 0; i < results.length; ++i){
+                    var res = results[i];
+                    listHtml += "<li><a href='" + res.url + "'>" + htmlEscape(res.title) + "</a></li>";
+                }				
+            }
+            listHtml += "</ul>";				
+            $("#search-results").append(listHtml);
+        }
+
+        $(document).ready(function(){
+            $("#search").on('input propertychange paste', function() {
+                runSearch($("#search").val());
+            });
+        });
+
+        function htmlEscape(html) {
+            return document.createElement('div')
+                .appendChild(document.createTextNode(html))
+                .parentNode
+                .innerHTML;
+        }
+    </script>
+	
+    <hr>
+
+                    <ul class="sidebar-menu">
+                        
+			<li class="header">Namespace</li>
+		<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions">FluentSpecification<wbr>.Common<wbr>.Abstractions</a></li>
+		<li role="separator" class="divider"></li>
+			<li class="header">Class Types</li>
+				<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseBetweenSpecification_1">Base<wbr>Between<wbr>Specification<wbr>&lt;T&gt;<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCollectionSpecification_2">Base<wbr>Collection<wbr>Specification<wbr>&lt;T, <wbr>TType&gt;<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCompareSpecification_1">Base<wbr>Compare<wbr>Specification<wbr>&lt;T&gt;<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1">Base<wbr>Greater<wbr>Compare<wbr>Specification<wbr>&lt;T&gt;<wbr></a></li>
+				<li class="selected"><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1">Base<wbr>Length<wbr>Specification<wbr>&lt;T&gt;<wbr></a></li>
+				<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1">Base<wbr>Less<wbr>Compare<wbr>Specification<wbr>&lt;T&gt;<wbr></a></li>
+
+
+                    </ul>
+                            
+                </section>                
+            </aside>
+            
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                
+
+
+
+<section class="content-header">
+	<h1 class="no-anchor">Base<wbr>Length<wbr>Specification<wbr>&lt;T&gt;<wbr> <small>Class</small></h1>
+</section>
+<section class="content">
+	
+	
+		<h1 id="Summary">Summary</h1>
+	<div class="lead">
+        Base implementation for all <code class="cs">Specifications</code> with collection length verification.
+    </div>
+
+		<div class="panel panel-default">
+  			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<dl class="dl-horizontal">		
+
+								<dt>Namespace</dt>
+								<dd><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions">FluentSpecification<wbr>.Common<wbr>.Abstractions</a></dd>
+											
+								<dt>Interfaces</dt>
+								<dd>
+									<ul class="list-unstyled">
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableValidationSpecification_1">I<wbr>Negatable<wbr>Validation<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">I<wbr>Validation<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1">ILinqSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions/ILinqSpecification">ILinqSpecification</a></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1">ISpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableLinqSpecification_1">I<wbr>Negatable<wbr>Linq<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableSpecification_1">I<wbr>Negatable<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Abstractions/ISpecification">ISpecification</a></li>								
+									</ul>
+								</dd>
+							
+								<dt>Base Types</dt>
+								<dd>
+									<ul class="list-unstyled">										
+											<li>object</li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1">Validation<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Core/NegatableValidationSpecification_1">Negatable<wbr>Validation<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Core/ComplexSpecification_1">ComplexSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+									</ul>
+								</dd>				
+							
+								<dt>Derived Types</dt>
+								<dd>
+									<ul class="list-unstyled">
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1">Max<wbr>Length<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1">LengthSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1">Length<wbr>Between<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1">Min<wbr>Length<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+									</ul>
+								</dd>			
+							
+						</dl>
+					</div>		
+					<div class="col-md-6">
+						<div class="mermaid">
+							graph BT
+	Type--&gt;Base0["ComplexSpecification&lt;T&gt;"]
+	Base0--&gt;Base1["NegatableValidationSpecification&lt;T&gt;"]
+	Base1--&gt;Base2["ValidationSpecification&lt;T&gt;"]
+	Base2--&gt;Base3["object"]
+	Type-.-&gt;Interface0["INegatableValidationSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface1["IComplexSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface2["IValidationSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface3["ILinqSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface4["ILinqSpecification"]
+	click Interface4 "/FluentSpecification/api/FluentSpecification.Abstractions/ILinqSpecification"
+	Type-.-&gt;Interface5["ISpecification&lt;T&gt;"]
+	Type-.-&gt;Interface6["INegatableLinqSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface7["INegatableSpecification&lt;T&gt;"]
+	Type-.-&gt;Interface8["ISpecification"]
+	click Interface8 "/FluentSpecification/api/FluentSpecification.Abstractions/ISpecification"
+	Type["BaseLengthSpecification&lt;T&gt;"]
+class Type type-node
+	Derived0["MaxLengthSpecification&lt;T&gt;"]--&gt;Type
+	click Derived0 "/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1"
+	Derived1["LengthSpecification&lt;T&gt;"]--&gt;Type
+	click Derived1 "/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1"
+	Derived2["LengthBetweenSpecification&lt;T&gt;"]--&gt;Type
+	click Derived2 "/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1"
+	Derived3["MinLengthSpecification&lt;T&gt;"]--&gt;Type
+	click Derived3 "/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1"
+
+						</div>
+					</div>
+				</div>
+  			</div>
+		</div>
+
+	<h1 id="Syntax">Syntax</h1>
+	<pre><code>[PublicAPI]
+public abstract class BaseLengthSpecification&lt;T&gt; : ComplexSpecification&lt;T&gt;, 
+    INegatableValidationSpecification&lt;T&gt;, IComplexSpecification&lt;T&gt;, IValidationSpecification&lt;T&gt;, 
+    ILinqSpecification&lt;T&gt;, ILinqSpecification, ISpecification&lt;T&gt;, INegatableLinqSpecification&lt;T&gt;, 
+    INegatableSpecification&lt;T&gt;, ISpecification
+    where T : IEnumerable</code></pre>
+
+
+
+	<h1 id="Attributes">Attributes</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr>
+						<td>PublicAPI</td>
+						<td></td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+	<h1 id="TypeParameters">Type Parameters</h1>
+	<div class="box">
+		<div class="box-body no-padding table-responsive">
+			<table class="table table-striped table-hover two-cols">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+					<tbody><tr id="typeparam-T">
+						<td>T</td>
+						<td>Type of <code class="cs">System.Collections.IEnumerable</code> candidate.</td>
+					</tr>
+			</tbody></table>
+		</div>
+	</div>	
+
+
+
+			<h1 id="Constructors">Constructors</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover two-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+									<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1/B0CCB202">Base<wbr>Length<wbr>Specification<wbr>(bool)<wbr></a></td>
+									<td>
+        Creates <code class="cs">Specification</code> for candidate (collection) length verification.
+    </td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
+
+
+
+			<h1 id="Methods">Methods</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1/83561101">BuildExpressionBody<wbr>(Expression)<wbr></a></td>
+								<td>Expression</td>
+								<td>
+									<div>
+        Creates special <code class="cs">Expression</code> body when <span name="T" class="typeparamref">T</span> is non-value or nullable type.
+    </div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1/82AE311A">Build<wbr>Value<wbr>Type<wbr>Expression<wbr>Body<wbr>(Expression)<wbr></a></td>
+								<td>Expression</td>
+								<td>
+									<div>
+        Creates special <code class="cs">Expression</code> body when <span name="T" class="typeparamref">T</span> is value non-nullable type.
+    </div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1/A8C07DB5">Build<wbr>Value<wbr>Type<wbr>Expression<wbr>Body<wbr>(Expression, <wbr>Expression)<wbr></a></td>
+								<td>Expression</td>
+								<td>
+									<div>
+        Builds <code class="cs">Expression</code> with compare of result Count() method.
+    </div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
+			<h1 id="Operators">Operators</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td>explicit operator <wbr>Expression<wbr>(<wbr>Complex<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></td>
+								<td>Expression</td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from <a href="/FluentSpecification/api/FluentSpecification.Core/ComplexSpecification_1">ComplexSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td>implicit operator <wbr>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr><wbr>(<wbr>Complex<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></td>
+								<td>Expression<wbr>&lt;Func<wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>, <wbr>bool&gt;<wbr>&gt;<wbr></td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from <a href="/FluentSpecification/api/FluentSpecification.Core/ComplexSpecification_1">ComplexSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td>implicit operator <wbr>Func<wbr>&lt;T, <wbr>bool&gt;<wbr><wbr>(<wbr>Validation<wbr>Specification<wbr>&lt;T&gt;<wbr>)<wbr></td>
+								<td>Func<wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>, <wbr>bool&gt;<wbr></td>
+								<td>
+									<div></div>
+											<div><small><em>Inherited from <a href="/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1">Validation<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></em></small></div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
+			<h1 id="ExtensionMethods">Extension Methods</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover three-cols">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+								<th>Summary</th>
+							</tr>
+						</thead>
+							<tbody><tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/313D8ACE">And<wbr>&lt;T, <wbr>TSpecification&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical AND <code class="cs">Specification</code> with newly created <span name="TSpecification" class="typeparamref">TSpecification</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/55825F3F">And<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1">I<wbr>Composite<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates composite <code class="cs">Specification</code> proxy for final logical AND <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/6A7184B4">And<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical AND <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/758C2851">AndNot<wbr>&lt;T, <wbr>TSpecification&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical AND <code class="cs">Specification</code> with newly created and negated <span name="TSpecification" class="typeparamref">TSpecification</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/1133FDA0">AndNot<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1">I<wbr>Composite<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates composite <code class="cs">Specification</code> proxy for final logical AND <code class="cs">Specification</code>.
+        Second <code class="cs">Specification</code> is negated.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/18499C3E">AndNot<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical AND <code class="cs">Specification</code> with negated <span name="other" class="paramref">other</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/479F235B">As<wbr>Complex<wbr>Specification<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Converts <code class="cs">Specification</code> to complex <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/943F4DF7">AsExpression<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td>Expression<wbr>&lt;Func<wbr>&lt;T, <wbr>bool&gt;<wbr>&gt;<wbr></td>
+								<td>
+									<div>
+        Converts <code class="cs">Specification</code> to <code class="cs">Linq</code> <code class="cs">Expression&lt;T&gt;</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/05EB1639">AsPredicate<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td>Func<wbr>&lt;T, <wbr>bool&gt;<wbr></td>
+								<td>
+									<div>
+        Converts <code class="cs">Specification</code> to <code class="cs"><a href="/FluentSpecification">Func&lt;T, TResult&gt;</a></code> predicate.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/46A16D88">Not<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical NOT <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/303D42BE">Or<wbr>&lt;T, <wbr>TSpecification&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical OR <code class="cs">Specification</code> with newly created <span name="TSpecification" class="typeparamref">TSpecification</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/5482974F">Or<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1">I<wbr>Composite<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates composite <code class="cs">Specification</code> proxy for final logical OR <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/A19B14EB">Or<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical OR <code class="cs">Specification</code>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/B0AC55C5">OrNot<wbr>&lt;T, <wbr>TSpecification&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical OR <code class="cs">Specification</code> with newly created and negated <span name="TSpecification" class="typeparamref">TSpecification</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/D4138034">OrNot<wbr>&lt;T&gt;<wbr><wbr>()<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1">I<wbr>Composite<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates composite <code class="cs">Specification</code> proxy for final logical OR <code class="cs">Specification</code>.
+        Second <code class="cs">Specification</code> is negated.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/C4B8F8F7">OrNot<wbr>&lt;T&gt;<wbr><wbr>(ISpecification<wbr>&lt;T&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates logical OR <code class="cs">Specification</code> with negated <span name="other" class="paramref">other</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+					</tbody></table>
+				</div>
+			</div>
+		
+
+	
+</section>                
+            </div>           
+            
+            <!-- Footer -->
+            <footer class="main-footer">
+            </footer>
+            
+        </div>
+        <div class="wrapper bottom-wrapper">
+            <footer class="bottom-footer">
+                <p class="text-muted">
+    <a href="https://github.com/michalkowal/FluentSpecification"><i class="fa fa-github"></i> GitHub</a>
+    <br>
+    Copyright © <a href="https://github.com/michalkowal">Michał Kowal</a>.
+    <br>
+    Generated by <a href="http://wyam.io">Wyam</a>
+</p>
+            </footer>
+        </div>
+        <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+        <a href="https://github.com/michalkowal/FluentSpecification">
+	<div class="github-button"><i class="fa fa-github"></i> GitHub</div>
+</a>
+
+<script>
+	anchors.add('h1, h2, h3').remove('.no-anchor');
+</script>
+        <script>           
+            // Close the sidebar if we select an anchor link
+            $(".main-sidebar a[href^='#']:not('.expand')").click(function(){
+                $(document.body).removeClass('sidebar-open');
+            });
+            
+            $(document).ready(function() {
+                mermaid.initialize(
+                {
+                    flowchart:
+                    {
+                        useMaxWidth: false
+                    },
+					startOnLoad: false,
+					cloneCssStyles: false
+                });     
+                mermaid.init(undefined, ".mermaid");
+
+                // Remove the max-width setting that Mermaid sets
+                var mermaidSvg = $('.mermaid svg');
+                mermaidSvg.addClass('img-responsive');
+                mermaidSvg.css('max-width', '');
+
+                // Make it scrollable
+				var target = document.querySelector(".mermaid svg");
+				if(target !== null)
+				{
+					var panZoom = window.panZoom = svgPanZoom(target, {
+						zoomEnabled: true,
+						controlIconsEnabled: true,
+						fit: true,
+						center: true,
+                        maxZoom: 20,
+                        zoomScaleSensitivity: 0.6
+					});			                          
+
+                    // Do the reset once right away to fit the diagram
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                    
+                    $(window).resize(function(){
+                        panZoom.resize();
+                        panZoom.fit();
+                        panZoom.center();
+                    });
+				}
+                
+                $('pre code').each(function(i, block) {
+                    hljs.highlightBlock(block);
+                });  
+            });
+
+            hljs.initHighlightingOnLoad();
+
+            // Back to top
+            $(window).scroll(function() {
+                if ($(this).scrollTop() >= 200) {        // If page is scrolled more than 50px
+                    $('#return-to-top').fadeIn(1000);    // Fade in the arrow
+                } else {
+                    $('#return-to-top').fadeOut(1000);   // Else fade out the arrow
+                }
+            });
+            $('#return-to-top').click(function() {      // When arrow is clicked
+                $('body,html').animate({
+                    scrollTop : 0                       // Scroll to top of body
+                }, 500);
+            });
+        </script>
+    
+</body></html>

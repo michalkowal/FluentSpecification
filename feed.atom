@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<id>http://michalkowal.github.io/FluentSpecification</id>
+	<title>FluentSpecification</title>
+	<link rel="self" href="http://michalkowal.github.io/FluentSpecification" />
+	<rights>2019</rights>
+	<updated>2019-05-05T09:13:19Z</updated>
+</feed>

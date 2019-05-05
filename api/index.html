@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
-        <title>FluentSpecification - Home</title>
+        <title>FluentSpecification - API</title>
         <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
         <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
@@ -41,9 +41,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
     </head>
-    <body class="hold-transition wyam layout-boxed layout-top-nav no-gutter">    
+    <body class="hold-transition wyam layout-boxed  ">    
         <div class="top-banner"></div>
-        <div class="wrapper">
+        <div class="wrapper with-container">
             <!-- Header -->
             <header class="main-header">   
                      
@@ -57,6 +57,10 @@
                          
                 <nav class="navbar navbar-static-top" role="navigation">
                     <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle visible-xs-block" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle side menu</span>
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
                                         
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -70,7 +74,7 @@
                         <ul class="nav navbar-nav">                            
                                     <li><a href="/FluentSpecification/docs">Documentation</a></li>
         <li><a href="/FluentSpecification/built-in">Built-in Specifications</a></li>
-        <li><a href="/FluentSpecification/api">API</a></li>
+        <li class="active"><a href="/FluentSpecification/api">API</a></li>
  
                         </ul>       
                     </div>
@@ -81,16 +85,63 @@
             </header>
             
             <!-- Left side column. contains the logo and sidebar -->
-            <aside class="main-sidebar hidden">
+            <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/michalkowal/FluentSpecification/tree/master/docs/input/index.cshtml"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"></div>
 
                 </section>
                 <section class="sidebar">    
                                      
                     
+	
+	    <script src="/FluentSpecification/assets/js/lunr.min.js"></script>
+    <script src="/FluentSpecification/assets/js/searchIndex.js"></script>
+    <div class="sidebar-form">
+        <div class="input-group">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search Types...">
+            <span class="input-group-btn">
+                <button class="btn btn-flat"><i class="fa fa-search"></i></button>
+            </span>
+        </div>
+    </div>
+    <div id="search-results">
+    </div>
+    <script>
+        function runSearch(query){
+            $("#search-results").empty();			
+            if( query.length < 2 ){
+                return;
+            }			
+            var results = searchModule.search("*" + query + "*");
+            var listHtml = "<ul class='sidebar-menu'>";	
+            listHtml += "<li class='header'>Type Results</li>";	
+            if(results.length == 0 ){
+                listHtml += "<li>No results found</li>";
+            } else {					
+                for(var i = 0; i < results.length; ++i){
+                    var res = results[i];
+                    listHtml += "<li><a href='" + res.url + "'>" + htmlEscape(res.title) + "</a></li>";
+                }				
+            }
+            listHtml += "</ul>";				
+            $("#search-results").append(listHtml);
+        }
+
+        $(document).ready(function(){
+            $("#search").on('input propertychange paste', function() {
+                runSearch($("#search").val());
+            });
+        });
+
+        function htmlEscape(html) {
+            return document.createElement('div')
+                .appendChild(document.createTextNode(html))
+                .parentNode
+                .innerHTML;
+        }
+    </script>
+
 
                     <ul class="sidebar-menu">
                         
@@ -106,154 +157,72 @@
 
 
 
-<div class="jumbotron">
-    <div class="container">
-		<h1 class="no-anchor">.NET implementation of Specification design pattern</h1>
-        <p><b>FluentSpecification</b> is implementation of <i>Specification design pattern</i> with many small, built-in reusable specifications, 
-		perfect for validation of <i>Domain Model</i> in <i>Domain-Driven-Design</i> approach and other similar, where system is built around domain objects.</p>
-        <p>
-            <a class="btn btn-primary btn-lg" href="docs/usage/building-specifications" role="button">Get Started &raquo;</a>
-        </p>
-    </div>
-</div>
+		<section class="content-header">
+			<h1 class="no-anchor">API</h1>
+		</section>
+	<section class="content">
+		
 
-<div class="container">				
-	<h1>Features</h1>
-	<hr />
-	<ul>
-		<li><code><b>Fluent API</b></code> - allows to build and combine specifications in simple and clear way.</li>
-		<li><code><b>Built-in specifications</b></code> - with validation and <i>Linq expression</i> support. Many of them available as negation.</li>
-		<li><code><b>Objects validation</b></code> - special result with error messages, trace of all used specifications, specifications parameters etc. 
-		Can be used not only for domain, but also for DTOs and user input, when you need to log result or present it on UI.</li>
-		<li><code><b>Linq expression</b></code> - specifications can be used in collections querying. Business logic of repositories can be separated to specifications and use interchangeably.</li>
-		<li><code><b>EF Core support</b></code> - all specifications are tested with <i>EF Core</i> on real database and ca be used without errors.</li>
-		<li><code><b>EF 6 partial support</b></code> - many of specifications support <i>LinqToEntities</i> (<i>LinqToSql</i>) and can be used in <i>Entity Framework 6</i> queries.</li>
-	</ul>
-	
-	<h1>Usage</h1>
-	<hr />
-<pre><code class="language-csharp hljs"><span class="hljs-keyword">using</span> FluentSpecification;
-<span class="hljs-keyword">using</span> FluentSpecification.Core;
+		 
+		
 
-<span class="hljs-keyword">var</span> customerSpec = Specification
-    <span class="hljs-comment">// Specify not null Customer</span>
-    .NotNull()
 
-    <span class="hljs-comment">// with Id between 100 and 200</span>
-    .And()
-    .InclusiveBetween(c =&gt; c.CustomerId, <span class="hljs-number">100</span>, <span class="hljs-number">200</span>)
-
-    <span class="hljs-comment">// and LastName is "Smith"</span>
-    .And()
-    .Equal(c =&gt; c.LastName, <span class="hljs-string">"Smith"</span>)
-
-    <span class="hljs-comment">// and Customer is active</span>
-    .And()
-    .True(c =&gt; c.IsActive)
-
-    <span class="hljs-comment">// and Customer property "Email" is ...</span>
-    .And(Specification.ForProperty(c =&gt; c.Email, Specification
-        <span class="hljs-comment">// ... valid email</span>
-        .Email()
-
-        <span class="hljs-comment">// longer than 15 characters</span>
-        .And()
-        .MinLength(<span class="hljs-number">15</span>)
-
-        <span class="hljs-comment">// on "gmail.com"</span>
-        .And()
-        .Match(<span class="hljs-string">"^.*@gmail.com$"</span>)))
-
-    <span class="hljs-comment">// with not empty Item collection ...</span>
-    .And()
-    .ForProperty(c =&gt; c.Items, Specification
-        .NotEmpty&gt;()
-
-        <span class="hljs-comment">// ... contains Item '1000'</span>
-        .And()
-        .Contains(<span class="hljs-keyword">new</span> Item { ItemId = <span class="hljs-number">1000</span> }))
-
-    <span class="hljs-comment">// and Customer has credit card ...</span>
-    .And()
-    .NotNull(c =&gt; c.CreditCard)
-
-    <span class="hljs-comment">// ... with valid number</span>
-    .And()
-    .CreditCard(c =&gt; c.CreditCard.CardNumber)
-
-    <span class="hljs-comment">// and credit card is valid between 2019-03-12 ...</span>
-    .And(Specification
-        .GreaterThanOrEqual(c =&gt; c.CreditCard.ValidityDate, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2019</span>, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>))
-        
-        <span class="hljs-comment">// ... and 2019-05-31</span>
-        .Or()
-        .LessThan(c =&gt; c.CreditCard.ValidityDate, <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2019</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>)));</code></pre>
-
-	<h2>Is satisfied by</h2>
-<pre><code class="language-csharp hljs">customerSpec.IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer
-{
-    CustomerId = <span class="hljs-number">125</span>,
-    LastName = <span class="hljs-string">"Smith"</span>,
-    IsActive = <span class="hljs-literal">true</span>,
-    Email = <span class="hljs-string">"asmith@gmail.com"</span>,
-    Items = <span class="hljs-keyword">new</span> List()
-    {
-        <span class="hljs-keyword">new</span> Item { ItemId= <span class="hljs-number">1000</span> }
-    },
-    CreditCard = <span class="hljs-keyword">new</span> CreditCard
-    {
-        CardNumber = <span class="hljs-string">"5500 0000 0000 0004"</span>,
-        ValidityDate = DateTime.Parse(<span class="hljs-string">"2019-03-12"</span>)
-    }
-}); <span class="hljs-comment">// return true</span></code></pre>
-
-	<h2>Validation</h2>
-<pre><code class="language-csharp hljs">customerSpec.IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer
-{
-    CustomerId = <span class="hljs-number">90</span>,
-    LastName = <span class="hljs-string">"Jones"</span>,
-    IsActive = <span class="hljs-literal">false</span>,
-    Email = <span class="hljs-string">"mjones@hotmail.com"</span>,
-    Items = <span class="hljs-literal">null</span>,
-    CreditCard = <span class="hljs-keyword">new</span> CreditCard
-    {
-        CardNumber = <span class="hljs-string">"5500 0000 1"</span>,
-        ValidityDate = DateTime.Parse(<span class="hljs-string">"2019-03-01"</span>)
-    }
-}, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> specResult);    <span class="hljs-comment">// return false</span>
-
-Console.WriteLine(specResult.ToString());
-<span class="hljs-comment">// Field 'CustomerId' value is not valid</span>
-<span class="hljs-comment">// Field 'CustomerId': [Value is not between [100] and [200]]</span>
-<span class="hljs-comment">// Field 'LastName' value is not valid</span>
-<span class="hljs-comment">// Field 'LastName': [Object is not equal to [Smith]]</span>
-<span class="hljs-comment">// Field 'IsActive' value is not valid</span>
-<span class="hljs-comment">// Field 'IsActive': [Value is False]</span>
-<span class="hljs-comment">// Field 'Email' value is not valid</span>
-<span class="hljs-comment">// Field 'Email': [String not match pattern [^.*@gmail.com$]]</span>
-<span class="hljs-comment">// Field 'Items' value is not valid</span>
-<span class="hljs-comment">// Field 'Items': [Object is empty]</span>
-<span class="hljs-comment">// Field 'Items': [Collection not contains [FluentSpecification.Integration.Tests.Data.Item]]</span>
-<span class="hljs-comment">// Field 'CreditCard.CardNumber' value is not valid</span>
-<span class="hljs-comment">// Field 'CreditCard.CardNumber': [Value is not correct credit card number]</span></code></pre>
-
-	<h2>Querying</h2>
-<pre><code class="language-csharp hljs"><span class="hljs-keyword">var</span> customers = <span class="hljs-keyword">new</span> List()
-{
-    <span class="hljs-comment">// fill customers</span>
-};
-<span class="hljs-keyword">var</span> result = customers
-    .Where(customerSpec.AsPredicate()).ToList();
-
-<span class="hljs-keyword">var</span> dbResult = Context.Customers
-    .Where(customerSpec.GetExpression()).ToList();    <span class="hljs-comment">// Or customerSpec.AsExpression()</span></code></pre>
-</div>
-
-<br />
-<div class="container">
-	<a href="https://github.com/michalkowal/FluentSpecification/blob/master/LICENSE">
-	<img src="https://img.shields.io/github/license/michalkowal/FluentSpecification.svg?color=%23545894&style=popout-square&logo=apache&logoColor=%23D22128" alt="License" /></a>
-</div>                
+			<h1 id="Namespaces">Namespaces</h1>
+			<div class="box">
+				<div class="box-body no-padding table-responsive">
+					<table class="table table-striped table-hover two-cols">
+						<thead>
+							<tr>
+								<th>Namespace</th>
+									<th>Summary</th>
+							</tr>
+						</thead>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification">FluentSpecification</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions">FluentSpecification<wbr>.Abstractions</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic">FluentSpecification<wbr>.Abstractions<wbr>.Generic</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation">FluentSpecification<wbr>.Abstractions<wbr>.Validation</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common">FluentSpecification<wbr>.Common</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions">FluentSpecification<wbr>.Common<wbr>.Abstractions</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core">FluentSpecification<wbr>.Core</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core.Composite">FluentSpecification<wbr>.Core<wbr>.Composite</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core.Utils">FluentSpecification<wbr>.Core<wbr>.Utils</a></td>
+									<td></td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core.Validation">FluentSpecification<wbr>.Core<wbr>.Validation</a></td>
+									<td></td>
+							</tr>
+					</table>
+				</div>
+			</div>
+		  
+	</section>
+                
             </div>           
             
             <!-- Footer -->
