@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>FluentSpecification.Abstractions</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Abstraction layer for Specification design pattern. Contains also interfaces and structures for validation and Linq scenarios.
+Commonly used types:
+- FluentSpecification.Abstractions.Generic.ISpecification
+- FluentSpecification.Abstractions.Generic.IValidationSpecification
+- FluentSpecification.Abstractions.Generic.ILinqSpecification</Description>
+  </PropertyGroup>
+  
+  <Import Project="..\Shared.msbuild" />
+
+</Project>

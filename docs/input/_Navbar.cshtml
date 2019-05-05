@@ -1,0 +1,23 @@
+@{
+    List<Tuple<string, string, int>> pages = Context
+        .Documents[Docs.Pages]
+        .Where(x => x.Bool(DocsKeys.ShowInNavbar, true))
+        .Where(x => x.FilePath(Keys.RelativeFilePath)?.FullPath?.StartsWith("index") == (bool?)false)
+        .Select(x => Tuple.Create(x.WithoutSettings.String(Keys.Title), Context.GetLink(x), x.Get<int>(DocsKeys.Order, 1000)))
+        .Where(x => !string.IsNullOrEmpty(x.Item1))
+        .OrderBy(x => x.Item3)
+        .ToList();
+    if(Documents[Docs.BlogPosts].Any())
+    {
+        pages.Add(Tuple.Create(Context.String(DocsKeys.BlogTitle), Context.GetLink(Context.String(DocsKeys.BlogPath)), 0));
+    }
+    if(Documents[Docs.Api].Any())
+    {
+        pages.Add(Tuple.Create("API", Context.GetLink(Context.DirectoryPath(DocsKeys.ApiPath)), 0));
+    }
+    foreach(Tuple<string, string, int> page in pages)
+    {
+        string active = Context.GetLink(Document).StartsWith(page.Item2) ? "active" : null;
+        <li class="@active"><a href="@(page.Item2)">@(page.Item1)</a></li>
+    }
+}

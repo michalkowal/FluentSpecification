@@ -1,0 +1,183 @@
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+@import "adminlte/variables.less";
+@import "adminlte/mixins.less";
+@import (less) "font-awesome.min.css";
+
+@media (min-width: 819px) { 
+	.main-header .logo {
+		width: 460px;
+	}
+	.layout-top-nav .main-header > .logo {
+		width: 460px;
+	}
+	body.layout-top-nav .main-header > .navbar,
+	.main-header .navbar {
+		margin-left: 460px;
+	}
+	#navbar-collapse {
+		float: right !important;
+	}
+}
+@media (max-width: 818px) {
+	.main-header .logo {
+	    position: absolute;
+		top: 0;
+		z-index: 1001;
+		background-color: transparent;
+		left: 50%;
+		padding: 0;
+		width: 460px;
+		margin-left: -230px;
+	}
+	.layout-top-nav .main-header > .logo {
+		width: 460px;
+	}
+	.main-header .logo .logo-lg {
+		width: 460px;
+	}
+}
+@media screen and (max-width: 579px) {
+	.main-header .logo {
+		position: absolute;
+		top: 0;
+		z-index: 1001;
+		background-color: transparent;
+		left: 50%;
+		padding: 0;
+		width: 65px;
+		margin-left: -25px
+	}
+	.layout-top-nav .main-header > .logo {
+		width: 65px;
+	}
+	.main-header .logo .logo-lg {
+		display: none;
+	}
+	.main-header .logo .logo-mini {
+		display: block;
+	}
+}
+body.layout-boxed.no-gutter .top-banner {
+	height: 55px;
+	border-bottom: 5px solid #000;
+}
+.main-header {	
+	border-bottom: 5px solid #000;
+	max-height: initial;
+}
+.main-header .logo {
+	line-height: initial;
+	background-color: initial;
+	padding: 0;
+}
+.main-sidebar {
+	padding-top: 55px;
+}
+.layout-top-nav .main-header > .logo {
+	padding: 0;
+	line-height: 0;
+}
+.navbar-toggle,
+.main-header .navbar .sidebar-toggle {
+	border-radius: 0;
+}
+
+/* For GitHub */
+.github-button:hover, .github-button.hover
+{	
+	background-color: darken(@brand-primary, 5%);
+	color: #fff;
+}
+
+.github-button:focus
+{	
+	background-color: darken(@brand-primary, 12%);
+	color: #fff;
+}
+
+.github-button {
+	z-index: 100;
+	position: fixed;
+	bottom: 0px;
+	right: 90px;
+	padding: 1em 3em;
+	background-color: @brand-primary;
+	border: 0;
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	font-family: sans-serif;
+	font-size: 9pt;
+	text-transform: uppercase;
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	cursor: hand;
+	-webkit-transition: all .3s ease;
+	transition: all .3s ease;
+	color: #fff;
+}
+
+a[class*="github-button"], a[class*="github-button"]:active, 
+a[class*="github-button"]:hover, a[class*="github-button"]:focus {
+	color: #fff;
+}
+
+.full-support {
+	.fa;
+	
+	font-size: 1.25em;
+	color: green;
+	&:before {
+		content: "\f00c";
+	}
+}
+
+.partial-support {
+	.fa;
+	
+	font-size: 1.25em;
+	color: orange;
+	&:before {
+		content: "\f12a";
+	}
+}
+
+.not-supported {
+	.fa;
+	
+	font-size: 1.25em;
+	color: red;
+	&:before {
+		content: "\f068";
+	}
+}
+
+table.support > thead > tr > th {
+	text-align: center;
+}
+
+table.support > tbody > tr > td {
+	text-align: center;
+}
+
+table.validation > thead > tr > th {
+	text-align: center;
+}
+
+table.validation > tbody > tr > td {
+	text-align: center;
+}
+
+.mermaid.abstraction {
+  overflow: hidden !important;
+  visibility: hidden !important;
+  &[data-processed="true"] {
+    visibility: visible !important;
+  }
+  min-height: 300px;
+
+  svg {
+    min-height: 300px;
+  }
+}

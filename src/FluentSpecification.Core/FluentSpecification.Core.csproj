@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>FluentSpecification.Core</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Core implementation of Specification design pattern. Contains:
+- Specifications composition (And, Or, AndNot, OrNot)
+- Specifications negation with validation handling (error message negation, linq negation etc.)
+- Error handling for validation scenarios
+- Linq expressions composing</Description>
+  </PropertyGroup>
+
+  <Import Project="..\Shared.msbuild" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

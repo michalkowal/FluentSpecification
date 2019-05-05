@@ -1,0 +1,6 @@
+#n Wyam.Highlight
+
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+
+Settings[DocsKeys.Logo] = "assets/img/logo-small.png";
+Settings["LogoMini"] = "assets/img/logo-mini.png";
