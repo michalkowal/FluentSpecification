@@ -29,58 +29,59 @@ using FluentSpecification;
 using FluentSpecification.Core;
 
 var customerSpec = Specification
-	// Specify not null Customer
-	.NotNull<Customer>()
+    // Specify not null Customer
+    .NotNull<Customer>()
 
-	// with Id between 100 and 200
-	.And()
-	.InclusiveBetween(c => c.CustomerId, 100, 200)
+    // with Id between 100 and 200
+    .And()
+    .InclusiveBetween(c => c.CustomerId, 100, 200)
 
-	// and LastName is "Smith"
-	.And()
-	.Equal(c => c.LastName, "Smith")
+    // and LastName is "Smith"
+    .And()
+    .Equal(c => c.LastName, "Smith")
 
-	// and Customer is active
-	.And()
-	.True(c => c.IsActive)
+    // and Customer is active
+    .And()
+    .True(c => c.IsActive)
 
-	// and Customer property "Email" is ...
-	.And(Specification.ForProperty<Customer, string>(c => c.Email, Specification
-		// ... valid email
-		.Email()
+    // and Customer property "Email" is ...
+    .And(Specification.ForProperty<Customer, string>(c => c.Email, Specification
+        // ... valid email
+        .Email()
 
-		// longer than 15 characters
-		.And()
-		.MinLength(15)
+        // longer than 15 characters
+        .And()
+        .MinLength(15)
 
-		// on "gmail.com"
-		.And()
-		.Match("^.*@gmail.com$")))
+        // on "gmail.com"
+        .And()
+        .Match("^.*@gmail.com$")))
 
-	// with not empty Item collection ...
-	.And()
-	.ForProperty(c => c.Items, Specification
-		.NotEmpty<ICollection<Item>>()
+    // with not empty Item collection ...
+    .And()
+    .ForProperty(c => c.Items, Specification
+        .NotEmpty<ICollection<Item>>()
 
-		// ... contains Item '1000'
-		.And()
-		.Contains(new Item { ItemId = 1000 }))
+        // ... contains Item '1000'
+        .And()
+        .Contains(new Item { ItemId = 1000 }))
 
-	// and Customer has credit card ...
-	.And()
-	.NotNull(c => c.CreditCard)
+    // and Customer has credit card ...
+    .And()
+    .NotNull(c => c.CreditCard)
 
-	// ... with valid number
-	.And()
-	.CreditCard(c => c.CreditCard.CardNumber)
+    // ... with valid number
+    .And()
+    .CreditCard(c => c.CreditCard.CardNumber)
 
-	// and credit card is valid between 2019-03-12 ...
-	.And(Specification
-		.GreaterThanOrEqual<Customer, DateTime>(c => c.CreditCard.ValidityDate, new DateTime(2019, 3, 12))
-		
-		// ... and 2019-05-31
-		.Or()
-		.LessThan(c => c.CreditCard.ValidityDate, new DateTime(2019, 6, 1)));
+    // and credit card is valid between 2019-03-12 ...
+    .And(Specification
+        .GreaterThanOrEqual<Customer, DateTime>(c => c.CreditCard.ValidityDate, 
+            new DateTime(2019, 3, 12))
+        
+        // ... and 2019-05-31
+        .Or()
+        .LessThan(c => c.CreditCard.ValidityDate, new DateTime(2019, 6, 1)));
 ```
 
 #### Is satisfied by
@@ -88,19 +89,19 @@ var customerSpec = Specification
 ```csharp
 customerSpec.IsSatisfiedBy(new Customer
 {
-	CustomerId = 125,
-	LastName = "Smith",
-	IsActive = true,
-	Email = "asmith@gmail.com",
-	Items = new List<Item>()
-	{
-		new Item { ItemId= 1000 }
-	},
-	CreditCard = new CreditCard
-	{
-		CardNumber = "5500 0000 0000 0004",
-		ValidityDate = DateTime.Parse("2019-03-12")
-	}
+    CustomerId = 125,
+    LastName = "Smith",
+    IsActive = true,
+    Email = "asmith@gmail.com",
+    Items = new List<Item>()
+    {
+        new Item { ItemId= 1000 }
+    },
+    CreditCard = new CreditCard
+    {
+        CardNumber = "5500 0000 0000 0004",
+        ValidityDate = DateTime.Parse("2019-03-12")
+    }
 }); // return true
 ```
 
@@ -109,17 +110,17 @@ customerSpec.IsSatisfiedBy(new Customer
 ```csharp
 customerSpec.IsSatisfiedBy(new Customer
 {
-	CustomerId = 90,
-	LastName = "Jones",
-	IsActive = false,
-	Email = "mjones@hotmail.com",
-	Items = null,
-	CreditCard = new CreditCard
-	{
-		CardNumber = "5500 0000 1",
-		ValidityDate = DateTime.Parse("2019-03-01")
-	}
-}, out var specResult);	// return false
+    CustomerId = 90,
+    LastName = "Jones",
+    IsActive = false,
+    Email = "mjones@hotmail.com",
+    Items = null,
+    CreditCard = new CreditCard
+    {
+        CardNumber = "5500 0000 1",
+        ValidityDate = DateTime.Parse("2019-03-01")
+    }
+}, out var specResult);    // return false
 
 Console.WriteLine(specResult.ToString());
 // Field 'CustomerId' value is not valid
@@ -142,13 +143,13 @@ Console.WriteLine(specResult.ToString());
 ```csharp
 var customers = new List<Customer>()
 {
-	// fill customers
+    // fill customers
 };
 var result = customers
-	.Where(customerSpec.AsPredicate()).ToList();
+    .Where(customerSpec.AsPredicate()).ToList();
 
 var dbResult = Context.Customers
-	.Where(customerSpec.GetExpression()).ToList();	// Or customerSpec.AsExpression()
+    .Where(customerSpec.GetExpression()).ToList();    // Or customerSpec.AsExpression()
 ```
 
 ## Built-in Specifications
