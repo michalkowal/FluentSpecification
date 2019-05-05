@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions.Generic;
@@ -34,6 +35,18 @@ namespace FluentSpecification.Core.Tests.Api
 
                 Assert.NotNull(exception);
                 Assert.IsType<NullReferenceException>(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_ReturnIsSatisfiedByFunction()
+            {
+                var sut = MockSpecification<IEnumerable<char>>.True();
+                Func<ChildFakeType, bool> expected = sut.IsSatisfiedBy;
+
+                var result = sut.AsPredicate<ChildFakeType>();
+
+                Assert.NotNull(result);
+                Assert.Equal(expected, result);
             }
         }
 
@@ -71,6 +84,29 @@ namespace FluentSpecification.Core.Tests.Api
                 Assert.NotNull(exception);
                 Assert.IsType<NullReferenceException>(exception);
             }
+
+            [Fact]
+            public void RelatedLinqTypes_ReturnIsSatisfiedByExecutionInExpression()
+            {
+                Expression<Func<IEnumerable<char>, bool>> expected = candidate => true;
+                ISpecification<IEnumerable<char>> sut = new MockLinqSpecification<IEnumerable<char>>(expected);
+
+                var expression = sut.AsExpression<ChildFakeType>();
+                var result = expression.ToString();
+
+                Assert.Matches(@"candidate => .*\.IsSatisfiedBy\(candidate\)", result);
+            }
+
+            [Fact]
+            public void RelatedTypes_ReturnIsSatisfiedByExecutionInExpression()
+            {
+                var sut = MockSpecification<IEnumerable<char>>.True();
+
+                var expression = sut.AsExpression<ChildFakeType>();
+                var result = expression.ToString();
+
+                Assert.Matches(@"candidate => .*\.IsSatisfiedBy\(candidate\)", result);
+            }
         }
 
         public class AsComplexSpecification
@@ -105,6 +141,30 @@ namespace FluentSpecification.Core.Tests.Api
 
                 Assert.NotNull(exception);
                 Assert.IsType<NullReferenceException>(exception);
+            }
+
+            [Fact]
+            public void RelatedComplexTypes_ReturnNewSpecificationAdapterObject()
+            {
+                ISpecification<IEnumerable<char>> sut = MockComplexSpecification<IEnumerable<char>>.True();
+
+                var result = sut.AsComplexSpecification<ChildFakeType>();
+
+                Assert.NotNull(result);
+                Assert.NotSame(sut, result);
+                Assert.IsType<SpecificationAdapter<ChildFakeType>>(result);
+            }
+
+            [Fact]
+            public void RelatedTypes_ReturnNewSpecificationAdapterObject()
+            {
+                var sut = MockSpecification<IEnumerable<char>>.True();
+
+                var result = sut.AsComplexSpecification<ChildFakeType>();
+
+                Assert.NotNull(result);
+                Assert.NotSame(sut, result);
+                Assert.IsType<SpecificationAdapter<ChildFakeType>>(result);
             }
         }
 

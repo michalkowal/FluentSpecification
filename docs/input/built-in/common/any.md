@@ -2,9 +2,12 @@ Description: Checks if <code>ISpecification&lt;T&gt;</code> is satisfied by ANY 
 Order: 2200
 DisplayDescription: true
 Support: Full;Full;Full;Partial
+ValidationError: <i>"All elements are not specified"</i>.;Also <i>Specification</i> adds prefix with element index, for each error returned from element <i>Specification</i>.
+ValidationParameters: SpecificationForAny:<i>Specification</i> object passed in constructor.
 ---
 
 *Any* for **empty** collections are always invalid (return *false*).  
+*Candidate* must implement `IEnumerable<>` interface.  
 Note that, `string` is also a collection, and can be used with this *Specification*.
 
 # Usage

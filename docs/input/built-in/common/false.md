@@ -2,6 +2,7 @@ Description: Checks if candidate is False.
 Order: 300
 DisplayDescription: true
 Support: Full;Full;Full;Full
+ValidationError: <i>"Value is True"</i>.;<i>"Value is False"</i> - for negation.
 ---
 
 # Usage

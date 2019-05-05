@@ -31,7 +31,15 @@ namespace FluentSpecification.Core.Composite
             bool overall;
             try
             {
-                var converted = (TCast) (object) candidate;
+                TCast converted;
+                if (candidate is TCast)
+                {
+                    converted = (TCast)(object)candidate;
+                }
+                else
+                {
+                    converted = (TCast)Convert.ChangeType(candidate, typeof(TCast));
+                }
                 overall = _specification.IsSatisfiedBy(converted, out specResult);
             }
             catch (InvalidCastException)

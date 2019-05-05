@@ -15,7 +15,7 @@ namespace FluentSpecification.Common
     ///             <term>Comparer</term><description><see cref="IEqualityComparer{T}" /> - if available.</description>
     ///         </item>
     ///         <item>
-    ///             <term>LessThan operator</term><description>if defined for <typeparamref name="T" />.</description>
+    ///             <term>LessThanOrEqual and GreaterThanOrEqual operator</term><description>if defined for <typeparamref name="T" />.</description>
     ///         </item>
     ///         <item>
     ///             <term>CompareTo() method</term>

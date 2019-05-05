@@ -2,6 +2,8 @@ Description: Checks if string candidate match a given <i>Regex</i> pattern.
 Order: 2000
 DisplayDescription: true
 Support: Full;Full;Full;None
+ValidationError: <i>"String not match pattern [{Pattern}]"</i>.;<i>"String match pattern [{Pattern}]"</i> - for negation.
+ValidationParameters: Pattern:Regex pattern passed in constructor.
 ---
 
 # Usage

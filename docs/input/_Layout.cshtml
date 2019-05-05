@@ -40,7 +40,8 @@ else
 		</section>
 	}
 	<section class="content">
-		@Html.Partial("_Support") 
+		@Html.Partial("_Support")
+		@Html.Partial("_Validation") 
 		@if(Model.Bool("DisplayDescription", false) && Model.ContainsKey(DocsKeys.Description))
 		{
 			<h1>Info</h1>

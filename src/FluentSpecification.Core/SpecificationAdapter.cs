@@ -196,13 +196,25 @@ namespace FluentSpecification.Core
 
         private MethodInfo GetBaseSpecificationMethodInfo(string methodName, Type specType)
         {
-            return specType.GetTypeInfo()
+            var result = specType.GetTypeInfo()
                        .GetDeclaredMethods(methodName)
                        .FirstOrDefault(m => m.ReturnParameter != null &&
                                             m.ReturnParameter.ParameterType == typeof(bool) &&
                                             m.GetParameters().Length == 1 &&
-                                            m.GetParameters().First().ParameterType == typeof(T)) ??
-                   GetBaseSpecificationMethodInfo(methodName, specType.GetTypeInfo().BaseType);
+                                            m.GetParameters().First().ParameterType == typeof(T));
+
+            if (result == null && specType.GetTypeInfo().BaseType != null)
+            {
+                result = GetBaseSpecificationMethodInfo(methodName, specType.GetTypeInfo().BaseType);
+            }
+
+            return result ?? specType.GetTypeInfo()
+                       .GetDeclaredMethods(methodName)
+                       .FirstOrDefault(m => m.ReturnParameter != null &&
+                                            m.ReturnParameter.ParameterType == typeof(bool) &&
+                                            m.GetParameters().Length == 1 &&
+                                            m.GetParameters().First().ParameterType.GetTypeInfo()
+                                                .IsAssignableFrom(typeof(T).GetTypeInfo()));
         }
 
         private MethodInfo GetIsNotSatisfiedByMethodInfo(Type specType)

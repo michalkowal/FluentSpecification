@@ -153,14 +153,31 @@ a[class*="github-button"]:hover, a[class*="github-button"]:focus {
 	}
 }
 
-table.support {
-	width: 25%;
-}
-
 table.support > thead > tr > th {
 	text-align: center;
 }
 
 table.support > tbody > tr > td {
 	text-align: center;
+}
+
+table.validation > thead > tr > th {
+	text-align: center;
+}
+
+table.validation > tbody > tr > td {
+	text-align: center;
+}
+
+.mermaid.abstraction {
+  overflow: hidden !important;
+  visibility: hidden !important;
+  &[data-processed="true"] {
+    visibility: visible !important;
+  }
+  min-height: 300px;
+
+  svg {
+    min-height: 300px;
+  }
 }

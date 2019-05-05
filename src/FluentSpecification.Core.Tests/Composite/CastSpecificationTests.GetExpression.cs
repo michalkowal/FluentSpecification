@@ -108,6 +108,18 @@ namespace FluentSpecification.Core.Tests.Composite
             }
 
             [Fact]
+            public void InvokeCastNumeric_ReturnTrue()
+            {
+                var candidate = 0.0;
+                var specification = MockSpecification<int>.True();
+                var sut = new CastSpecification<double, int>(specification);
+
+                var result = sut.GetExpression().Compile().Invoke(candidate);
+
+                Assert.True(result);
+            }
+
+            [Fact]
             public void InvokeFalseSpecification_ReturnFalse()
             {
                 var candidate = 0;

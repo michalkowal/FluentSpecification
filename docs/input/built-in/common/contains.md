@@ -2,9 +2,12 @@ Description: Checks if candidate contains expected element or string.
 Order: 1700
 DisplayDescription: true
 Support: Full;Full;Full;Partial;Full
+ValidationError: <i>"String not contains [{Expected}]"</i>.;<i>"Collection not contains [{Expected}]"</i>.;<i>"String contains [{Expected}]"</i> - for negation.;<i>"Collection contains [{Expected}]"</i> - for negation.
+ValidationParameters: Expected:Expected object passed in constructor.
 ---
 
-`ContainsSpecification` occurs in two versions: for **strings** and for **collections**.
+`ContainsSpecification` occurs in two versions: for **strings** and for **collections**.  
+For collections, *candidate* must implement `IEnumerable<>` interface.  
 
 # Usage
 

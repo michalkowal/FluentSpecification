@@ -2,6 +2,7 @@ Description: Checks if string is valid email address.
 Order: 1800
 DisplayDescription: true
 Support: Full;Full;Full;None
+ValidationError: <i>"String is invalid email"</i>.;<i>"String is valid email"</i> - for negation.
 ---
 
 # Usage

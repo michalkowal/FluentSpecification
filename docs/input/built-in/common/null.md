@@ -2,6 +2,7 @@ Description: Checks if candidate is null.
 Order: 400
 DisplayDescription: true
 Support: Full;Full;Full;Partial
+ValidationError: <i>"Object is not null"</i>.;<i>"Object is null"</i> - for negation.
 ---
 
 # Usage

@@ -2,6 +2,7 @@ Description: Checks if candidate is empty.
 Order: 500
 DisplayDescription: true
 Support: Full;Full;Full;Partial
+ValidationError: <i>"Object is not empty"</i>.;<i>"Object is empty"</i> - for negation.
 ---
 
 Empty means:

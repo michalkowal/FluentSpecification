@@ -1,4 +1,5 @@
-﻿using FluentSpecification.Abstractions;
+﻿using System.Collections.Generic;
+using FluentSpecification.Abstractions;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
@@ -60,6 +61,34 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sut = new NotSpecification<object>(specification);
 
                 var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(null));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.GetExpression().Compile().Invoke(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedNegatableTypes_NoException()
+            {
+                var specification = MockNegatableComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.GetExpression().Compile().Invoke(new ChildFakeType());
+                });
 
                 Assert.Null(exception);
             }

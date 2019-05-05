@@ -1,4 +1,5 @@
-﻿using FluentSpecification.Abstractions.Validation;
+﻿using System.Collections.Generic;
+using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
@@ -49,6 +50,34 @@ namespace FluentSpecification.Core.Tests.Composite
 
                 Assert.Null(exception);
             }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedNegatableTypes_NoException()
+            {
+                var specification = MockNegatableComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
         }
 
         public class IsSatisfiedBySpecificationResult
@@ -91,6 +120,34 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sut = new NotSpecification<object>(specification);
 
                 var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType(), out _);
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedNegatableTypes_NoException()
+            {
+                var specification = MockNegatableComplexSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new NotSpecification<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType(), out _);
+                });
 
                 Assert.Null(exception);
             }

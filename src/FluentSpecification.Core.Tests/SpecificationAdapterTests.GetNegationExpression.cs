@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
@@ -49,6 +50,34 @@ namespace FluentSpecification.Core.Tests
                 var sut = new SpecificationAdapter<object>(specification);
 
                 var exception = Record.Exception(() => sut.GetNegationExpression().Compile().Invoke(null));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.GetNegationExpression().Compile().Invoke(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedNegatableTypes_NoException()
+            {
+                var specification = new MockLinqSpecification<IEnumerable<char>>(obj => true, obj => false);
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.GetNegationExpression().Compile().Invoke(new ChildFakeType());
+                });
 
                 Assert.Null(exception);
             }

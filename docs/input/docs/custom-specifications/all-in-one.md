@@ -41,6 +41,33 @@ public class VipCustomerSpecification :
 }
 ```
 
+## AsComplexSpecification
+
+All *Specifications* can be converted to `IComplexSpecification<T>` by [`AsComplexSpecification`](/FluentSpecification/api/FluentSpecification.Core/Specification/479F235B) method.  
+After conversion, created *Specification* supports `IValidationSpecification<T>` and `ILinqSpecification<T>`, regardless of whether the base *Specification* implements these interfaces.  
+  
+**BE AWARE!** As described in [Concept section](/FluentSpecification/docs/concept/core-specifications#everything-is-complex) *Linq expressions* produced in this way, will not work with *LinqToEntities* (`Ef 6` scenarios). In `EF Core` should works fine.  
+For `EF 6`, `ILinqSpecification<T>` implementation with special *expressions* building is necessary. See [Linq Specification implementing](/FluentSpecification/docs/custom-specifications/linq-specification).
+
+```csharp
+// Simple Specification implementation
+public class VipCustomerSpecification :
+    ISpecification<Customer>
+{
+    public bool IsSatisfiedBy(Customer candidate)
+    {
+        return candidate
+            .Comments
+            .Split(new char[] {';'})
+            .Contains("Vip");
+    }
+}
+
+var vipCustomerSpec = new VipCustomerSpecification()
+    .AsComplexSpecification();
+var expression = vipCustomerSpec.GetExpression();	// You can do that!
+```
+
 # ComplexSpecification inheritance
 
 In [`FluentSpecification.Core`](/FluentSpecification/api/FluentSpecification.Core/) package, there is a special `abstract class`, prepared for complex *Specifications* - `ComplexSpecification<T>`.  

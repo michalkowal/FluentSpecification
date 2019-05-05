@@ -27,25 +27,24 @@ namespace FluentSpecification.Integration.Tests.Data
                 .NotLengthBetween(c => c.Comments, 1, 10)
                 .And()
                 .ForProperty(c => c.Items, Specification
-                    .Cast<ICollection<Item>, IEnumerable<Item>>(Specification
-                        .NotEmpty<IEnumerable<Item>>()
-                        .And()
-                        .NotMinLength(10)
-                        .And()
-                        .IsType(typeof(IEnumerable))
-                        .And()
-                        .IsNotType(typeof(ReadOnlyCollection<Item>))
-                        .And(Specification
-                            .Contains<IEnumerable<Item>, Item>(new Item {ItemId = 1000})
-                            .Or()
-                            .Any(Specification.Or(Specification
-                                    .NotContains<Item>(i => i.Name, "Super")
-                                    .And()
-                                    .ExclusiveBetween(i => i.Price, 50, 51),
-                                Specification
-                                    .NotMaxLength<Item, string>(i => i.Name, 3)
-                                    .And()
-                                    .NotLessThan(i => i.Price, 1.5))))))
+                    .NotEmpty<ICollection<Item>>()
+                    .And()
+                    .NotMinLength(10)
+                    .And()
+                    .IsType(typeof(IEnumerable))
+                    .And()
+                    .IsNotType(typeof(ReadOnlyCollection<Item>))
+                    .And(Specification
+                        .Contains<ICollection<Item>, Item>(new Item {ItemId = 1000})
+                        .Or()
+                        .Any(Specification.Or(Specification
+                                .NotContains<Item>(i => i.Name, "Super")
+                                .And()
+                                .ExclusiveBetween(i => i.Price, 50, 51),
+                            Specification
+                                .NotMaxLength<Item, string>(i => i.Name, 3)
+                                .And()
+                                .Cast(i => i.Price, Specification.NotLessThan(1))))))
                 .And()
                 .NotNull(c => c.CreditCard)
                 .And()

@@ -39,6 +39,20 @@ namespace FluentSpecification.Core.Tests.Composite
 
                 Assert.False(result);
             }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new PropertySpecification<FakeType, string>(
+                        ft => ft.Second, specification);
+                    sut.IsSatisfiedBy(new FakeType());
+                });
+
+                Assert.Null(exception);
+            }
         }
 
         public class IsSatisfiedBySpecificationResult
@@ -74,6 +88,20 @@ namespace FluentSpecification.Core.Tests.Composite
                     {
                         {"PropertySpecification", specification}
                     }));
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new PropertySpecification<FakeType, string>(
+                        ft => ft.Second, specification);
+                    sut.IsSatisfiedBy(new FakeType(), out _);
+                });
+
+                Assert.Null(exception);
             }
         }
     }

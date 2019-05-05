@@ -85,6 +85,18 @@ namespace FluentSpecification.Core.Tests.Composite
             }
 
             [Fact]
+            public void CastNumeric_ReturnTrue()
+            {
+                var candidate = 0.0;
+                var specification = MockSpecification<int>.True();
+                var sut = new CastSpecification<double, int>(specification);
+
+                var result = sut.IsSatisfiedBy(candidate);
+
+                Assert.True(result);
+            }
+
+            [Fact]
             public void FalseSpecification_ReturnFalse()
             {
                 var candidate = 0;
@@ -204,6 +216,21 @@ namespace FluentSpecification.Core.Tests.Composite
                 var expected = new SpecificationResult(2, true,
                     "CastSpecification<Int32,Object>(TrueMockSpecification<Object>)");
                 var sut = new CastSpecification<int, object>(specification);
+
+                var overall = sut.IsSatisfiedBy(candidate, out var result);
+
+                Assert.True(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer());
+            }
+
+            [Fact]
+            public void CastNumeric_ReturnTrue()
+            {
+                var candidate = 0.0;
+                var specification = MockSpecification<int>.True();
+                var expected = new SpecificationResult(2, true,
+                    "CastSpecification<Double,Int32>(TrueMockSpecification<Int32>)");
+                var sut = new CastSpecification<double, int>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
 

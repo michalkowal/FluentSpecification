@@ -2,6 +2,8 @@ Description: Checks if candidate object is greater than expected value.
 Order: 900
 DisplayDescription: true
 Support: Full;Full;Full;Partial;Full
+ValidationError: <i>"Object is lower than or equal to [{GreaterThan}]"</i>.;<i>"Object is greater than [{GreaterThan}]"</i> - for negation.
+ValidationParameters: GreaterThan:Limit passed in constructor.
 ---
 
 *Specification* for comparison use (in order):

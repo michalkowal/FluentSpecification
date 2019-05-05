@@ -362,7 +362,7 @@ namespace FluentSpecification.Core.Utils
         {
             return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>) ||
                    type.GetTypeInfo().ImplementedInterfaces
-                       .Any(i => i.Name.StartsWith(nameof(IEnumerable)) && i.GenericTypeArguments.Length == 1);
+                       .Any(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace FluentSpecification.Core.Utils
             return type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
                 ? type.GenericTypeArguments.First()
                 : type.GetTypeInfo().ImplementedInterfaces
-                    .Where(i => i.Name.StartsWith(nameof(IEnumerable)) && i.GenericTypeArguments.Length == 1)
+                    .Where(i => i.GetTypeInfo().IsGenericType && i.GetGenericTypeDefinition() == typeof(IEnumerable<>))
                     .Select(t => t.GenericTypeArguments.First())
                     .FirstOrDefault();
         }

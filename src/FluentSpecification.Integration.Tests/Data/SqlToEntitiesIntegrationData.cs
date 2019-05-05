@@ -34,7 +34,7 @@ namespace FluentSpecification.Integration.Tests.Data
                             Specification
                                 .NotMaxLength<Item, string>(i => i.Name, 3)
                                 .And()
-                                .NotLessThan(i => i.Price, 1.5)))))
+                                .Cast(i => i.Price, Specification.NotLessThan(1))))))
                 .And()
                 .NotNull(c => c.CreditCard)
                 .And(Specification

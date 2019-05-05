@@ -1,0 +1,37 @@
+@if(Model.ContainsKey("ValidationParameters") || Model.ContainsKey("ValidationError"))
+{
+	<h1>Validation result</h1>
+	@if(Model.ContainsKey("ValidationError"))
+	{
+		var errors = Model.String("ValidationError").Split(new char[] { ';' });
+		<h2>Error</h2>
+		<div class="lead">
+			@foreach(var err in errors)
+			{
+				<p>@Html.Raw(err)</p>
+			}
+		</div>
+	}
+	@if(Model.ContainsKey("ValidationParameters"))
+	{
+		var parameters = Model.String("ValidationParameters").Split(new char[] { ';' });
+		<h2>Parameters</h2>
+		<div class="row">
+			<div class="col-md-7 col-sm-10 col-xs-12">
+				<table class="table validation">
+					<thead>
+						<th>Parameter</th>
+						<th>Description</th>
+					</thead>
+					<tbody>
+						@foreach(var param in parameters)
+						{
+							var keyValue = param.Split(new char[] { ':' });
+							<tr><td><b>@Html.Raw(keyValue[0])</b></td><td>@Html.Raw(keyValue[1])</td></tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	}
+}

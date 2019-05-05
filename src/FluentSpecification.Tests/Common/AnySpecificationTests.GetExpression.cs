@@ -68,6 +68,19 @@ namespace FluentSpecification.Tests.Common
             }
 
             [Fact]
+            public void InvokeRelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<int>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new AnySpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                    sut.GetExpression().Compile().Invoke(new EquatableFakeType[0]);
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
             public void NonGenericILinqSpecification_ReturnBaseExpressionAsAbstractExpression()
             {
                 ISpecification<string> specification = MockComplexSpecification<string>.True();

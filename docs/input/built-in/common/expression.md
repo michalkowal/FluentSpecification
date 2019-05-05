@@ -2,6 +2,8 @@ Description: Checks if external <i>Linq</i> <i>Expression</i> is satisfied by ca
 Order: 100
 DisplayDescription: true
 Support: Partial;Full;Partial;Partial
+ValidationError: <i>"Specification doesn't meet expression:[{Expression}]"</i>.
+ValidationParameters: Expression:<i>Linq expression</i> object passed in constructor.
 ---
 
 # Usage

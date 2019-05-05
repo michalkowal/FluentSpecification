@@ -2,6 +2,8 @@ Description: Checks if candidate object is equal to expected object.
 Order: 600
 DisplayDescription: true
 Support: Full;Full;Full;Partial;Full
+ValidationError: <i>"Object is not equal to [{Expected}]"</i>.;<i>"Object is equal to [{Expected}]"</i> - for negation.
+ValidationParameters: Expected:Expected object passed in constructor.
 ---
 
 *Specification* for comparison use (in order):

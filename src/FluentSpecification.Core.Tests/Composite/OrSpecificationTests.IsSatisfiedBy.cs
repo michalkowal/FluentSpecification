@@ -1,4 +1,5 @@
-﻿using FluentSpecification.Abstractions.Validation;
+﻿using System.Collections.Generic;
+using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
@@ -45,6 +46,21 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sut = new OrSpecification<object>(left, right);
 
                 var exception = Record.Exception(() => sut.IsSatisfiedBy(null));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var left = MockSpecification<IEnumerable<char>>.True();
+                var right = MockSpecification<ChildFakeType>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new OrSpecification<ChildFakeType>(left, right);
+                    sut.IsSatisfiedBy(new ChildFakeType());
+                });
 
                 Assert.Null(exception);
             }
@@ -106,6 +122,21 @@ namespace FluentSpecification.Core.Tests.Composite
                 var sut = new OrSpecification<object>(left, right);
 
                 var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var left = MockSpecification<IEnumerable<char>>.True();
+                var right = MockSpecification<ChildFakeType>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new OrSpecification<ChildFakeType>(left, right);
+                    sut.IsSatisfiedBy(new ChildFakeType(), out _);
+                });
 
                 Assert.Null(exception);
             }

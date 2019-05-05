@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Core.Tests.Data;
@@ -45,6 +46,34 @@ namespace FluentSpecification.Core.Tests
                 var sut = new SpecificationAdapter<object>(specification);
 
                 var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(null));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedTypes_NoException()
+            {
+                var specification = new MockLinqSpecification<IEnumerable<char>>(obj => true);
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.GetExpression().Compile().Invoke(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void InvokeRelatedLinqTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.GetExpression().Compile().Invoke(new ChildFakeType());
+                });
 
                 Assert.Null(exception);
             }

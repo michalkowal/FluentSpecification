@@ -1,4 +1,5 @@
-﻿using FluentSpecification.Abstractions.Validation;
+﻿using System.Collections.Generic;
+using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
 using FluentSpecification.Tests.Sdk;
@@ -42,6 +43,20 @@ namespace FluentSpecification.Core.Tests
 
                 Assert.True(result);
             }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType());
+                });
+
+                Assert.Null(exception);
+            }
         }
 
         public class IsSatisfiedBySpecificationResult
@@ -81,6 +96,34 @@ namespace FluentSpecification.Core.Tests
                 var sut = new SpecificationAdapter<object>(specification);
 
                 var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType(), out _);
+                });
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedValidableTypes_NoException()
+            {
+                var specification = MockValidationSpecification<IEnumerable<char>>.True();
+
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new SpecificationAdapter<ChildFakeType>(specification);
+                    sut.IsSatisfiedBy(new ChildFakeType(), out _);
+                });
 
                 Assert.Null(exception);
             }

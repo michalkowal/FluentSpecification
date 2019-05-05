@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Core.Composite;
@@ -90,6 +91,20 @@ namespace FluentSpecification.Core.Tests.Composite
 
                 Assert.NotNull(exception);
                 Assert.IsType<NullReferenceException>(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockSpecification<IEnumerable<char>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new PropertySpecification<FakeType, string>(
+                        ft => ft.Second, specification);
+                    sut.GetExpression().Compile().Invoke(new FakeType());
+                });
+
+                Assert.Null(exception);
             }
         }
     }

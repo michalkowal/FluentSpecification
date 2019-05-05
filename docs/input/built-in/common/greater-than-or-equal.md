@@ -2,6 +2,8 @@ Description: Checks if candidate object is greater than or equal to expected val
 Order: 1000
 DisplayDescription: true
 Support: Full;Full;Full;Partial;Full
+ValidationError: <i>"Object is lower than [{GreaterThan}]"</i>.;<i>"Object is greater than or equal to [{GreaterThan}]"</i> - for negation.
+ValidationParameters: GreaterThan:Limit passed in constructor.
 ---
 
 *Specification* for comparison use (in order):

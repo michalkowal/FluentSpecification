@@ -50,6 +50,19 @@ namespace FluentSpecification.Tests.Common
 
                 Assert.Null(exception);
             }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<int>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new AnySpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                    sut.IsSatisfiedBy(new EquatableFakeType[0]);
+                });
+
+                Assert.Null(exception);
+            }
         }
 
         public class IsSatisfiedBySpecificationResult
@@ -95,6 +108,19 @@ namespace FluentSpecification.Tests.Common
                 var specification = MockComplexSpecification<int>.True();
                 var sut = new AnySpecification<int[], int>(specification, true);
                 var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
+
+                Assert.Null(exception);
+            }
+
+            [Fact]
+            public void RelatedTypes_NoException()
+            {
+                var specification = MockComplexSpecification<IEnumerable<int>>.True();
+                var exception = Record.Exception(() =>
+                {
+                    var sut = new AnySpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                    sut.IsSatisfiedBy(new EquatableFakeType[0], out _);
+                });
 
                 Assert.Null(exception);
             }

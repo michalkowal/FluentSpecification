@@ -2,6 +2,7 @@ Description: Checks if string is valid credit card number.
 Order: 1900
 DisplayDescription: true
 Support: Full;Full;Full;None
+ValidationError: <i>"Value is not correct credit card number"</i>.;<i>"Value is correct credit card number"</i> - for negation.
 ---
 
 Supported card types:
