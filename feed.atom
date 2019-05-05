@@ -4,5 +4,32 @@
 	<title>FluentSpecification</title>
 	<link rel="self" href="http://michalkowal.github.io/FluentSpecification" />
 	<rights>2019</rights>
-	<updated>2019-05-05T09:24:35Z</updated>
+	<updated>2019-05-05T09:45:30Z</updated>
+	<entry>
+		<id>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.0.0</id>
+		<title>New Release - 1.0.0</title>
+		<author>
+			<name>Michał Kowal</name>
+		</author>
+		<link href="http://michalkowal.github.io/FluentSpecification/blog/new-release-1.0.0" />
+		<updated>2019-05-05T00:00:00Z</updated>
+		<content>&lt;h1 id="release"&gt;1.0.0 Release&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;FluentSpecification&lt;/em&gt; is stable and ready to use!&lt;/p&gt;
+&lt;p&gt;In this release:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification.Abstractions&lt;/code&gt; package - abstraction layer for &lt;em&gt;Specification Design Pattern&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification.Core&lt;/code&gt; package - base implementations and utils.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification&lt;/code&gt; package with many common &lt;em&gt;Specifications&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;48&lt;/strong&gt; built-in &lt;em&gt;Specifications&lt;/em&gt; with &lt;em&gt;validation&lt;/em&gt; and &lt;em&gt;Linq&lt;/em&gt; support.&lt;/li&gt;
+&lt;li&gt;About 4000 unit tests.&lt;/li&gt;
+&lt;li&gt;Integration tests with &lt;code&gt;Entity Framework&lt;/code&gt; (core and normal).&lt;/li&gt;
+&lt;li&gt;Support for &lt;em&gt;.NET Standard 1.0-2.0&lt;/em&gt; (and &lt;em&gt;.NET Core 1.0-2.2&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;Support for &lt;em&gt;.NET Framework 4.5&lt;/em&gt; and greater.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Fluent API&lt;/em&gt; - simple and understandable way to use &lt;em&gt;Specifications&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Full documentation with description about concept, usage, customizing and built-in &lt;em&gt;Specifications&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;API description&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+		<summary>&lt;p&gt;&lt;em&gt;FluentSpecification&lt;/em&gt; is stable and ready to use!&lt;/p&gt;</summary>
+	</entry>
 </feed>

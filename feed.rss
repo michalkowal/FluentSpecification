@@ -1,11 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
 	<channel>
 		<title>FluentSpecification</title>
 		<link>http://michalkowal.github.io/FluentSpecification</link>
 		<description />
 		<copyright>2019</copyright>
-		<pubDate>Sun, 05 May 2019 09:24:35 GMT</pubDate>
-		<lastBuildDate>Sun, 05 May 2019 09:24:35 GMT</lastBuildDate>
+		<pubDate>Sun, 05 May 2019 09:45:30 GMT</pubDate>
+		<lastBuildDate>Sun, 05 May 2019 09:45:30 GMT</lastBuildDate>
+		<item>
+			<title>New Release - 1.0.0</title>
+			<link>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.0.0</link>
+			<description>&lt;p&gt;&lt;em&gt;FluentSpecification&lt;/em&gt; is stable and ready to use!&lt;/p&gt;</description>
+			<author>Michał Kowal</author>
+			<guid>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.0.0</guid>
+			<pubDate>Sun, 05 May 2019 00:00:00 GMT</pubDate>
+			<content:encoded>&lt;h1 id="release"&gt;1.0.0 Release&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;FluentSpecification&lt;/em&gt; is stable and ready to use!&lt;/p&gt;
+&lt;p&gt;In this release:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification.Abstractions&lt;/code&gt; package - abstraction layer for &lt;em&gt;Specification Design Pattern&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification.Core&lt;/code&gt; package - base implementations and utils.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FluentSpecification&lt;/code&gt; package with many common &lt;em&gt;Specifications&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;48&lt;/strong&gt; built-in &lt;em&gt;Specifications&lt;/em&gt; with &lt;em&gt;validation&lt;/em&gt; and &lt;em&gt;Linq&lt;/em&gt; support.&lt;/li&gt;
+&lt;li&gt;About 4000 unit tests.&lt;/li&gt;
+&lt;li&gt;Integration tests with &lt;code&gt;Entity Framework&lt;/code&gt; (core and normal).&lt;/li&gt;
+&lt;li&gt;Support for &lt;em&gt;.NET Standard 1.0-2.0&lt;/em&gt; (and &lt;em&gt;.NET Core 1.0-2.2&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;Support for &lt;em&gt;.NET Framework 4.5&lt;/em&gt; and greater.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Fluent API&lt;/em&gt; - simple and understandable way to use &lt;em&gt;Specifications&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Full documentation with description about concept, usage, customizing and built-in &lt;em&gt;Specifications&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;API description&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+		</item>
 	</channel>
 </rss>
