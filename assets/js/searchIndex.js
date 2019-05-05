@@ -39,48 +39,118 @@ var searchModule = function() {
     a(
         {
             id:0,
-            title:"BaseGreaterCompareSpecification",
-            content:"BaseGreaterCompareSpecification",
+            title:"MaxLengthSpecification",
+            content:"MaxLengthSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1',
-            title:"BaseGreaterCompareSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1',
+            title:"MaxLengthSpecification<T>",
             description:""
         }
     );
     a(
         {
             id:1,
-            title:"ICompositeSpecification",
-            content:"ICompositeSpecification",
+            title:"ILinqSpecification",
+            content:"ILinqSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1',
-            title:"ICompositeSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions/ILinqSpecification',
+            title:"ILinqSpecification",
             description:""
         }
     );
     a(
         {
             id:2,
-            title:"SpecificationResultGenerator",
-            content:"SpecificationResultGenerator",
+            title:"LessThanOrEqualSpecification",
+            content:"LessThanOrEqualSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Validation/SpecificationResultGenerator',
-            title:"SpecificationResultGenerator",
+            url:'/FluentSpecification/api/FluentSpecification.Common/LessThanOrEqualSpecification_1',
+            title:"LessThanOrEqualSpecification<T>",
             description:""
         }
     );
     a(
         {
             id:3,
+            title:"InclusiveBetweenSpecification",
+            content:"InclusiveBetweenSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/InclusiveBetweenSpecification_1',
+            title:"InclusiveBetweenSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:4,
+            title:"AndSpecification",
+            content:"AndSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/AndSpecification_1',
+            title:"AndSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:5,
+            title:"BaseBetweenSpecification",
+            content:"BaseBetweenSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseBetweenSpecification_1',
+            title:"BaseBetweenSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:6,
+            title:"SpecificationResult",
+            content:"SpecificationResult",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult',
+            title:"SpecificationResult",
+            description:""
+        }
+    );
+    a(
+        {
+            id:7,
+            title:"ISpecification",
+            content:"ISpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1',
+            title:"ISpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:8,
             title:"Specification",
             content:"Specification",
             description:'',
@@ -94,161 +164,49 @@ var searchModule = function() {
     );
     a(
         {
-            id:4,
-            title:"LessThanSpecification",
-            content:"LessThanSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/LessThanSpecification_1',
-            title:"LessThanSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:5,
-            title:"IsTypeSpecification",
-            content:"IsTypeSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/IsTypeSpecification_1',
-            title:"IsTypeSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:6,
-            title:"EmailSpecification",
-            content:"EmailSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/EmailSpecification',
-            title:"EmailSpecification",
-            description:""
-        }
-    );
-    a(
-        {
-            id:7,
-            title:"BaseCompareSpecification",
-            content:"BaseCompareSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCompareSpecification_1',
-            title:"BaseCompareSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:8,
-            title:"BaseCollectionSpecification",
-            content:"BaseCollectionSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCollectionSpecification_2',
-            title:"BaseCollectionSpecification<T, TType>",
-            description:""
-        }
-    );
-    a(
-        {
             id:9,
-            title:"TypeExtensions",
-            content:"TypeExtensions",
+            title:"LengthSpecification",
+            content:"LengthSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Utils/TypeExtensions',
-            title:"TypeExtensions",
+            url:'/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1',
+            title:"LengthSpecification<T>",
             description:""
         }
     );
     a(
         {
             id:10,
-            title:"AnySpecification",
-            content:"AnySpecification",
+            title:"CreditCardSpecification",
+            content:"CreditCardSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/AnySpecification_2',
-            title:"AnySpecification<T, TType>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/CreditCardSpecification',
+            title:"CreditCardSpecification",
             description:""
         }
     );
     a(
         {
             id:11,
-            title:"BaseLessCompareSpecification",
-            content:"BaseLessCompareSpecification",
+            title:"IComplexSpecification",
+            content:"IComplexSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1',
-            title:"BaseLessCompareSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1',
+            title:"IComplexSpecification<T>",
             description:""
         }
     );
     a(
         {
             id:12,
-            title:"ExpressionParameterRebinder",
-            content:"ExpressionParameterRebinder",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Utils/ExpressionParameterRebinder',
-            title:"ExpressionParameterRebinder",
-            description:""
-        }
-    );
-    a(
-        {
-            id:13,
-            title:"EqualSpecification",
-            content:"EqualSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/EqualSpecification_1',
-            title:"EqualSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:14,
-            title:"ExpressionSpecification",
-            content:"ExpressionSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/ExpressionSpecification_1',
-            title:"ExpressionSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:15,
             title:"ContainsSpecification",
             content:"ContainsSpecification",
             description:'',
@@ -257,6 +215,48 @@ var searchModule = function() {
         {
             url:'/FluentSpecification/api/FluentSpecification.Common/ContainsSpecification',
             title:"ContainsSpecification",
+            description:""
+        }
+    );
+    a(
+        {
+            id:13,
+            title:"INegatableLinqSpecification",
+            content:"INegatableLinqSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableLinqSpecification_1',
+            title:"INegatableLinqSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:14,
+            title:"EmptySpecification",
+            content:"EmptySpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/EmptySpecification_1',
+            title:"EmptySpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:15,
+            title:"CompositeSpecification",
+            content:"CompositeSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/CompositeSpecification_1',
+            title:"CompositeSpecification<T>",
             description:""
         }
     );
@@ -277,76 +277,6 @@ var searchModule = function() {
     a(
         {
             id:17,
-            title:"ValidationSpecification",
-            content:"ValidationSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1',
-            title:"ValidationSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:18,
-            title:"FalseSpecification",
-            content:"FalseSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/FalseSpecification',
-            title:"FalseSpecification",
-            description:""
-        }
-    );
-    a(
-        {
-            id:19,
-            title:"OrSpecification",
-            content:"OrSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/OrSpecification_1',
-            title:"OrSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:20,
-            title:"InclusiveBetweenSpecification",
-            content:"InclusiveBetweenSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/InclusiveBetweenSpecification_1',
-            title:"InclusiveBetweenSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:21,
-            title:"IValidationSpecification",
-            content:"IValidationSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1',
-            title:"IValidationSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:22,
             title:"ContainsSpecification",
             content:"ContainsSpecification",
             description:'',
@@ -360,29 +290,99 @@ var searchModule = function() {
     );
     a(
         {
-            id:23,
-            title:"INegatableValidationSpecification",
-            content:"INegatableValidationSpecification",
+            id:18,
+            title:"GreaterThanOrEqualSpecification",
+            content:"GreaterThanOrEqualSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableValidationSpecification_1',
-            title:"INegatableValidationSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/GreaterThanOrEqualSpecification_1',
+            title:"GreaterThanOrEqualSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:19,
+            title:"FailedSpecification",
+            content:"FailedSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Validation/FailedSpecification',
+            title:"FailedSpecification",
+            description:""
+        }
+    );
+    a(
+        {
+            id:20,
+            title:"AllSpecification",
+            content:"AllSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/AllSpecification_2',
+            title:"AllSpecification<T, TType>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:21,
+            title:"AnySpecification",
+            content:"AnySpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/AnySpecification_2',
+            title:"AnySpecification<T, TType>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:22,
+            title:"INegatableSpecification",
+            content:"INegatableSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableSpecification_1',
+            title:"INegatableSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:23,
+            title:"ExpressionSpecification",
+            content:"ExpressionSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/ExpressionSpecification_1',
+            title:"ExpressionSpecification<T>",
             description:""
         }
     );
     a(
         {
             id:24,
-            title:"ILinqSpecification",
-            content:"ILinqSpecification",
+            title:"LengthBetweenSpecification",
+            content:"LengthBetweenSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1',
-            title:"ILinqSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1',
+            title:"LengthBetweenSpecification<T>",
             description:""
         }
     );
@@ -409,132 +409,6 @@ var searchModule = function() {
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1',
-            title:"ISpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:27,
-            title:"TrueSpecification",
-            content:"TrueSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/TrueSpecification',
-            title:"TrueSpecification",
-            description:""
-        }
-    );
-    a(
-        {
-            id:28,
-            title:"ExclusiveBetweenSpecification",
-            content:"ExclusiveBetweenSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/ExclusiveBetweenSpecification_1',
-            title:"ExclusiveBetweenSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:29,
-            title:"NegatableValidationSpecification",
-            content:"NegatableValidationSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core/NegatableValidationSpecification_1',
-            title:"NegatableValidationSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:30,
-            title:"BaseLengthSpecification",
-            content:"BaseLengthSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1',
-            title:"BaseLengthSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:31,
-            title:"CompositeSpecification",
-            content:"CompositeSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/CompositeSpecification_1',
-            title:"CompositeSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:32,
-            title:"SpecificationResult",
-            content:"SpecificationResult",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult',
-            title:"SpecificationResult",
-            description:""
-        }
-    );
-    a(
-        {
-            id:33,
-            title:"TraceMessageModifier",
-            content:"TraceMessageModifier",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Validation/TraceMessageModifier',
-            title:"TraceMessageModifier",
-            description:""
-        }
-    );
-    a(
-        {
-            id:34,
-            title:"CastSpecification",
-            content:"CastSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/CastSpecification_2',
-            title:"CastSpecification<T, TCast>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:35,
-            title:"ISpecification",
-            content:"ISpecification",
-            description:'',
-            tags:''
-        },
-        {
             url:'/FluentSpecification/api/FluentSpecification.Abstractions/ISpecification',
             title:"ISpecification",
             description:""
@@ -542,77 +416,105 @@ var searchModule = function() {
     );
     a(
         {
-            id:36,
-            title:"AndSpecification",
-            content:"AndSpecification",
+            id:27,
+            title:"EmailSpecification",
+            content:"EmailSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/AndSpecification_1',
-            title:"AndSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/EmailSpecification',
+            title:"EmailSpecification",
             description:""
         }
     );
     a(
         {
-            id:37,
-            title:"EmptySpecification",
-            content:"EmptySpecification",
+            id:28,
+            title:"BaseGreaterCompareSpecification",
+            content:"BaseGreaterCompareSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/EmptySpecification_1',
-            title:"EmptySpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1',
+            title:"BaseGreaterCompareSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:38,
-            title:"IComplexSpecification",
-            content:"IComplexSpecification",
+            id:29,
+            title:"BaseCompareSpecification",
+            content:"BaseCompareSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1',
-            title:"IComplexSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCompareSpecification_1',
+            title:"BaseCompareSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:39,
-            title:"AllSpecification",
-            content:"AllSpecification",
+            id:30,
+            title:"BaseCollectionSpecification",
+            content:"BaseCollectionSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/AllSpecification_2',
-            title:"AllSpecification<T, TType>",
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseCollectionSpecification_2',
+            title:"BaseCollectionSpecification<T, TType>",
             description:""
         }
     );
     a(
         {
-            id:40,
-            title:"BaseBetweenSpecification",
-            content:"BaseBetweenSpecification",
+            id:31,
+            title:"ICompositeSpecification",
+            content:"ICompositeSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseBetweenSpecification_1',
-            title:"BaseBetweenSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ICompositeSpecification_1',
+            title:"ICompositeSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:41,
+            id:32,
+            title:"IsTypeSpecification",
+            content:"IsTypeSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/IsTypeSpecification_1',
+            title:"IsTypeSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:33,
+            title:"LessThanSpecification",
+            content:"LessThanSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/LessThanSpecification_1',
+            title:"LessThanSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:34,
             title:"PropertySpecification",
             content:"PropertySpecification",
             description:'',
@@ -626,91 +528,21 @@ var searchModule = function() {
     );
     a(
         {
-            id:42,
-            title:"MaxLengthSpecification",
-            content:"MaxLengthSpecification",
+            id:35,
+            title:"BaseLessCompareSpecification",
+            content:"BaseLessCompareSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1',
-            title:"MaxLengthSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1',
+            title:"BaseLessCompareSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:43,
-            title:"GreaterThanSpecification",
-            content:"GreaterThanSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/GreaterThanSpecification_1',
-            title:"GreaterThanSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:44,
-            title:"MinLengthSpecification",
-            content:"MinLengthSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1',
-            title:"MinLengthSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:45,
-            title:"LengthSpecification",
-            content:"LengthSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1',
-            title:"LengthSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:46,
-            title:"GreaterThanOrEqualSpecification",
-            content:"GreaterThanOrEqualSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/GreaterThanOrEqualSpecification_1',
-            title:"GreaterThanOrEqualSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:47,
-            title:"LessThanOrEqualSpecification",
-            content:"LessThanOrEqualSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Common/LessThanOrEqualSpecification_1',
-            title:"LessThanOrEqualSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:48,
+            id:36,
             title:"Specification",
             content:"Specification",
             description:'',
@@ -724,35 +556,105 @@ var searchModule = function() {
     );
     a(
         {
-            id:49,
-            title:"INegatableSpecification",
-            content:"INegatableSpecification",
+            id:37,
+            title:"BaseLengthSpecification",
+            content:"BaseLengthSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableSpecification_1',
-            title:"INegatableSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLengthSpecification_1',
+            title:"BaseLengthSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:50,
-            title:"MatchSpecification",
-            content:"MatchSpecification",
+            id:38,
+            title:"CastSpecification",
+            content:"CastSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/MatchSpecification',
-            title:"MatchSpecification",
+            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/CastSpecification_2',
+            title:"CastSpecification<T, TCast>",
             description:""
         }
     );
     a(
         {
-            id:51,
+            id:39,
+            title:"IValidationSpecification",
+            content:"IValidationSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1',
+            title:"IValidationSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:40,
+            title:"TraceMessageModifier",
+            content:"TraceMessageModifier",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Validation/TraceMessageModifier',
+            title:"TraceMessageModifier",
+            description:""
+        }
+    );
+    a(
+        {
+            id:41,
+            title:"NegatableValidationSpecification",
+            content:"NegatableValidationSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core/NegatableValidationSpecification_1',
+            title:"NegatableValidationSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:42,
+            title:"FalseSpecification",
+            content:"FalseSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/FalseSpecification',
+            title:"FalseSpecification",
+            description:""
+        }
+    );
+    a(
+        {
+            id:43,
+            title:"ExclusiveBetweenSpecification",
+            content:"ExclusiveBetweenSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/ExclusiveBetweenSpecification_1',
+            title:"ExclusiveBetweenSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:44,
             title:"NotSpecification",
             content:"NotSpecification",
             description:'',
@@ -766,71 +668,169 @@ var searchModule = function() {
     );
     a(
         {
-            id:52,
-            title:"FailedSpecification",
-            content:"FailedSpecification",
+            id:45,
+            title:"EqualSpecification",
+            content:"EqualSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Validation/FailedSpecification',
-            title:"FailedSpecification",
+            url:'/FluentSpecification/api/FluentSpecification.Common/EqualSpecification_1',
+            title:"EqualSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:53,
-            title:"CreditCardSpecification",
-            content:"CreditCardSpecification",
+            id:46,
+            title:"OrSpecification",
+            content:"OrSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/CreditCardSpecification',
-            title:"CreditCardSpecification",
+            url:'/FluentSpecification/api/FluentSpecification.Core.Composite/OrSpecification_1',
+            title:"OrSpecification<T>",
             description:""
         }
     );
     a(
         {
-            id:54,
-            title:"INegatableLinqSpecification",
-            content:"INegatableLinqSpecification",
-            description:'',
-            tags:''
-        },
-        {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableLinqSpecification_1',
-            title:"INegatableLinqSpecification<T>",
-            description:""
-        }
-    );
-    a(
-        {
-            id:55,
+            id:47,
             title:"ILinqSpecification",
             content:"ILinqSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Abstractions/ILinqSpecification',
-            title:"ILinqSpecification",
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1',
+            title:"ILinqSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:48,
+            title:"ValidationSpecification",
+            content:"ValidationSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1',
+            title:"ValidationSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:49,
+            title:"GreaterThanSpecification",
+            content:"GreaterThanSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/GreaterThanSpecification_1',
+            title:"GreaterThanSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:50,
+            title:"INegatableValidationSpecification",
+            content:"INegatableValidationSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Abstractions.Generic/INegatableValidationSpecification_1',
+            title:"INegatableValidationSpecification<T>",
+            description:""
+        }
+    );
+    a(
+        {
+            id:51,
+            title:"SpecificationResultGenerator",
+            content:"SpecificationResultGenerator",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Validation/SpecificationResultGenerator',
+            title:"SpecificationResultGenerator",
+            description:""
+        }
+    );
+    a(
+        {
+            id:52,
+            title:"TrueSpecification",
+            content:"TrueSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/TrueSpecification',
+            title:"TrueSpecification",
+            description:""
+        }
+    );
+    a(
+        {
+            id:53,
+            title:"MatchSpecification",
+            content:"MatchSpecification",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Common/MatchSpecification',
+            title:"MatchSpecification",
+            description:""
+        }
+    );
+    a(
+        {
+            id:54,
+            title:"TypeExtensions",
+            content:"TypeExtensions",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Utils/TypeExtensions',
+            title:"TypeExtensions",
+            description:""
+        }
+    );
+    a(
+        {
+            id:55,
+            title:"ExpressionParameterRebinder",
+            content:"ExpressionParameterRebinder",
+            description:'',
+            tags:''
+        },
+        {
+            url:'/FluentSpecification/api/FluentSpecification.Core.Utils/ExpressionParameterRebinder',
+            title:"ExpressionParameterRebinder",
             description:""
         }
     );
     a(
         {
             id:56,
-            title:"LengthBetweenSpecification",
-            content:"LengthBetweenSpecification",
+            title:"MinLengthSpecification",
+            content:"MinLengthSpecification",
             description:'',
             tags:''
         },
         {
-            url:'/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1',
-            title:"LengthBetweenSpecification<T>",
+            url:'/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1',
+            title:"MinLengthSpecification<T>",
             description:""
         }
     );
