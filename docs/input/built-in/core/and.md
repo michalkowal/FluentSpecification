@@ -26,6 +26,27 @@ Specification
     .IsSatisfiedBy(true);   // false
 ```
 
+## Multiple composition ways
+
+Below all examples, generate the same result.
+
+```csharp
+Specification
+    .NotNull<string>()
+    .And()
+    .NotEmail();
+
+Specification
+    .NotNull<string>()
+    .And(Specification
+        .Email());
+
+// Create EmailSpecification with parameter-less constructor
+Specification
+    .NotNull<string>()
+    .And<string, EmailSpecification>();
+```
+
 ## Grouping
 
 ### A && (B || C)

@@ -22,7 +22,7 @@ negation.IsSatisfiedBy("lorem ipsum");    // true
 
 ## Multiple negation ways
 
-Below all three examples, generate the same result.
+Below all examples, generate the same result.
 
 ```csharp
 Specification

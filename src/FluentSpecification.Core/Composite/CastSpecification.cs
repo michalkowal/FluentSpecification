@@ -40,6 +40,21 @@ namespace FluentSpecification.Core.Composite
             _expression = CreateExpression(_specification.GetExpression());
         }
 
+        private TCast ConvertCandidate(T candidate)
+        {
+            TCast converted;
+            if (candidate is TCast)
+            {
+                converted = (TCast)(object)candidate;
+            }
+            else
+            {
+                converted = (TCast)Convert.ChangeType(candidate, typeof(TCast));
+            }
+
+            return converted;
+        }
+
         /// <summary>
         ///     Checks if <c>Specification</c> is satisfied by <paramref name="candidate" /> object.
         /// </summary>
@@ -56,15 +71,7 @@ namespace FluentSpecification.Core.Composite
         {
             try
             {
-                TCast converted;
-                if (candidate is TCast)
-                {
-                    converted = (TCast) (object) candidate;
-                }
-                else
-                {
-                    converted = (TCast) Convert.ChangeType(candidate, typeof(TCast));
-                }
+                TCast converted = ConvertCandidate(candidate);
                 return _specification.IsSatisfiedBy(converted);
             }
             catch (InvalidCastException)

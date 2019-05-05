@@ -20,6 +20,8 @@ Other important features:
 - **`EF Core support`** - all specifications are tested with *EF Core* on real database and ca be used without errors.
 - **`EF 6 partial support`** - many of specifications support *LinqToEntities* (*LinqToSql*) and can be used in *Entity Framework 6* queries.
 
+[Full documentation](https://michalkowal.github.io/FluentSpecification/)
+
 ## Example
 
 ```csharp
@@ -200,10 +202,5 @@ Core implementation of **Specification design pattern**. Contains:
 Install-Package FluentSpecification
 ```
 Common implementation of small reusable Specifications. All Specifications are based on **Specification design pattern**. Specifications support validation scenarios and also can be used like *Linq* expressions, because they are designed and implemented especially for *Entity Framework Core* support and partially for *Entity Framework 6* and tested with these frameworks.
-
-## Quick Links
-- [Full documentation](https://michalkowal.github.io/FluentSpecification/)
-- [Specification pattern](https://en.wikipedia.org/wiki/Specification_pattern)
-- [Domain Driven Design](https://en.wikipedia.org/wiki/Domain-driven_design)
 
 [![License](https://img.shields.io/github/license/michalkowal/FluentSpecification.svg?style=popout-square&logo=apache&logoColor=%23D22128)](https://github.com/michalkowal/FluentSpecification/blob/master/LICENSE)

@@ -30,7 +30,7 @@ spec.IsSatisfiedBy(null);   // false
 var customerSpec = Specification.Equal<Customer, string>(
     c => c.Comments, null);
 
-customerSpec.IsSatisfiedBy(new Customer {Comments = null}); // true
+customerSpec.IsSatisfiedBy(new Customer { Comments = null }); // true
 customerSpec.IsSatisfiedBy(new Customer { Comments = "VIP" }); // false
 ```
 
@@ -50,7 +50,7 @@ spec.IsSatisfiedBy(null);   // true
 var customerSpec = Specification.NotEqual<Customer, string>(
     c => c.Comments, null);
 
-customerSpec.IsSatisfiedBy(new Customer {Comments = null}); // false
+customerSpec.IsSatisfiedBy(new Customer { Comments = null }); // false
 customerSpec.IsSatisfiedBy(new Customer { Comments = "VIP" }); // true
 ```
 

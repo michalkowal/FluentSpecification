@@ -58,6 +58,6 @@ var spec = Specification
     .CreditCard<Customer>(c => c.CreditCard.CardNumber);
 
 spec.IsSatisfiedBy(new Customer {CreditCard = new CreditCard {CardNumber = null}}); // return false, because Specification result
-spec.IsSatisfiedBy(new Customer {CreditCard = null});   // return false - NullReferenceException
-spec.IsSatisfiedBy(null);   // return false - NullReferenceException
+spec.IsSatisfiedBy(new Customer {CreditCard = null});   // return false
+spec.IsSatisfiedBy(null);   // return false
 ```

@@ -26,6 +26,25 @@ Specification
     .IsSatisfiedBy(true);   // false
 ```
 
+Below all examples, generate the same result.
+
+```csharp
+Specification
+    .NotNull<string>()
+    .Or()
+    .NotEmail();
+
+Specification
+    .NotNull<string>()
+    .Or(Specification
+        .Email());
+
+// Create EmailSpecification with parameter-less constructor
+Specification
+    .NotNull<string>()
+    .Or<string, EmailSpecification>();
+```
+
 ## Grouping
 
 ### A || (B && C)
