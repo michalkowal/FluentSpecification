@@ -2370,3 +2370,6 @@ table.validation > tbody > tr > td {
 .mermaid.abstraction svg {
   min-height: 300px;
 }
+.feature > i.fa {
+  font-size: 1.25em;
+}

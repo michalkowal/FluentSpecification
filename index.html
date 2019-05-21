@@ -118,19 +118,35 @@
     </div>
 </div>
 
-<div class="container">                
-    <h1>Features</h1>
-    <hr />
-    <ul>
-        <li><code><b>Fluent API</b></code> - allows to build and combine specifications in simple and clear way.</li>
-        <li><code><b>Built-in specifications</b></code> - with validation and <i>Linq expression</i> support. Many of them available as negation.</li>
-        <li><code><b>Objects validation</b></code> - special result with error messages, trace of all used specifications, specifications parameters etc. 
-        Can be used not only for domain, but also for DTOs and user input, when you need to log result or present it on UI.</li>
-        <li><code><b>Linq expression</b></code> - specifications can be used in collections querying. Business logic of repositories can be separated to specifications and use interchangeably.</li>
-        <li><code><b>EF Core support</b></code> - all specifications are tested with <i>EF Core</i> on real database and ca be used without errors.</li>
-        <li><code><b>EF 6 partial support</b></code> - many of specifications support <i>LinqToEntities</i> (<i>LinqToSql</i>) and can be used in <i>Entity Framework 6</i> queries.</li>
-    </ul>
-    
+<div class="container"> 
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-cogs"></i> Fluent API</h2>
+		<p>Allows to build and combine specifications in simple and clear way.</p>
+	</div>
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-clipboard"></i> Built-in specifications</h2>
+		<p>With validation and <i>Linq expression</i> support. Many of them available as negation.</p>
+	</div>
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-check-circle"></i> Objects validation</h2>
+		<p>Special result with error messages, trace of all used specifications, specifications parameters etc. 
+        Can be used not only for domain, but also for DTOs and user input, when you need to log result or present it on UI.</p>
+	</div>
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-link"></i> Linq expression</h2>
+		<p>Specifications can be used in collections querying. Business logic of repositories can be separated to specifications and use interchangeably.</p>
+	</div>
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-database"></i> EF Core support</h2>
+		<p>All specifications are tested with <i>EF Core</i> on real database and ca be used without errors.</p>
+	</div>
+	<div class="col-md-4">
+		<h2 class="feature no-anchor"><i class="fa fa-bolt"></i> EF 6 partial support</h2>
+		<p>Many of specifications support <i>LinqToEntities</i> (<i>LinqToSql</i>) and can be used in <i>Entity Framework 6</i> queries.</p>
+	</div>
+</div>
+
+<div class="container">
     <h1>Usage</h1>
     <hr />
 <pre><code class="language-csharp hljs"><span class="hljs-keyword">using</span> FluentSpecification;
