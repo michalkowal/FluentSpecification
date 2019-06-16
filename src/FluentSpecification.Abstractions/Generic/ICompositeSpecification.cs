@@ -8,6 +8,7 @@ namespace FluentSpecification.Abstractions.Generic
     /// <typeparam name="T">Type of candidate to verify.</typeparam>
     [PublicAPI]
     public interface ICompositeSpecification<T>
+        : ISpecification<T>
     {
         /// <summary>
         ///     "Left" <c>Specification</c>, ready for compose.
@@ -29,6 +30,6 @@ namespace FluentSpecification.Abstractions.Generic
         ///     <see cref="BaseSpecification" /> and <paramref name="other" />.
         /// </returns>
         [NotNull]
-        IComplexSpecification<T> Compose([NotNull] ISpecification<T> other);
+        ISpecification<T> Compose([NotNull] ISpecification<T> other);
     }
 }

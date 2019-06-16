@@ -1,5 +1,4 @@
-﻿using System;
-using FluentSpecification.Abstractions.Generic;
+﻿using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core.Composite;
 using JetBrains.Annotations;
 
@@ -11,22 +10,19 @@ namespace FluentSpecification.Core.Utils
     /// </summary>
     /// <typeparam name="T">Type of candidate to verify.</typeparam>
     internal sealed class AndFluentProxy<T> :
-        ICompositeSpecification<T>
+        BaseFluentProxy<T>
     {
         /// <summary>
         ///     Create Proxy object
         /// </summary>
         /// <param name="baseSpecification">"Left" <c>Specification</c>, ready for compose.</param>
         public AndFluentProxy([NotNull] ISpecification<T> baseSpecification)
+            : base(baseSpecification)
         {
-            BaseSpecification = baseSpecification ?? throw new ArgumentNullException(nameof(baseSpecification));
         }
 
         /// <inheritdoc />
-        public ISpecification<T> BaseSpecification { get; }
-
-        /// <inheritdoc />
-        public IComplexSpecification<T> Compose(ISpecification<T> other)
+        protected override IComplexSpecification<T> OnCompose(ISpecification<T> other)
         {
             return new AndSpecification<T>(BaseSpecification, other);
         }

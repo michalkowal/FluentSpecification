@@ -5,12 +5,13 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Common;
+using FluentSpecification.Core;
 using FluentSpecification.Core.Composite;
 using JetBrains.Annotations;
 
 namespace FluentSpecification
 {
-    public static partial class Specification
+    public static partial class SpecificationExtensions
     {
         /// <summary>
         ///     <para>
@@ -27,34 +28,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Expression<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Expression<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, bool>> expression)
         {
-            return self.Compose(Expression(expression));
-        }
-
-        /// <summary>
-        ///     <para>
-        ///         Composes <paramref name="self" /> <c>Specification</c> with <see cref="PropertySpecification{T,TProperty}" />:
-        ///     </para>
-        ///     <para>
-        ///         Verifies if <c>Specification</c> is satisfied by candidate property value.
-        ///     </para>
-        /// </summary>
-        /// <typeparam name="T">Type of candidate.</typeparam>
-        /// <typeparam name="TProperty">Type of candidate property to verify.</typeparam>
-        /// <param name="self">Self specification.</param>
-        /// <param name="selector">Candidate property selector.</param>
-        /// <param name="specification">Specification to verify value of candidate property.</param>
-        /// <returns>Composed complex <c>Specification</c>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
-        [PublicAPI]
-        [NotNull]
-        public static IComplexSpecification<T> ForProperty<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
-            [NotNull] Expression<Func<T, TProperty>> selector,
-            [NotNull] ISpecification<TProperty> specification)
-        {
-            return self.Compose(ForProperty(selector, specification));
+            var other = new ExpressionSpecification<T>(expression);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -71,9 +51,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Null<T>([NotNull] this ICompositeSpecification<T> self)
+        public static IComplexSpecification<T> Null<T>([NotNull] this ISpecification<T> self)
         {
-            return self.Compose(Null<T>());
+            var other = new NullSpecification<T>();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -90,9 +73,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotNull<T>([NotNull] this ICompositeSpecification<T> self)
+        public static IComplexSpecification<T> NotNull<T>([NotNull] this ISpecification<T> self)
         {
-            return self.Compose(NotNull<T>());
+            var other = new NullSpecification<T>().Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -109,9 +95,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Empty<T>([NotNull] this ICompositeSpecification<T> self)
+        public static IComplexSpecification<T> Empty<T>([NotNull] this ISpecification<T> self)
         {
-            return self.Compose(Empty<T>());
+            var other = new EmptySpecification<T>(Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -128,9 +117,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotEmpty<T>([NotNull] this ICompositeSpecification<T> self)
+        public static IComplexSpecification<T> NotEmpty<T>([NotNull] this ISpecification<T> self)
         {
-            return self.Compose(NotEmpty<T>());
+            var other = new EmptySpecification<T>(Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -149,11 +141,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Equal<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Equal<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T expected,
             [CanBeNull] IEqualityComparer<T> comparer = null)
         {
-            return self.Compose(Equal(expected, comparer));
+            var other = new EqualSpecification<T>(expected, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -172,11 +167,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotEqual<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotEqual<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notExpected,
             [CanBeNull] IEqualityComparer<T> comparer = null)
         {
-            return self.Compose(NotEqual(notExpected, comparer));
+            var other = new EqualSpecification<T>(notExpected, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -194,10 +192,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Length<T>([NotNull] this ICompositeSpecification<T> self, int length)
+        public static IComplexSpecification<T> Length<T>([NotNull] this ISpecification<T> self, int length)
             where T : IEnumerable
         {
-            return self.Compose(Length<T>(length));
+            var other = new LengthSpecification<T>(length, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -215,10 +216,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLength<T>([NotNull] this ICompositeSpecification<T> self, int length)
+        public static IComplexSpecification<T> NotLength<T>([NotNull] this ISpecification<T> self, int length)
             where T : IEnumerable
         {
-            return self.Compose(NotLength<T>(length));
+            var other = new LengthSpecification<T>(length, Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -236,11 +240,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> MinLength<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> MinLength<T>([NotNull] this ISpecification<T> self,
             int minLength)
             where T : IEnumerable
         {
-            return self.Compose(MinLength<T>(minLength));
+            var other = new MinLengthSpecification<T>(minLength, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -258,11 +265,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotMinLength<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotMinLength<T>([NotNull] this ISpecification<T> self,
             int minLength)
             where T : IEnumerable
         {
-            return self.Compose(NotMinLength<T>(minLength));
+            var other = new MinLengthSpecification<T>(minLength, Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -280,11 +290,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> MaxLength<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> MaxLength<T>([NotNull] this ISpecification<T> self,
             int maxLength)
             where T : IEnumerable
         {
-            return self.Compose(MaxLength<T>(maxLength));
+            var other = new MaxLengthSpecification<T>(maxLength, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -302,11 +315,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotMaxLength<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotMaxLength<T>([NotNull] this ISpecification<T> self,
             int maxLength)
             where T : IEnumerable
         {
-            return self.Compose(NotMaxLength<T>(maxLength));
+            var other = new MaxLengthSpecification<T>(maxLength, Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -325,12 +341,15 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> LengthBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> LengthBetween<T>([NotNull] this ISpecification<T> self,
             int minLength,
             int maxLength)
             where T : IEnumerable
         {
-            return self.Compose(LengthBetween<T>(minLength, maxLength));
+            var other = new LengthBetweenSpecification<T>(minLength, maxLength, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -350,12 +369,15 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLengthBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotLengthBetween<T>([NotNull] this ISpecification<T> self,
             int minLength,
             int maxLength)
             where T : IEnumerable
         {
-            return self.Compose(NotLengthBetween<T>(minLength, maxLength));
+            var other = new LengthBetweenSpecification<T>(minLength, maxLength, Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -375,11 +397,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> LessThan<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> LessThan<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T lessThan,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(LessThan(lessThan, comparer));
+            var other = new LessThanSpecification<T>(lessThan, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -399,11 +424,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLessThan<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotLessThan<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notLessThan,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(NotLessThan(notLessThan, comparer));
+            var other = new LessThanSpecification<T>(notLessThan, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -423,11 +451,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> LessThanOrEqual<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> LessThanOrEqual<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T lessThan,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(LessThanOrEqual(lessThan, comparer));
+            var other = new LessThanOrEqualSpecification<T>(lessThan, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -448,10 +479,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLessThanOrEqual<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotLessThanOrEqual<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notLessThan, [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(NotLessThanOrEqual(notLessThan, comparer));
+            var other = new LessThanOrEqualSpecification<T>(notLessThan, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -471,11 +505,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> GreaterThan<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> GreaterThan<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T greaterThan,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(GreaterThan(greaterThan, comparer));
+            var other = new GreaterThanSpecification<T>(greaterThan, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -496,11 +533,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotGreaterThan<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotGreaterThan<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notGreaterThan,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(NotGreaterThan(notGreaterThan, comparer));
+            var other = new GreaterThanSpecification<T>(notGreaterThan, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -520,10 +560,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> GreaterThanOrEqual<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> GreaterThanOrEqual<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T greaterThan, [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(GreaterThanOrEqual(greaterThan, comparer));
+            var other = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -544,10 +587,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="T" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotGreaterThanOrEqual<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotGreaterThanOrEqual<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notGreaterThan, [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(NotGreaterThanOrEqual(notGreaterThan, comparer));
+            var other = new GreaterThanOrEqualSpecification<T>(notGreaterThan, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -566,11 +612,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="pattern" /> is null or empty.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> Match([NotNull] this ICompositeSpecification<string> self,
+        public static IComplexSpecification<string> Match([NotNull] this ISpecification<string> self,
             [NotNull] string pattern,
             RegexOptions options = RegexOptions.None)
         {
-            return self.Compose(Match(pattern, options));
+            var other = new MatchSpecification(pattern, options);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -589,11 +638,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="pattern" /> is null or empty.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> NotMatch([NotNull] this ICompositeSpecification<string> self,
+        public static IComplexSpecification<string> NotMatch([NotNull] this ISpecification<string> self,
             [NotNull] string pattern,
             RegexOptions options = RegexOptions.None)
         {
-            return self.Compose(NotMatch(pattern, options));
+            var other = new MatchSpecification(pattern, options).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -609,9 +661,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> Email([NotNull] this ICompositeSpecification<string> self)
+        public static IComplexSpecification<string> Email([NotNull] this ISpecification<string> self)
         {
-            return self.Compose(Email());
+            var other = new EmailSpecification();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -627,9 +682,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> NotEmail([NotNull] this ICompositeSpecification<string> self)
+        public static IComplexSpecification<string> NotEmail([NotNull] this ISpecification<string> self)
         {
-            return self.Compose(NotEmail());
+            var other = new EmailSpecification().Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -650,11 +708,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="from" /> is greater than <paramref name="to" />.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> ExclusiveBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> ExclusiveBetween<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T from, [CanBeNull] T to,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(ExclusiveBetween(from, to, comparer));
+            var other = new ExclusiveBetweenSpecification<T>(from, to, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -676,11 +737,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="notFrom" /> is greater than <paramref name="notTo" />.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotExclusiveBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotExclusiveBetween<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notFrom,
             [CanBeNull] T notTo, [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(NotExclusiveBetween(notFrom, notTo, comparer));
+            var other = new ExclusiveBetweenSpecification<T>(notFrom, notTo, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -701,11 +765,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="from" /> is greater than <paramref name="to" />.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> InclusiveBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> InclusiveBetween<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T from, [CanBeNull] T to,
             [CanBeNull] IComparer<T> comparer = null)
         {
-            return self.Compose(InclusiveBetween(from, to, comparer));
+            var other = new InclusiveBetweenSpecification<T>(from, to, comparer);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -727,11 +794,14 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="notFrom" /> is greater than <paramref name="notTo" />.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotInclusiveBetween<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotInclusiveBetween<T>([NotNull] this ISpecification<T> self,
             [CanBeNull] T notFrom,
             [CanBeNull] T notTo, IComparer<T> comparer = null)
         {
-            return self.Compose(NotInclusiveBetween(notFrom, notTo, comparer));
+            var other = new InclusiveBetweenSpecification<T>(notFrom, notTo, comparer).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -746,9 +816,12 @@ namespace FluentSpecification
         /// <returns>Composed complex <c>Specification</c>.</returns>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> CreditCard([NotNull] this ICompositeSpecification<string> self)
+        public static IComplexSpecification<string> CreditCard([NotNull] this ISpecification<string> self)
         {
-            return self.Compose(CreditCard());
+            var other = new CreditCardSpecification();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -763,9 +836,12 @@ namespace FluentSpecification
         /// <returns>Composed complex <c>Specification</c>.</returns>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> NotCreditCard([NotNull] this ICompositeSpecification<string> self)
+        public static IComplexSpecification<string> NotCreditCard([NotNull] this ISpecification<string> self)
         {
-            return self.Compose(NotCreditCard());
+            var other = new CreditCardSpecification().Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -784,11 +860,27 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> All<T, TType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> All<T, TType>([NotNull] this ISpecification<T> self,
             [NotNull] ISpecification<TType> allSpecification)
             where T : IEnumerable<TType>
         {
-            return self.Compose(All<T, TType>(allSpecification));
+            var other = new AllSpecification<T, TType>(allSpecification, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
+        }
+
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> All<T, TType>([NotNull] this ISpecification<T> self,
+            [NotNull] Func<ISpecification<TType>, ISpecification<TType>> creator)
+            where T : IEnumerable<TType>
+        {
+            var allSpecification = creator(Specification.For<TType>());
+            var other = new AllSpecification<T, TType>(allSpecification, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -807,11 +899,27 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Any<T, TType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Any<T, TType>([NotNull] this ISpecification<T> self,
             [NotNull] ISpecification<TType> anySpecification)
             where T : IEnumerable<TType>
         {
-            return self.Compose(Any<T, TType>(anySpecification));
+            var other = new AnySpecification<T, TType>(anySpecification, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
+        }
+
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> Any<T, TType>([NotNull] this ISpecification<T> self,
+            [NotNull] Func<ISpecification<TType>, ISpecification<TType>> creator)
+            where T : IEnumerable<TType>
+        {
+            var anySpecification = creator(Specification.For<TType>());
+            var other = new AnySpecification<T, TType>(anySpecification, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -827,9 +935,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<bool> True([NotNull] this ICompositeSpecification<bool> self)
+        public static IComplexSpecification<bool> True([NotNull] this ISpecification<bool> self)
         {
-            return self.Compose(True());
+            var other = new TrueSpecification();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -845,9 +956,12 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<bool> False([NotNull] this ICompositeSpecification<bool> self)
+        public static IComplexSpecification<bool> False([NotNull] this ISpecification<bool> self)
         {
-            return self.Compose(False());
+            var other = new FalseSpecification();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -866,10 +980,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expected" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> IsType<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> IsType<T>([NotNull] this ISpecification<T> self,
             [NotNull] Type expected)
         {
-            return self.Compose(IsType<T>(expected));
+            var other = new IsTypeSpecification<T>(expected);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -888,10 +1005,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="notExpected" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> IsNotType<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> IsNotType<T>([NotNull] this ISpecification<T> self,
             [NotNull] Type notExpected)
         {
-            return self.Compose(IsNotType<T>(notExpected));
+            var other = new IsTypeSpecification<T>(notExpected).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -911,12 +1031,15 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Contains<T, TType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Contains<T, TType>([NotNull] this ISpecification<T> self,
             [CanBeNull] TType expected,
             [CanBeNull] IEqualityComparer<TType> comparer = null)
             where T : IEnumerable<TType>
         {
-            return self.Compose(Contains<T, TType>(expected, comparer));
+            var other = new ContainsSpecification<T, TType>(expected, comparer, Specification.LinqToEntities);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -937,12 +1060,15 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotContains<T, TType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotContains<T, TType>([NotNull] this ISpecification<T> self,
             [CanBeNull] TType notExpected,
             [CanBeNull] IEqualityComparer<TType> comparer = null)
             where T : IEnumerable<TType>
         {
-            return self.Compose(NotContains<T, TType>(notExpected, comparer));
+            var other = new ContainsSpecification<T, TType>(notExpected, comparer, Specification.LinqToEntities).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -959,10 +1085,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> Contains([NotNull] this ICompositeSpecification<string> self,
+        public static IComplexSpecification<string> Contains([NotNull] this ISpecification<string> self,
             [NotNull] string expected)
         {
-            return self.Compose(Contains(expected));
+            var other = new ContainsSpecification(expected);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -979,10 +1108,13 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<string> NotContains([NotNull] this ICompositeSpecification<string> self,
+        public static IComplexSpecification<string> NotContains([NotNull] this ISpecification<string> self,
             [NotNull] string notExpected)
         {
-            return self.Compose(NotContains(notExpected));
+            var other = new ContainsSpecification(notExpected).Not();
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
 
         /// <summary>
@@ -1007,10 +1139,25 @@ namespace FluentSpecification
         /// </exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Cast<T, TCast>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Cast<T, TCast>([NotNull] this ISpecification<T> self,
             [NotNull] ISpecification<TCast> specification)
         {
-            return self.Compose(Cast<T, TCast>(specification));
+            var other = new CastSpecification<T, TCast>(specification);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
+        }
+
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> Cast<T, TCast>([NotNull] this ISpecification<T> self,
+            [NotNull] Func<ISpecification<TCast>, ISpecification<TCast>> creator)
+        {
+            var specification = creator(Specification.For<TCast>());
+            var other = new CastSpecification<T, TCast>(specification);
+            return self
+                .Join(other)
+                .AsComplexSpecification();
         }
     }
 }

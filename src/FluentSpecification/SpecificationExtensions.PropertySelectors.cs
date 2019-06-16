@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 
 namespace FluentSpecification
 {
-    public static partial class Specification
+    public static partial class SpecificationExtensions
     {
         /// <summary>
         ///     <para>
@@ -31,7 +31,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Expression<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Expression<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [NotNull] Expression<Func<TProperty, bool>> expression)
         {
             return self.Compose(Expression(selector, expression));
@@ -55,7 +55,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Null<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Null<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector)
         {
             return self.Compose(Null(selector));
@@ -79,7 +79,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotNull<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotNull<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector)
         {
             return self.Compose(NotNull(selector));
@@ -103,7 +103,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Empty<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Empty<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector)
         {
             return self.Compose(Empty(selector));
@@ -127,7 +127,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotEmpty<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotEmpty<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector)
         {
             return self.Compose(NotEmpty(selector));
@@ -153,7 +153,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Equal<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Equal<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty expected,
             [CanBeNull] IEqualityComparer<TProperty> comparer = null)
         {
@@ -180,7 +180,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotEqual<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotEqual<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notExpected,
             [CanBeNull] IEqualityComparer<TProperty> comparer = null)
         {
@@ -206,7 +206,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Length<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Length<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int length)
             where TProperty : IEnumerable
         {
@@ -232,7 +232,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLength<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotLength<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int length)
             where TProperty : IEnumerable
         {
@@ -258,7 +258,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> MinLength<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> MinLength<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int minLength)
             where TProperty : IEnumerable
         {
@@ -285,7 +285,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotMinLength<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int minLength)
             where TProperty : IEnumerable
         {
@@ -311,7 +311,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> MaxLength<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> MaxLength<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int maxLength)
             where TProperty : IEnumerable
         {
@@ -338,7 +338,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotMaxLength<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int maxLength)
             where TProperty : IEnumerable
         {
@@ -370,7 +370,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> LengthBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int minLength, int maxLength)
             where TProperty : IEnumerable
         {
@@ -402,7 +402,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotLengthBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, int minLength, int maxLength)
             where TProperty : IEnumerable
         {
@@ -430,7 +430,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="TProperty" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> LessThan<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> LessThan<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty lessThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -458,7 +458,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="TProperty" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotLessThan<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotLessThan<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notLessThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -487,7 +487,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> LessThanOrEqual<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty lessThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -516,7 +516,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotLessThanOrEqual<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notLessThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -544,7 +544,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <typeparamref name="TProperty" /> has no valid comparison methods.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> GreaterThan<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> GreaterThan<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty greaterThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -573,7 +573,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotGreaterThan<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notGreaterThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -602,7 +602,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> GreaterThanOrEqual<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty greaterThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -631,7 +631,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotGreaterThanOrEqual<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notGreaterThan,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -658,7 +658,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="pattern" /> is null or empty.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Match<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Match<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector, [NotNull] string pattern,
             RegexOptions options = RegexOptions.None)
         {
@@ -685,7 +685,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="pattern" /> is null or empty.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotMatch<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotMatch<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector, [NotNull] string pattern,
             RegexOptions options = RegexOptions.None)
         {
@@ -709,7 +709,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Email<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Email<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector)
         {
             return self.Compose(Email(selector));
@@ -732,7 +732,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotEmail<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotEmail<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector)
         {
             return self.Compose(NotEmail(selector));
@@ -762,7 +762,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> ExclusiveBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty from, [CanBeNull] TProperty to,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -793,7 +793,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotExclusiveBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notFrom,
             [CanBeNull] TProperty notTo,
             [CanBeNull] IComparer<TProperty> comparer = null)
@@ -825,7 +825,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> InclusiveBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty from, [CanBeNull] TProperty to,
             [CanBeNull] IComparer<TProperty> comparer = null)
         {
@@ -856,7 +856,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotInclusiveBetween<T, TProperty>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [CanBeNull] TProperty notFrom,
             [CanBeNull] TProperty notTo,
             [CanBeNull] IComparer<TProperty> comparer = null)
@@ -881,7 +881,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> CreditCard<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> CreditCard<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector)
         {
             return self.Compose(CreditCard(selector));
@@ -904,7 +904,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotCreditCard<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotCreditCard<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector)
         {
             return self.Compose(NotCreditCard(selector));
@@ -930,7 +930,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> All<T, TPropertyType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> All<T, TPropertyType>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, IEnumerable<TPropertyType>>> selector,
             [NotNull] ISpecification<TPropertyType> allSpecification)
         {
@@ -957,7 +957,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Any<T, TPropertyType>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Any<T, TPropertyType>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, IEnumerable<TPropertyType>>> selector,
             [NotNull] ISpecification<TPropertyType> anySpecification)
         {
@@ -981,7 +981,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> True<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> True<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, bool>> selector)
         {
             return self.Compose(True(selector));
@@ -1004,7 +1004,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> False<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> False<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, bool>> selector)
         {
             return self.Compose(False(selector));
@@ -1030,7 +1030,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="expected" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> IsType<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> IsType<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [NotNull] Type expected)
         {
             return self.Compose(IsType(selector, expected));
@@ -1056,7 +1056,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="notExpected" /> is null.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> IsNotType<T, TProperty>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> IsNotType<T, TProperty>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [NotNull] Type notExpected)
         {
             return self.Compose(IsNotType(selector, notExpected));
@@ -1083,7 +1083,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> Contains<T, TPropertyType>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, IEnumerable<TPropertyType>>> selector, TPropertyType expected,
             [CanBeNull] IEqualityComparer<TPropertyType> comparer = null)
         {
@@ -1111,7 +1111,7 @@ namespace FluentSpecification
         [PublicAPI]
         [NotNull]
         public static IComplexSpecification<T> NotContains<T, TPropertyType>(
-            [NotNull] this ICompositeSpecification<T> self,
+            [NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, IEnumerable<TPropertyType>>> selector, [CanBeNull] TPropertyType notExpected,
             [CanBeNull] IEqualityComparer<TPropertyType> comparer = null)
         {
@@ -1136,7 +1136,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Contains<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Contains<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector, [NotNull] string expected)
         {
             return self.Compose(Contains(selector, expected));
@@ -1160,7 +1160,7 @@ namespace FluentSpecification
         /// <exception cref="ArgumentException">Thrown when <paramref name="selector" /> is not valid.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> NotContains<T>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> NotContains<T>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, string>> selector, [NotNull] string notExpected)
         {
             return self.Compose(NotContains(selector, notExpected));
@@ -1192,7 +1192,7 @@ namespace FluentSpecification
         /// </exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> Cast<T, TProperty, TCast>([NotNull] this ICompositeSpecification<T> self,
+        public static IComplexSpecification<T> Cast<T, TProperty, TCast>([NotNull] this ISpecification<T> self,
             [NotNull] Expression<Func<T, TProperty>> selector, [NotNull] ISpecification<TCast> propertySpecification)
         {
             return self.Compose(Cast(selector, propertySpecification));
