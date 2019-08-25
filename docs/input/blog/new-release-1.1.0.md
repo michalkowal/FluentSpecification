@@ -7,8 +7,9 @@ Author: Michał Kowal
 
 # 1.1.0 Release
 
-As part of this release we had 6 commits which resulted in 1 issue being closed.
+As part of this release we had [6 commits](https://github.com/michalkowal/FluentSpecification/compare/1.0.0...1.1.0) which resulted in [1 issue](https://github.com/michalkowal/FluentSpecification/milestone/3?closed=1) being closed.
 
-Improvement
 
-#18 Sign assemblies
+__Improvement__
+
+- [__#18__](https://github.com/michalkowal/FluentSpecification/issues/18) Sign assemblies
