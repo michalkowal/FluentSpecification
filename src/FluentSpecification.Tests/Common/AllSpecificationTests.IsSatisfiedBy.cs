@@ -32,7 +32,7 @@ namespace FluentSpecification.Tests.Common
             public void NotAllElementsValid_ReturnFalse<T, TType>(T candidate, Expression<Func<TType, bool>> expression)
                 where T : IEnumerable<TType>
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var specification = new MockComplexSpecification<TType>(expression);
                 var sut = new AllSpecification<T, TType>(specification);
 
@@ -88,7 +88,7 @@ namespace FluentSpecification.Tests.Common
                 Expression<Func<TType, bool>> expression, SpecificationResult expected)
                 where T : IEnumerable<TType>
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var specification = new MockComplexSpecification<TType>(expression);
                 var sut = new AllSpecification<T, TType>(specification);
 

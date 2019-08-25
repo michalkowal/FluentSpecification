@@ -1,0 +1,8 @@
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("FluentSpecification.Core.Tests, PublicKey=" +
+    "0024000004800000940000000602000000240000525341310004000001000100b953b57c8d43da" +
+    "9a3acbd21dc190f3080922944ad2ff8703368dfad824235e6821f6a16a0d2905ce0e3be5d56d26" +
+    "6ab47ee0174ecffc6bbc60264b3964bf23e076906cb2e23bbaba6665e2c156d15386ade4ec60ac" +
+    "647c1e7d484246db938009279d50fe9288a7afd5129954890c6a561a07f699d84889bb87bdc875" +
+    "cf5dc4ca")]

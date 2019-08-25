@@ -25,7 +25,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(EmptyData), AsNegation = true)]
             public void InvokeEmptyCandidate_ReturnFalse<T>(T candidate)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EmptySpecification<T>();
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);

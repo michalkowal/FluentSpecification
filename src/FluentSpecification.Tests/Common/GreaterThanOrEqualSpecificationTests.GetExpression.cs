@@ -16,7 +16,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeGreaterThanOrEqualCandidate_ReturnTrue<T>(T candidate, T greaterThan,
                 IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
@@ -29,7 +29,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeNotGreaterThanOrEqualCandidate_ReturnFalse<T>(T candidate, T greaterThan,
                 IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

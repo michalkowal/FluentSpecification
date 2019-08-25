@@ -16,7 +16,7 @@ namespace FluentSpecification.Tests.Common
             public void NotGreaterThanOrEqualIntCandidate_ReturnTrue<T>(T candidate, T greaterThan,
                 IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -28,7 +28,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(GreaterThanOrEqualData), AsNegation = true)]
             public void GreaterThanOrEqualCandidate_ReturnFalse<T>(T candidate, T greaterThan, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -66,7 +66,7 @@ namespace FluentSpecification.Tests.Common
             public void NotGreaterThanOrEqualIntCandidate_ReturnExpectedResultObject<T>(T candidate, T greaterThan,
                 IComparer<T> comparer, SpecificationResult expected)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);
@@ -80,7 +80,7 @@ namespace FluentSpecification.Tests.Common
             public void GreaterThanOrEqualCandidate_ReturnExpectedResultObject<T>(T candidate, T greaterThan,
                 IComparer<T> comparer, SpecificationResult expected)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanOrEqualSpecification<T>(greaterThan, comparer);
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);

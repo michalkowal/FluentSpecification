@@ -17,7 +17,7 @@ namespace FluentSpecification.Tests.Common
             public void ValidCandidate_ReturnTrue<T>(T candidate, int minLength, int maxLength)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LengthBetweenSpecification<T>(minLength, maxLength);
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -56,7 +56,7 @@ namespace FluentSpecification.Tests.Common
                 SpecificationResult expected)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LengthBetweenSpecification<T>(minLength, maxLength);
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);

@@ -17,5 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\FluentSpecification.Abstractions\FluentSpecification.Abstractions.csproj" />
   </ItemGroup>
+  
+  <ItemGroup Condition="'$(AssemblyOriginatorKeyFile)'!=''">
+	<Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(AssemblyOriginatorKeyFile)'==''">
+	<Compile Remove="Properties\AssemblyInfo.PublicKey.cs" />
+  </ItemGroup>
 
 </Project>

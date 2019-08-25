@@ -15,7 +15,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(ExclusiveBetweenData))]
             public void InvokeExclusiveBetweenCandidate_ReturnTrue<T>(T candidate, T from, T to, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new ExclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
@@ -28,7 +28,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeNotExclusiveBetweenCandidate_ReturnFalse<T>(T candidate, T from, T to,
                 IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new ExclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
