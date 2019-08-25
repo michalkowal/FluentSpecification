@@ -7,6 +7,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	<DebugType>pdbonly</DebugType>
+	<SignAssembly Condition="'$(AssemblyOriginatorKeyFile)'!=''">True</SignAssembly>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup>
