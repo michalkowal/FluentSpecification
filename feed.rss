@@ -5,19 +5,21 @@
 		<link>http://michalkowal.github.io/FluentSpecification</link>
 		<description />
 		<copyright>2019</copyright>
-		<pubDate>Sun, 25 Aug 2019 17:09:36 GMT</pubDate>
-		<lastBuildDate>Sun, 25 Aug 2019 17:09:36 GMT</lastBuildDate>
+		<pubDate>Sun, 25 Aug 2019 17:58:45 GMT</pubDate>
+		<lastBuildDate>Sun, 25 Aug 2019 17:58:45 GMT</lastBuildDate>
 		<item>
 			<title>New Release - 1.1.0</title>
 			<link>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.1.0</link>
-			<description>&lt;p&gt;As part of this release we had 6 commits which resulted in 1 issue being closed.&lt;/p&gt;</description>
+			<description>&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.0.0...1.1.0"&gt;6 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/3?closed=1"&gt;1 issue&lt;/a&gt; being closed.&lt;/p&gt;</description>
 			<author>Michał Kowal</author>
 			<guid>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.1.0</guid>
 			<pubDate>Sun, 25 Aug 2019 00:00:00 GMT</pubDate>
 			<content:encoded>&lt;h1 id="release"&gt;1.1.0 Release&lt;/h1&gt;
-&lt;p&gt;As part of this release we had 6 commits which resulted in 1 issue being closed.&lt;/p&gt;
-&lt;p&gt;Improvement&lt;/p&gt;
-&lt;p&gt;#18 Sign assemblies&lt;/p&gt;
+&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.0.0...1.1.0"&gt;6 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/3?closed=1"&gt;1 issue&lt;/a&gt; being closed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Improvement&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/michalkowal/FluentSpecification/issues/18"&gt;&lt;strong&gt;#18&lt;/strong&gt;&lt;/a&gt; Sign assemblies&lt;/li&gt;
+&lt;/ul&gt;
 </content:encoded>
 		</item>
 		<item>
