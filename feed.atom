@@ -4,7 +4,22 @@
 	<title>FluentSpecification</title>
 	<link rel="self" href="http://michalkowal.github.io/FluentSpecification" />
 	<rights>2019</rights>
-	<updated>2019-05-21T12:38:45Z</updated>
+	<updated>2019-08-25T17:09:36Z</updated>
+	<entry>
+		<id>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.1.0</id>
+		<title>New Release - 1.1.0</title>
+		<author>
+			<name>Michał Kowal</name>
+		</author>
+		<link href="http://michalkowal.github.io/FluentSpecification/blog/new-release-1.1.0" />
+		<updated>2019-08-25T00:00:00Z</updated>
+		<content>&lt;h1 id="release"&gt;1.1.0 Release&lt;/h1&gt;
+&lt;p&gt;As part of this release we had 6 commits which resulted in 1 issue being closed.&lt;/p&gt;
+&lt;p&gt;Improvement&lt;/p&gt;
+&lt;p&gt;#18 Sign assemblies&lt;/p&gt;
+</content>
+		<summary>&lt;p&gt;As part of this release we had 6 commits which resulted in 1 issue being closed.&lt;/p&gt;</summary>
+	</entry>
 	<entry>
 		<id>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.0.0</id>
 		<title>New Release - 1.0.0</title>
