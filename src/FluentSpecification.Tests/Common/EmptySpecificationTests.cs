@@ -17,7 +17,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(EmptyData))]
             public void InvokeEmptyCandidate_ReturnTrue<T>(T candidate)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EmptySpecification<T>();
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

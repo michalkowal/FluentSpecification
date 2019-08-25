@@ -29,7 +29,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeInvalidCandidate_ReturnFalse<T>(T candidate, int minLength, int maxLength)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LengthBetweenSpecification<T>(minLength, maxLength);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

@@ -137,7 +137,7 @@ namespace FluentSpecification.Core.Composite
             }
             catch (NullReferenceException)
             {
-                value = default(TProperty);
+                value = default;
                 return false;
             }
         }
