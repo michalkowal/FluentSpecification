@@ -104,7 +104,7 @@ namespace FluentSpecification.Tests.Common
                 var expected = new ComparableFakeType();
                 var candidate = new[] {new FakeType(), expected, null};
                 var expResult = new SpecificationResult(false, "NotContainsSpecification<FakeType[],FakeType>+Failed",
-                    new FailedSpecification(typeof(ContainsSpecification<FakeType[], FakeType>),
+                    new SpecificationInfo(typeof(ContainsSpecification<FakeType[], FakeType>),
                         new Dictionary<string, object>
                         {
                             {"Expected", expected}

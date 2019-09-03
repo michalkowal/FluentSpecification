@@ -33,7 +33,7 @@ namespace FluentSpecification.Tests.Mocks
 
             if (!overall)
             {
-                var error = new FailedSpecification(GetType(), GetParameters(), candidate,
+                var error = new SpecificationInfo(GetType(), GetParameters(), candidate,
                     "MockComplexSpecification is not satisfied");
                 trace = "Failed" + trace;
                 result = new SpecificationResult(false, trace, error);

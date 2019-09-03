@@ -23,7 +23,7 @@ namespace FluentSpecification.Core.Tests.Mocks
 
             if (!overall)
             {
-                var error = new FailedSpecification(GetType(), GetParameters(), candidate,
+                var error = new SpecificationInfo(GetType(), GetParameters(), candidate,
                     "NotMockNegatableValidationSpecification is satisfied");
                 trace = "Failed" + trace;
                 result = new SpecificationResult(false, trace, error);

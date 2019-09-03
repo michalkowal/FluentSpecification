@@ -245,7 +245,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var specification = MockSpecification<object>.False();
                 var expected = new SpecificationResult(2, false,
                     "CastSpecification<Int32,Object>(FalseMockSpecification<Object>+Failed)+Failed",
-                    new FailedSpecification(typeof(FalseMockSpecification<object>), candidate,
+                    new SpecificationInfo(typeof(FalseMockSpecification<object>), candidate,
                         "Specification [FalseMockSpecification<Object>] is not satisfied by candidate"));
                 var sut = new CastSpecification<int, object>(specification);
 
@@ -262,7 +262,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 ISpecification<List<int>> specification = MockComplexSpecification<List<int>>.True();
                 var expected = new SpecificationResult(1, false,
                     "CastSpecification<IEnumerable<Int32>,List<Int32>>()+Failed",
-                    new FailedSpecification(typeof(CastSpecification<IEnumerable<int>, List<int>>),
+                    new SpecificationInfo(typeof(CastSpecification<IEnumerable<int>, List<int>>),
                         new Dictionary<string, object>
                         {
                             {"Specification", specification}

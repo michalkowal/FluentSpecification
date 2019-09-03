@@ -108,7 +108,7 @@ namespace FluentSpecification.Tests.Common
             public void NotEmptyNullable_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "NotEmptySpecification<Nullable<Int32>>+Failed",
-                    new FailedSpecification(typeof(EmptySpecification<int?>), (object) null, "Object is empty"));
+                    new SpecificationInfo(typeof(EmptySpecification<int?>), (object) null, "Object is empty"));
                 var sut = new EmptySpecification<int?>();
 
                 var overall = sut.IsNotSatisfiedBy(null, out var result);

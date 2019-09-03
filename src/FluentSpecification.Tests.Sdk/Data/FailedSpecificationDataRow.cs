@@ -29,9 +29,9 @@ namespace FluentSpecification.Tests.Sdk.Data
             return this;
         }
 
-        public FailedSpecification CreateFailedSpecification()
+        public SpecificationInfo CreateFailedSpecification()
         {
-            return new FailedSpecification(_specType, _parameters, _candidate, _errors);
+            return new SpecificationInfo(_specType, _parameters, _candidate, _errors);
         }
     }
 }

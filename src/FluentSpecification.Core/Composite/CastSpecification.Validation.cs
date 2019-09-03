@@ -81,14 +81,14 @@ namespace FluentSpecification.Core.Composite
             [CanBeNull] SpecificationResult propertyResult, bool isSatisfiedBy)
         {
             var traceMessage = CreateTraceMessage(propertyResult?.Trace, isSatisfiedBy);
-            var errors = new List<FailedSpecification>();
+            var errors = new List<SpecificationInfo>();
 
             if (!isSatisfiedBy)
             {
                 if (propertyResult != null)
                     errors.AddRange(propertyResult.FailedSpecifications);
                 else
-                    errors.Add(new FailedSpecification(GetType(), GetParameters(), candidate,
+                    errors.Add(new SpecificationInfo(GetType(), GetParameters(), candidate,
                         CreatePropertyFailedMessage(candidate)));
             }
 

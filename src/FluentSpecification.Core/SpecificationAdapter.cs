@@ -187,7 +187,7 @@ namespace FluentSpecification.Core
                 ? null
                 : new[]
                 {
-                    new FailedSpecification(_baseSpecification.GetType(), null, candidate,
+                    new SpecificationInfo(_baseSpecification.GetType(), null, candidate,
                         CreateFailedMessage(isNegation))
                 };
 

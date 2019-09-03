@@ -68,7 +68,7 @@ namespace FluentSpecification.Core
                 result = new SpecificationResult(true, traceMessage);
             else
                 result = new SpecificationResult(false, traceMessage,
-                    new FailedSpecification(GetType(), GetParameters(), candidate,
+                    new SpecificationInfo(GetType(), GetParameters(), candidate,
                         CreateNegationFailedMessage(candidate)));
 
             return result;

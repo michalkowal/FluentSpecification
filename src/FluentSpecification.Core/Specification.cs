@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
+using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
@@ -71,6 +73,41 @@ namespace FluentSpecification.Core
                 : new SpecificationAdapter<T>(self);
 
             return complexSpecification;
+        }
+
+        /// <summary>
+        ///     Get short name of <c>Specification</c> type - without namespaces etc.
+        /// </summary>
+        /// <param name="specification">Get name of.</param>
+        /// <returns>Short name of <paramref name="specification" />.</returns>
+        /// <seealso cref="GetShortName" />
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="specification" /> is null.</exception>
+        [PublicAPI]
+        [NotNull]
+        public static string GetShortName([NotNull] this ISpecification specification)
+        {
+            specification = specification ?? throw new ArgumentNullException(nameof(specification));
+
+            var specType = specification.GetType();
+
+            var shortName = specType.GetShortName();
+
+            return shortName;
+        }
+
+        [PublicAPI]
+        public static SpecificationTrace GetTrace([NotNull] this ISpecification specification, bool result)
+        {
+            if (specification is ITraceableSpecification traceableSpecification)
+                return traceableSpecification.GetTrace(result);
+
+            var trace = specification.GetShortName();
+            if (!result)
+                trace += "+Failed";
+
+            var shortTrace = trace.Replace("Specification", string.Empty);
+
+            return new SpecificationTrace(trace, shortTrace);
         }
 
         /// <summary>

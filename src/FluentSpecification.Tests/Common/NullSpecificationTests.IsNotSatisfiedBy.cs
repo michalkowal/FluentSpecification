@@ -68,7 +68,7 @@ namespace FluentSpecification.Tests.Common
             public void NullableCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "NotNullSpecification<Nullable<Int32>>+Failed",
-                    new FailedSpecification(typeof(NullSpecification<int?>), (object) null, "Object is null"));
+                    new SpecificationInfo(typeof(NullSpecification<int?>), (object) null, "Object is null"));
                 var sut = new NullSpecification<int?>();
 
                 var overall = sut.IsNotSatisfiedBy(null, out var result);
@@ -81,7 +81,7 @@ namespace FluentSpecification.Tests.Common
             public void NullCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "NotNullSpecification<String>+Failed",
-                    new FailedSpecification(typeof(NullSpecification<string>), (object) null, "Object is null"));
+                    new SpecificationInfo(typeof(NullSpecification<string>), (object) null, "Object is null"));
                 var sut = new NullSpecification<string>();
 
                 var overall = sut.IsNotSatisfiedBy(null, out var result);

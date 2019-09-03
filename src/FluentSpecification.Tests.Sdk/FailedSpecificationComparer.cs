@@ -8,14 +8,14 @@ using Xunit;
 
 namespace FluentSpecification.Tests.Sdk
 {
-    public class FailedSpecificationComparer : IEqualityComparer<FailedSpecification>
+    public class FailedSpecificationComparer : IEqualityComparer<SpecificationInfo>
     {
         [UsedImplicitly] public object Candidate { get; set; }
 
         [UsedImplicitly]
         public IReadOnlyDictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
 
-        public bool Equals(FailedSpecification x, FailedSpecification y)
+        public bool Equals(SpecificationInfo x, SpecificationInfo y)
         {
             if (ReferenceEquals(x, y))
                 return true;
@@ -41,7 +41,7 @@ namespace FluentSpecification.Tests.Sdk
             return true;
         }
 
-        public int GetHashCode(FailedSpecification obj)
+        public int GetHashCode(SpecificationInfo obj)
         {
             return obj.SpecificationType.GetHashCode() ^
                    obj.Parameters.GetHashCode() ^

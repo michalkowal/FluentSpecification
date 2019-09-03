@@ -56,7 +56,7 @@ namespace FluentSpecification.Tests.Common
             public void NotNullCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "NullSpecification<String>+Failed",
-                    new FailedSpecification(typeof(NullSpecification<string>), "", "Object is not null"));
+                    new SpecificationInfo(typeof(NullSpecification<string>), "", "Object is not null"));
                 var sut = new NullSpecification<string>();
 
                 var overall = sut.IsSatisfiedBy("", out var result);
@@ -93,7 +93,7 @@ namespace FluentSpecification.Tests.Common
             public void ValueTypeCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "NullSpecification<Int32>+Failed",
-                    new FailedSpecification(typeof(NullSpecification<int>), 0, "Object is not null"));
+                    new SpecificationInfo(typeof(NullSpecification<int>), 0, "Object is not null"));
                 var sut = new NullSpecification<int>();
 
                 var overall = sut.IsSatisfiedBy(0, out var result);

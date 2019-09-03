@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 
 namespace FluentSpecification.Core.Utils
@@ -11,6 +12,8 @@ namespace FluentSpecification.Core.Utils
     /// </summary>
     public static class TypeExtensions
     {
+        private const string SpecificationShortNameRegex = "[a-zA-Z][a-zA-Z0-9]*";
+
         private static bool IsByte(Type type)
         {
             return type == typeof(byte) ||
@@ -32,6 +35,37 @@ namespace FluentSpecification.Core.Utils
             return type == typeof(decimal) ||
                    type == typeof(double) ||
                    type == typeof(float);
+        }
+
+        /// <summary>
+        ///     Get short name of type - without namespaces etc.
+        /// </summary>
+        /// <param name="type">Get name of.</param>
+        /// <returns>Short name of <paramref name="type" />.</returns>
+        /// <example>
+        ///     <code>
+        /// SpecificationResultGenerator.GetTypeShortName(typeof(List&lt;int[]&gt;)) // List&lt;Int32[]&gt;
+        /// </code>
+        /// </example>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null.</exception>
+        /// <exception cref="InvalidOperationException">
+        ///     Thrown when <paramref name="type" /> is array and <c>GetElementType</c>
+        ///     return null.
+        /// </exception>
+        [PublicAPI]
+        [NotNull]
+        public static string GetShortName([NotNull] this Type type)
+        {
+            type = type ?? throw new ArgumentNullException(nameof(type));
+
+            var shortName = type.IsArray
+                ? $"{GetShortName(type.GetElementType() ?? throw new InvalidOperationException())}[]"
+                : Regex.Match(type.Name, SpecificationShortNameRegex).Value;
+
+            if (type.GetTypeInfo().IsGenericType)
+                shortName += $"<{string.Join(",", type.GenericTypeArguments.Select(GetShortName))}>";
+
+            return shortName;
         }
 
         /// <summary>

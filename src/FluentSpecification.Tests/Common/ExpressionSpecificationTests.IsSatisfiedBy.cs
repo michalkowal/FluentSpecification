@@ -54,7 +54,7 @@ namespace FluentSpecification.Tests.Common
                 var dum = new object();
                 Expression<Func<object, bool>> expression = candidate => false;
                 var expected = new SpecificationResult(false, "ExpressionSpecification<Object>+Failed",
-                    new FailedSpecification(typeof(ExpressionSpecification<object>), new Dictionary<string, object>
+                    new SpecificationInfo(typeof(ExpressionSpecification<object>), new Dictionary<string, object>
                     {
                         {"Expression", expression}
                     }, dum, "Specification doesn't meet expression: [candidate => False]"));

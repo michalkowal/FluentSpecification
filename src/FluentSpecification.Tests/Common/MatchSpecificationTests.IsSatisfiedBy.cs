@@ -52,7 +52,7 @@ namespace FluentSpecification.Tests.Common
             public void InvalidCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "MatchSpecification+Failed",
-                    new FailedSpecification(typeof(MatchSpecification), new Dictionary<string, object>
+                    new SpecificationInfo(typeof(MatchSpecification), new Dictionary<string, object>
                     {
                         {"Pattern", "^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$"}
                     }, (object) "2019-02-261", "String not match pattern [^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$]"));
@@ -70,7 +70,7 @@ namespace FluentSpecification.Tests.Common
             public void NullCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "MatchSpecification+Failed",
-                    new FailedSpecification(typeof(MatchSpecification), new Dictionary<string, object>
+                    new SpecificationInfo(typeof(MatchSpecification), new Dictionary<string, object>
                     {
                         {"Pattern", "^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$"}
                     }, (object) null, "String not match pattern [^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}$]"));

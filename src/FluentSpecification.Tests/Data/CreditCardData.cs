@@ -10,7 +10,7 @@ namespace FluentSpecification.Tests.Data
         {
             var result = new SpecificationResult(true, "CreditCardSpecification");
             var invalidNegationResult = new SpecificationResult(false, "NotCreditCardSpecification+Failed",
-                new FailedSpecification(typeof(CreditCardSpecification), null, (object) null,
+                new SpecificationInfo(typeof(CreditCardSpecification), null, (object) null,
                     "Value is correct credit card number"));
             Valid("4111 1111 1111 1111").Result(result).NegationResult(invalidNegationResult); // Visa
             Valid("5500 0000 0000 0004").Result(result).NegationResult(invalidNegationResult); // MasterCard
@@ -25,7 +25,7 @@ namespace FluentSpecification.Tests.Data
             Valid("4917484589897107").Result(result).NegationResult(invalidNegationResult);
 
             var invalidResult = new SpecificationResult(false, "CreditCardSpecification+Failed",
-                new FailedSpecification(typeof(CreditCardSpecification), null, (object) null,
+                new SpecificationInfo(typeof(CreditCardSpecification), null, (object) null,
                     "Value is not correct credit card number"));
             var validNegationResult = new SpecificationResult(true, "NotCreditCardSpecification");
             Invalid(null).Result(invalidResult).NegationResult(validNegationResult);

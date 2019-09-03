@@ -19,7 +19,7 @@ namespace FluentSpecification.Abstractions.Validation
         /// </summary>
         [PublicAPI]
         public SpecificationResult() :
-            this(null)
+            this(SpecificationTrace.Empty)
         {
         }
 
@@ -32,7 +32,7 @@ namespace FluentSpecification.Abstractions.Validation
         ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
         /// </param>
         [PublicAPI]
-        public SpecificationResult([CanBeNull] string trace) :
+        public SpecificationResult(SpecificationTrace trace) :
             this(1, true, trace)
         {
         }
@@ -41,14 +41,14 @@ namespace FluentSpecification.Abstractions.Validation
         ///     Create result for single <c>Specification</c>.
         /// </summary>
         /// <param name="overallResult">Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.</param>
-        /// <param name="failedSpecifications">
-        ///     <para>List of failed <c>Specifications</c>.</para>
-        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// <param name="specifications">
+        ///     <para>List of <c>Specifications</c> in chain.</para>
+        ///     <para>For definition see <see cref="SpecificationInfo" />.</para>
         /// </param>
         [PublicAPI]
         public SpecificationResult(bool overallResult,
-            [CanBeNull] [ItemNotNull] params FailedSpecification[] failedSpecifications) :
-            this(overallResult, null, failedSpecifications)
+            [CanBeNull] [ItemNotNull] params SpecificationInfo[] specifications) :
+            this(overallResult, SpecificationTrace.Empty, specifications)
         {
         }
 
@@ -60,14 +60,14 @@ namespace FluentSpecification.Abstractions.Validation
         ///     <para>Trace message.</para>
         ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
         /// </param>
-        /// <param name="failedSpecifications">
-        ///     <para>List of failed <c>Specifications</c>.</para>
-        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// <param name="specifications">
+        ///     <para>List of <c>Specifications</c> in chains.</para>
+        ///     <para>For definition see <see cref="SpecificationInfo" />.</para>
         /// </param>
         [PublicAPI]
-        public SpecificationResult(bool overallResult, [CanBeNull] string trace,
-            [CanBeNull] [ItemNotNull] params FailedSpecification[] failedSpecifications) :
-            this(1, overallResult, trace, failedSpecifications)
+        public SpecificationResult(bool overallResult, SpecificationTrace trace,
+            [CanBeNull] [ItemNotNull] params SpecificationInfo[] specifications) :
+            this(1, overallResult, trace, specifications)
         {
         }
 
@@ -80,17 +80,17 @@ namespace FluentSpecification.Abstractions.Validation
         ///     <para>Trace message.</para>
         ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
         /// </param>
-        /// <param name="failedSpecifications">
-        ///     <para>List of failed <c>Specifications</c>.</para>
-        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// <param name="specifications">
+        ///     <para>List of <c>Specifications</c> in chain.</para>
+        ///     <para>For definition see <see cref="SpecificationInfo" />.</para>
         /// </param>
         [PublicAPI]
-        public SpecificationResult(int totalSpecificationsCount, bool overallResult, string trace,
-            params FailedSpecification[] failedSpecifications)
+        public SpecificationResult(int totalSpecificationsCount, bool overallResult, SpecificationTrace trace,
+            params SpecificationInfo[] specifications)
         {
             TotalSpecificationsCount = totalSpecificationsCount;
             OverallResult = overallResult;
-            FailedSpecifications = failedSpecifications ?? new FailedSpecification[0];
+            Specifications = specifications ?? new SpecificationInfo[0];
             Trace = trace;
         }
 
@@ -107,12 +107,20 @@ namespace FluentSpecification.Abstractions.Validation
         public bool OverallResult { get; }
 
         /// <summary>
-        ///     List of failed <c>Specifications</c>.
+        ///     List of <c>Specifications</c> in chain.
         /// </summary>
-        /// <remarks>For definition of "failed" see <see cref="FailedSpecification" />.</remarks>
+        /// <remarks>For definition see <see cref="SpecificationInfo" />.</remarks>
         [PublicAPI]
         [NotNull]
-        public IReadOnlyList<FailedSpecification> FailedSpecifications { get; }
+        public IReadOnlyList<SpecificationInfo> Specifications { get; }
+
+        /// <summary>
+        ///     List of failed <c>Specifications</c>.
+        /// </summary>
+        /// <remarks>For definition see <see cref="SpecificationInfo" />.</remarks>
+        [PublicAPI]
+        [NotNull]
+        public IReadOnlyList<SpecificationInfo> FailedSpecifications => Specifications.Where(s => !s.Result).ToArray();
 
         /// <summary>
         ///     Trace message.
@@ -122,8 +130,7 @@ namespace FluentSpecification.Abstractions.Validation
         /// </remarks>
         /// <value>Should contains short identifier of executed <c>Specifications</c> and relation between them.</value>
         [PublicAPI]
-        [CanBeNull]
-        public string Trace { get; }
+        public SpecificationTrace Trace { get; }
 
         /// <summary>
         ///     Count of failed <c>Specifications</c>.

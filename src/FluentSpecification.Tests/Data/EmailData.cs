@@ -10,7 +10,7 @@ namespace FluentSpecification.Tests.Data
         {
             var result = new SpecificationResult(true, "EmailSpecification");
             var invalidNegationResult = new SpecificationResult(false, "NotEmailSpecification+Failed",
-                new FailedSpecification(typeof(EmailSpecification), null, (object) null, "String is valid email"));
+                new SpecificationInfo(typeof(EmailSpecification), null, (object) null, "String is valid email"));
             Valid("email@example.com").Result(result).NegationResult(invalidNegationResult);
             Valid("firstname.lastname@example.com").Result(result).NegationResult(invalidNegationResult);
             Valid("email@subdomain.example.com").Result(result).NegationResult(invalidNegationResult);
@@ -26,7 +26,7 @@ namespace FluentSpecification.Tests.Data
             Valid("firstname-lastname@example.com").Result(result).NegationResult(invalidNegationResult);
 
             var invalidResult = new SpecificationResult(false, "EmailSpecification+Failed",
-                new FailedSpecification(typeof(EmailSpecification), null, (object) null, "String is invalid email"));
+                new SpecificationInfo(typeof(EmailSpecification), null, (object) null, "String is invalid email"));
             var validNegationResult = new SpecificationResult(true, "NotEmailSpecification");
             Invalid(null).Result(invalidResult).NegationResult(validNegationResult);
             Invalid("").Result(invalidResult).NegationResult(validNegationResult);

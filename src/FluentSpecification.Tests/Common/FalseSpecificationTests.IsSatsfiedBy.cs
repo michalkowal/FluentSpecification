@@ -48,7 +48,7 @@ namespace FluentSpecification.Tests.Common
             public void ValidCandidate_ReturnExpectedResultObject()
             {
                 var expected = new SpecificationResult(false, "FalseSpecification+Failed",
-                    new FailedSpecification(typeof(FalseSpecification), true, "Value is True"));
+                    new SpecificationInfo(typeof(FalseSpecification), true, "Value is True"));
                 var sut = new FalseSpecification();
 
                 var overall = sut.IsSatisfiedBy(true, out var result);

@@ -42,11 +42,11 @@ namespace FluentSpecification.Core.Composite
 
         [NotNull]
         [ItemNotNull]
-        private IEnumerable<FailedSpecification> CreateFailedSpecifications(
-            [NotNull] IReadOnlyCollection<FailedSpecification> propertyFailedSpecifications)
+        private IEnumerable<SpecificationInfo> CreateFailedSpecifications(
+            [NotNull] IReadOnlyCollection<SpecificationInfo> propertyFailedSpecifications)
         {
             foreach (var propError in propertyFailedSpecifications)
-                yield return new FailedSpecification(
+                yield return new SpecificationInfo(
                     propError.SpecificationType,
                     propError.Parameters,
                     propError.Candidate,
@@ -85,12 +85,12 @@ namespace FluentSpecification.Core.Composite
             [CanBeNull] SpecificationResult propertyResult, bool isSatisfiedBy)
         {
             var traceMessage = CreateTraceMessage(propertyResult?.Trace, isSatisfiedBy);
-            var errors = new List<FailedSpecification>();
+            var errors = new List<SpecificationInfo>();
 
             if (!isSatisfiedBy)
             {
                 errors.Add(
-                    new FailedSpecification(GetType(), GetParameters(), candidate, CreatePropertyFailedMessage()));
+                    new SpecificationInfo(GetType(), GetParameters(), candidate, CreatePropertyFailedMessage()));
                 if (propertyResult != null)
                     errors.AddRange(CreateFailedSpecifications(propertyResult.FailedSpecifications));
             }

@@ -97,12 +97,12 @@ namespace FluentSpecification.Common.Abstractions
             {
                 result = new SpecificationResult(false,
                     CreateTraceMessage("", false),
-                    new FailedSpecification(GetType(), GetParameters(), candidate, "Collection is null"));
+                    new SpecificationInfo(GetType(), GetParameters(), candidate, "Collection is null"));
                 return false;
             }
 
             var overall = OverallForEmpty;
-            var failedSpecifications = new List<FailedSpecification>();
+            var failedSpecifications = new List<SpecificationInfo>();
             var traces = new List<string>();
 
             var idx = 0;
@@ -128,7 +128,7 @@ namespace FluentSpecification.Common.Abstractions
             }
 
             if (!overall)
-                failedSpecifications.Insert(0, new FailedSpecification(
+                failedSpecifications.Insert(0, new SpecificationInfo(
                     GetType(),
                     GetParameters(),
                     candidate,
@@ -235,17 +235,17 @@ namespace FluentSpecification.Common.Abstractions
         /// <remarks>
         ///     Method adds prefix with index "[<paramref name="idx" />] " to each error message.
         /// </remarks>
-        /// <param name="failedSpecifications">Candidate element <see cref="FailedSpecification" /> collection.</param>
+        /// <param name="failedSpecifications">Candidate element <see cref="SpecificationInfo" /> collection.</param>
         /// <param name="idx">Current element index.</param>
-        /// <returns>New <see cref="FailedSpecification" /> collection with correct error messages.</returns>
+        /// <returns>New <see cref="SpecificationInfo" /> collection with correct error messages.</returns>
         [PublicAPI]
         [NotNull]
         [ItemNotNull]
-        protected IEnumerable<FailedSpecification> CreateFailedSpecifications(
-            IReadOnlyCollection<FailedSpecification> failedSpecifications, int idx)
+        protected IEnumerable<SpecificationInfo> CreateFailedSpecifications(
+            IReadOnlyCollection<SpecificationInfo> failedSpecifications, int idx)
         {
             foreach (var spec in failedSpecifications)
-                yield return new FailedSpecification(
+                yield return new SpecificationInfo(
                     spec.SpecificationType,
                     spec.Parameters,
                     spec.Candidate,
