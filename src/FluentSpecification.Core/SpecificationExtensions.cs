@@ -535,7 +535,7 @@ namespace FluentSpecification.Core
 
             if (other is ICompositeSpecification<T> otherComposite)
             {
-                return otherComposite.Compose(other);
+                return otherComposite.Compose(self);
             }
 
             if (self is IEntrySpecification<T>)
