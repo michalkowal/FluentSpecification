@@ -26,7 +26,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(EmptyData), AsNegation = true)]
             public void EmptyCandidate_ReturnFalse<T>(T candidate)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EmptySpecification<T>();
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -83,7 +83,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectValidationData(typeof(EmptyData), AsNegation = true)]
             public void EmptyCandidate_ReturnExpectedResultObject<T>(T candidate, SpecificationResult expected)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EmptySpecification<T>();
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);

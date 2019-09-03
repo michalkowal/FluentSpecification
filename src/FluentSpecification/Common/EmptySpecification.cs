@@ -53,7 +53,7 @@ namespace FluentSpecification.Common
             _isString = typeof(T) == typeof(string);
             _isCollection = typeof(T).IsGenericEnumerable();
             _checkIsCollectionNull = !linqToEntities;
-            _defaultValue = default(T);
+            _defaultValue = default;
 
             if (_isCollection)
             {

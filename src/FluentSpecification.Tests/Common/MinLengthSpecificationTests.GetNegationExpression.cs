@@ -16,7 +16,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeValidCandidate_ReturnTrue<T>(T candidate, int minLength)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new MinLengthSpecification<T>(minLength);
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);

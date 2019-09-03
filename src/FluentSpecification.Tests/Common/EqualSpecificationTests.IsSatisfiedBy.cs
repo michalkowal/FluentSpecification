@@ -15,7 +15,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(EqualData))]
             public void EqualCandidate_ReturnTrue<T>(T candidate, T expected, IEqualityComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var result = sut.IsSatisfiedBy(candidate);
@@ -27,7 +27,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(EqualData))]
             public void NotEqualCandidate_ReturnFalse<T>(T candidate, T expected, IEqualityComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var result = sut.IsSatisfiedBy(candidate);
@@ -65,7 +65,7 @@ namespace FluentSpecification.Tests.Common
             public void EqualCandidate_ReturnExpectedResultObject<T>(T candidate, T expected,
                 IEqualityComparer<T> comparer, SpecificationResult expResult)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -79,7 +79,7 @@ namespace FluentSpecification.Tests.Common
             public void NotEqualCandidate_ReturnExpectedResultObject<T>(T candidate, T expected,
                 IEqualityComparer<T> comparer, SpecificationResult expResult)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);

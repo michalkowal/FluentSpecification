@@ -31,7 +31,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeInvalidCandidate_ReturnFalse<T>(T candidate, int length)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LengthSpecification<T>(length);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

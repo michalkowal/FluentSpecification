@@ -15,7 +15,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(InclusiveBetweenData), AsNegation = true)]
             public void NotInclusiveBetweenCandidate_ReturnTrue<T>(T candidate, T from, T to, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -27,7 +27,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(InclusiveBetweenData), AsNegation = true)]
             public void InclusiveBetweenCandidate_ReturnFalse<T>(T candidate, T from, T to, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.IsNotSatisfiedBy(candidate);
@@ -65,7 +65,7 @@ namespace FluentSpecification.Tests.Common
             public void NotInclusiveBetweenCandidate_ReturnExpectedResultObject<T>(T candidate, T from, T to,
                 IComparer<T> comparer, SpecificationResult expected)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);
@@ -79,7 +79,7 @@ namespace FluentSpecification.Tests.Common
             public void InclusiveBetweenCandidate_ReturnExpectedResultObject<T>(T candidate, T from, T to,
                 IComparer<T> comparer, SpecificationResult expected)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var overall = sut.IsNotSatisfiedBy(candidate, out var result);

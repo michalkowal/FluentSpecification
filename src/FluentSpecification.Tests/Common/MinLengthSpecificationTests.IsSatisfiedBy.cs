@@ -29,7 +29,7 @@ namespace FluentSpecification.Tests.Common
             public void InvalidCandidate_ReturnFalse<T>(T candidate, int minLength)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new MinLengthSpecification<T>(minLength);
 
                 var result = sut.IsSatisfiedBy(candidate);
@@ -70,7 +70,7 @@ namespace FluentSpecification.Tests.Common
                 SpecificationResult expected)
                 where T : IEnumerable
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new MinLengthSpecification<T>(minLength);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);

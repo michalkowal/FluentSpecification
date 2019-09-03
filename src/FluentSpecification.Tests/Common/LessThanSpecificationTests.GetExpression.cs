@@ -15,7 +15,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(LessThanData))]
             public void InvokeLessThanCandidate_ReturnTrue<T>(T candidate, T lessThan, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LessThanSpecification<T>(lessThan, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
@@ -27,7 +27,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(LessThanData))]
             public void InvokeNotLessThanCandidate_ReturnFalse<T>(T candidate, T lessThan, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new LessThanSpecification<T>(lessThan, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

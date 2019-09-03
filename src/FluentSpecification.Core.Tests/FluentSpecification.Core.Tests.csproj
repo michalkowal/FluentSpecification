@@ -2,9 +2,11 @@
 
   <PropertyGroup>
 	<AssemblyName>FluentSpecification.Core.Tests</AssemblyName>
-    <TargetFrameworks>netcoreapp1.1;netcoreapp2.2;net471</TargetFrameworks>
+    <TargetFrameworks>netcoreapp1.1;netcoreapp2.2;net472</TargetFrameworks>
 	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <IsPackable>false</IsPackable>
+	<SignAssembly Condition="'$(AssemblyOriginatorKeyFile)'!=''">True</SignAssembly>
+    <DelaySign>False</DelaySign>
   </PropertyGroup>
   
   <PropertyGroup>

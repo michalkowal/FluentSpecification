@@ -1,4 +1,6 @@
-#load nuget:https://www.myget.org/F/cake-contrib/api/v2?package=Cake.Recipe&prerelease
+#load nuget:?package=Cake.Recipe&version=1.0.0
+#load signing.cake
+#load analyzing.cake
 
 Environment.SetVariableNames();
 
@@ -41,9 +43,33 @@ ToolSettings.SetToolSettings(context: Context,
 		testCoverageFilter:
 			$"+[{title}*]* -[*.Tests*]* -[*]JetBrains.*");
 			
+// Disable standard build
 BuildParameters.Tasks.DotNetCoreRestoreTask
 	.WithCriteria(false);
 BuildParameters.Tasks.DotNetCoreBuildTask
-    .IsDependentOn("Restore");
+    .WithCriteria(false);
 
-Build.RunDotNetCore();
+BuildParameters.IsDotNetCoreBuild = true;
+BuildParameters.IsNuGetBuild = false;
+
+// Enable modified .NET Core build with signing
+// Disable standard analyze
+// Enable newest ReSharper analyze
+BuildParameters.Tasks.CreateNuGetPackagesTask.IsDependentOn("DotNetCore-Signing-Build");
+BuildParameters.Tasks.CreateChocolateyPackagesTask.IsDependentOn("DotNetCore-Signing-Build");
+BuildParameters.Tasks.TestTask.IsDependentOn("DotNetCore-Signing-Build");
+BuildParameters.Tasks.PackageTask.IsDependentOn("ReSharper-Analyze");
+BuildParameters.Tasks.PackageTask.IsDependentOn("Test");
+BuildParameters.Tasks.PackageTask.IsDependentOn("Create-NuGet-Packages");
+BuildParameters.Tasks.PackageTask.IsDependentOn("Create-Chocolatey-Packages");
+BuildParameters.Tasks.UploadCodecovReportTask.IsDependentOn("Test");
+BuildParameters.Tasks.UploadCoverallsReportTask.IsDependentOn("Test");
+BuildParameters.Tasks.AppVeyorTask.IsDependentOn("Upload-Coverage-Report");
+BuildParameters.Tasks.AppVeyorTask.IsDependentOn("Publish-Chocolatey-Packages");
+BuildParameters.Tasks.InstallReportGeneratorTask.IsDependentOn("DotNetCore-Signing-Build");
+
+BuildParameters.Tasks.TestTask.IsDependentOn("DotNetCore-Test");
+BuildParameters.Tasks.InstallOpenCoverTask.IsDependentOn("Install-ReportGenerator");
+BuildParameters.Tasks.PackageTask.IsDependentOn("DotNetCore-Pack");
+
+RunTarget(BuildParameters.Target);

@@ -14,7 +14,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(GreaterThanData), AsNegation = true)]
             public void InvokeNotGreaterThanCandidate_ReturnTrue<T>(T candidate, T greaterThan, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanSpecification<T>(greaterThan, comparer);
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);
@@ -26,7 +26,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(GreaterThanData), AsNegation = true)]
             public void InvokeGreaterThanCandidate_ReturnFalse<T>(T candidate, T greaterThan, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new GreaterThanSpecification<T>(greaterThan, comparer);
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);
