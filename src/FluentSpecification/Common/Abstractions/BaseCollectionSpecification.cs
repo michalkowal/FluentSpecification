@@ -97,7 +97,7 @@ namespace FluentSpecification.Common.Abstractions
             {
                 result = new SpecificationResult(false,
                     CreateTraceMessage("", false),
-                    new SpecificationInfo(GetType(), GetParameters(), candidate, "Collection is null"));
+                    new SpecificationInfo(GetType(), GetParameters(), (object)null, "Collection is null"));
                 return false;
             }
 

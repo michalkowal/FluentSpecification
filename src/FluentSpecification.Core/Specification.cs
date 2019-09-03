@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
-
-[assembly: InternalsVisibleTo("FluentSpecification.Core.Tests")]
 
 namespace FluentSpecification.Core
 {

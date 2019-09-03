@@ -35,7 +35,7 @@ namespace FluentSpecification.Tests.Common
                 Expression<Func<TType, bool>> expression)
                 where T : IEnumerable<TType>
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var specification = new MockComplexSpecification<TType>(expression);
                 var sut = new AnySpecification<T, TType>(specification);
 

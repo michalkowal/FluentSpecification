@@ -15,7 +15,7 @@ namespace FluentSpecification.Tests.Common
             public void InvokeNotInclusiveBetweenCandidate_ReturnTrue<T>(T candidate, T from, T to,
                 IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);
@@ -27,7 +27,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(InclusiveBetweenData), AsNegation = true)]
             public void InvokeInclusiveBetweenCandidate_ReturnFalse<T>(T candidate, T from, T to, IComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new InclusiveBetweenSpecification<T>(from, to, comparer);
 
                 var result = sut.GetNegationExpression().Compile().Invoke(candidate);

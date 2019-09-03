@@ -17,7 +17,7 @@ namespace FluentSpecification.Tests.Common
             [CorrectData(typeof(EqualData))]
             public void InvokeEqualCandidate_ReturnTrue<T>(T candidate, T expected, IEqualityComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
@@ -29,7 +29,7 @@ namespace FluentSpecification.Tests.Common
             [IncorrectData(typeof(EqualData))]
             public void InvokeNotEqualCandidate_ReturnFalse<T>(T candidate, T expected, IEqualityComparer<T> comparer)
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new EqualSpecification<T>(expected, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);

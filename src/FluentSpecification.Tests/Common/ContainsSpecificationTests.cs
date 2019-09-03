@@ -21,7 +21,7 @@ namespace FluentSpecification.Tests.Common
                 IEqualityComparer<TType> comparer)
                 where T : IEnumerable<TType>
             {
-                expected = expected?.ToString() != "null" ? expected : default(TType);
+                expected = expected?.ToString() != "null" ? expected : default;
                 var sut = new ContainsSpecification<T, TType>(expected, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
@@ -35,7 +35,7 @@ namespace FluentSpecification.Tests.Common
                 IEqualityComparer<TType> comparer)
                 where T : IEnumerable<TType>
             {
-                candidate = candidate?.ToString() != "null" ? candidate : default(T);
+                candidate = candidate?.ToString() != "null" ? candidate : default;
                 var sut = new ContainsSpecification<T, TType>(expected, comparer);
 
                 var result = sut.GetExpression().Compile().Invoke(candidate);
