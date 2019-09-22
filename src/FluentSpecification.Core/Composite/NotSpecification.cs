@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Utils;
-using FluentSpecification.Core.Validation;
 using JetBrains.Annotations;
 
 namespace FluentSpecification.Core.Composite
@@ -16,6 +16,32 @@ namespace FluentSpecification.Core.Composite
     [PublicAPI]
     public sealed class NotSpecification<T> : IComplexSpecification<T>
     {
+        struct NotSpecificationTrace
+        {
+            private readonly SpecificationTrace _trace;
+
+            public NotSpecificationTrace(SpecificationTrace baseTrace)
+            {
+                _trace = new SpecificationTrace(
+                    GenerateTrace(baseTrace.FullTrace),
+                    GenerateTrace(baseTrace.ShortTrace));
+            }
+
+            private string GenerateTrace(string baseTrace)
+            {
+                if (!string.IsNullOrEmpty(baseTrace))
+                    return $"Not({baseTrace})";
+
+                return null;
+            }
+
+            [PublicAPI]
+            public static implicit operator SpecificationTrace(NotSpecificationTrace self)
+            {
+                return self._trace;
+            }
+        }
+
         private readonly IComplexSpecification<T> _baseSpecification;
         private readonly Expression<Func<T, bool>> _expression;
 
@@ -71,9 +97,8 @@ namespace FluentSpecification.Core.Composite
 
             var specResult = !_baseSpecification.IsSatisfiedBy(candidate, out var baseSpecResult);
 
-            result = SpecificationResultGenerator.GenerateOverallSpecificationResult(specResult,
-                         new TraceMessageModifier(null, "Not({0})"), baseSpecResult)
-                     ?? throw new InvalidOperationException();
+            result = new SpecificationResult(baseSpecResult.TotalSpecificationsCount,
+                specResult, new NotSpecificationTrace(baseSpecResult.Trace), baseSpecResult.Specifications.ToArray());
 
             return specResult;
         }

@@ -15,7 +15,9 @@ namespace FluentSpecification.Common
     [PublicAPI]
     public sealed class ExpressionSpecification<T> :
         ValidationSpecification<T>,
-        IComplexSpecification<T>
+        IComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IParameterizedSpecification
     {
         private readonly Expression<Func<T, bool>> _expression;
 
@@ -52,7 +54,7 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {
@@ -62,7 +64,7 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Specification doesn't meet expression: [{_expression}]";
         }

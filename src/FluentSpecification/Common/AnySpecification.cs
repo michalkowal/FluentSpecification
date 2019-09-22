@@ -70,15 +70,15 @@ namespace FluentSpecification.Common
         }
 
         /// <inheritdoc />
-        [PublicAPI]
-        protected override string CreateFailedMessage()
+        public override string GetFailedMessage(T candidate)
         {
-            return "All elements are not specified";
+            var error = base.GetFailedMessage(candidate);
+
+            return string.IsNullOrEmpty(error) ? "All elements are not specified" : error;
         }
 
         /// <inheritdoc />
-        [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public override IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

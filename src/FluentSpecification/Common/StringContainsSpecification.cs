@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -12,7 +14,10 @@ namespace FluentSpecification.Common
     ///     Checks if string contains another string (case sensitive).
     /// </summary>
     public sealed class ContainsSpecification :
-        ComplexSpecification<string>
+        ComplexSpecification<string>,
+        IFailableSpecification<string>,
+        IFailableNegatableSpecification<string>,
+        IParameterizedSpecification
     {
         private readonly MethodInfo _containsMethodInfo;
         private readonly string _expected;
@@ -35,21 +40,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(string candidate)
+        public string GetFailedMessage(string candidate)
         {
             return $"String not contains [{_expected}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(string candidate)
+        public string GetFailedNegationMessage(string candidate)
         {
             return $"String contains [{_expected}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

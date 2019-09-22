@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions;
 using JetBrains.Annotations;
 
 namespace FluentSpecification.Common.Abstractions
@@ -11,7 +12,8 @@ namespace FluentSpecification.Common.Abstractions
     /// <typeparam name="T">Type of compared objects.</typeparam>
     [PublicAPI]
     public abstract class BaseGreaterCompareSpecification<T> :
-        BaseCompareSpecification<T>
+        BaseCompareSpecification<T>,
+        IParameterizedSpecification
     {
         /// <summary>
         ///     Creates <c>Specification</c> for candidate value comparison.
@@ -30,7 +32,7 @@ namespace FluentSpecification.Common.Abstractions
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

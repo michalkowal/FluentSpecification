@@ -161,37 +161,31 @@ namespace FluentSpecification.Core
         {
             if (!isNegation)
                 return
-                    $"Specification [{SpecificationResultGenerator.GetSpecificationShortName(_baseSpecification)}] is not satisfied by candidate";
+                    $"Specification [{_baseSpecification.GetShortName()}] is not satisfied by candidate";
             return
-                $"Specification [{SpecificationResultGenerator.GetSpecificationShortName(_baseSpecification)}] is satisfied by candidate";
+                $"Specification [{_baseSpecification.GetShortName()}] is satisfied by candidate";
         }
 
-        [NotNull]
-        private string CreateTraceMessage(bool result, bool isNegation)
+        private SpecificationTrace CreateTraceMessage(bool result, bool isNegation)
         {
-            var message = SpecificationResultGenerator.GetSpecificationShortName(_baseSpecification);
-            if (!result)
-                message += "+Failed";
+            SpecificationTrace trace = new CommonSpecificationTrace(_baseSpecification, result);
 
             if (isNegation)
-                message = $"Not{message}";
+            {
+                trace = new SpecificationTrace($"Not{trace.FullTrace}", $"Not{trace.ShortTrace}");
+            }
 
-            return message;
+            return trace;
         }
 
         [NotNull]
         private SpecificationResult CreateResult([CanBeNull] T candidate, bool overall, bool isNegation)
         {
             var trace = CreateTraceMessage(overall, isNegation);
-            var failedSpecifications = overall
-                ? null
-                : new[]
-                {
-                    new SpecificationInfo(_baseSpecification.GetType(), null, candidate,
-                        CreateFailedMessage(isNegation))
-                };
+            var info = new SpecificationInfo(overall, _baseSpecification.GetType(),
+                isNegation, null, candidate, CreateFailedMessage(isNegation));
 
-            return new SpecificationResult(overall, trace, failedSpecifications);
+            return new SpecificationResult(overall, trace, info);
         }
 
         private MethodInfo GetBaseSpecificationMethodInfo(string methodName, Type specType)

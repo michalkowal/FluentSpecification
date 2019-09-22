@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Validation;
@@ -57,63 +56,12 @@ namespace FluentSpecification.Core
         [NotNull]
         protected virtual SpecificationResult CreateResult([CanBeNull] T candidate, bool isSatisfiedBy)
         {
-            var traceMessage = CreateTraceMessage(candidate, isSatisfiedBy);
+            var traceMessage = new CommonSpecificationTrace(this, isSatisfiedBy);
+            var info = new CommonSpecificationInfo<T>(this, candidate, isSatisfiedBy);
 
-            SpecificationResult result;
-            if (isSatisfiedBy)
-                result = new SpecificationResult(true, traceMessage);
-            else
-                result = new SpecificationResult(false, traceMessage,
-                    new SpecificationInfo(GetType(), GetParameters(), candidate, CreateFailedMessage(candidate)));
+            SpecificationResult result = new SpecificationResult(isSatisfiedBy, traceMessage, info);
 
             return result;
-        }
-
-        /// <summary>
-        ///     Gets validation failed message of <c>Specification</c> for <paramref name="candidate" /> content.
-        /// </summary>
-        /// <remarks>
-        ///     Invoked only when overall result is <c>False</c>.
-        /// </remarks>
-        /// <param name="candidate">Incorrect candidate object.</param>
-        /// <returns>Validation failed message.</returns>
-        [PublicAPI]
-        [NotNull]
-        protected abstract string CreateFailedMessage([CanBeNull] T candidate);
-
-        /// <summary>
-        ///     Get <c>Specification</c> internal/external parameters, used for candidate verification.
-        /// </summary>
-        /// <remarks>
-        ///     Returns null by default.
-        /// </remarks>
-        /// <returns>Dictionary with named parameters.</returns>
-        [PublicAPI]
-        [CanBeNull]
-        protected virtual IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
-        }
-
-        /// <summary>
-        ///     Creates trace message based on overall result and candidate content.
-        /// </summary>
-        /// <remarks>
-        ///     Returns short name of <c>Specification</c> (without namespaces) by default.
-        ///     Failed result contains <c>+Failed</c> suffix.
-        /// </remarks>
-        /// <param name="candidate">Verified candidate object.</param>
-        /// <param name="result">Overall <c>Specification</c> result.</param>
-        /// <returns>Short trace message.</returns>
-        [PublicAPI]
-        [NotNull]
-        protected virtual string CreateTraceMessage([CanBeNull] T candidate, bool result)
-        {
-            var message = SpecificationResultGenerator.GetSpecificationShortName(this);
-            if (!result)
-                message += "+Failed";
-
-            return message;
         }
 
         /// <summary>

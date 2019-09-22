@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
-using FluentSpecification.Core.Validation;
+using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
 
 namespace FluentSpecification.Common
@@ -13,7 +15,10 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of candidate to verification.</typeparam>
     [PublicAPI]
     public sealed class IsTypeSpecification<T> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>,
+        IParameterizedSpecification
     {
         private readonly Type _expected;
 
@@ -30,21 +35,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
-            return $"Object is not type of [{SpecificationResultGenerator.GetTypeShortName(_expected)}]";
+            return $"Object is not type of [{_expected.GetShortName()}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
-            return $"Object is type of [{SpecificationResultGenerator.GetTypeShortName(_expected)}]";
+            return $"Object is type of [{_expected.GetShortName()}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

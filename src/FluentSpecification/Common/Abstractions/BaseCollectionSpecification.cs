@@ -22,7 +22,9 @@ namespace FluentSpecification.Common.Abstractions
     /// </example>
     [PublicAPI]
     public abstract class BaseCollectionSpecification<T, TType> :
-        IComplexSpecification<T>
+        IComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IParameterizedSpecification
         where T : IEnumerable<TType>
     {
         private readonly bool _hasCheckNullExpression;
@@ -96,14 +98,14 @@ namespace FluentSpecification.Common.Abstractions
             if (candidate == null)
             {
                 result = new SpecificationResult(false,
-                    CreateTraceMessage("", false),
-                    new SpecificationInfo(GetType(), GetParameters(), (object)null, "Collection is null"));
+                    CreateTraceMessage(SpecificationTrace.Empty, false),
+                    new CommonSpecificationInfo<T>(this, candidate, false));
                 return false;
             }
 
             var overall = OverallForEmpty;
-            var failedSpecifications = new List<SpecificationInfo>();
-            var traces = new List<string>();
+            var specifications = new List<SpecificationInfo>();
+            var traces = new List<SpecificationTrace>();
 
             var idx = 0;
             var total = 1;
@@ -112,32 +114,22 @@ namespace FluentSpecification.Common.Abstractions
                 var specOverall = CollectionElementSpecification.IsSatisfiedBy(el, out var specResult);
 
                 total += specResult.TotalSpecificationsCount;
-                if (!string.IsNullOrEmpty(specResult.Trace))
-                    traces.Add($"[{idx}]({specResult.Trace})");
+                if (!string.IsNullOrEmpty(specResult.Trace.FullTrace))
+                    traces.Add(AddTraceIndex(specResult.Trace, idx));
 
                 if (!CanContinue(specOverall, ref overall))
                     break;
 
-                if (!specOverall)
-                {
-                    var failures = CreateFailedSpecifications(specResult.FailedSpecifications, idx);
-                    failedSpecifications.AddRange(failures);
-                }
+                var infos = CreateSpecificationInfos(specResult.Specifications, idx);
+                specifications.AddRange(infos);
 
                 idx++;
             }
 
-            if (!overall)
-                failedSpecifications.Insert(0, new SpecificationInfo(
-                    GetType(),
-                    GetParameters(),
-                    candidate,
-                    CreateFailedMessage()));
-            else
-                failedSpecifications.Clear();
-
-            var trace = CreateTraceMessage(string.Join($" {TraceConnector} ", traces), overall);
-            result = new SpecificationResult(total, overall, trace, failedSpecifications.ToArray());
+            specifications.Insert(0, new CommonSpecificationInfo<T>(this, candidate, overall));
+            
+            var trace = CreateTraceMessage(SpecificationTrace.Join($" {TraceConnector} ", traces), overall);
+            result = new SpecificationResult(total, overall, trace, specifications.ToArray());
 
             return overall;
         }
@@ -174,24 +166,15 @@ namespace FluentSpecification.Common.Abstractions
             return GetExpression();
         }
 
-        /// <summary>
-        ///     Gets validation failed message of whole <c>Specification</c>.
-        /// </summary>
-        /// <remarks>
-        ///     Invoked only when overall result is <c>False</c>.
-        /// </remarks>
-        /// <returns>Validation failed message.</returns>
-        [PublicAPI]
-        [NotNull]
-        protected abstract string CreateFailedMessage();
+        public virtual string GetFailedMessage(T candidate)
+        {
+            if (candidate == null)
+                return "Collection is null";
 
-        /// <summary>
-        ///     Get <c>Specification</c> internal/external parameters, used for candidate verification.
-        /// </summary>
-        /// <returns>Dictionary with named parameters.</returns>
-        [PublicAPI]
-        [CanBeNull]
-        protected abstract IReadOnlyDictionary<string, object> GetParameters();
+            return string.Empty;
+        }
+
+        public abstract IReadOnlyDictionary<string, object> GetParameters();
 
         /// <summary>
         ///     Checks if flow can be continued after each element result.
@@ -219,14 +202,11 @@ namespace FluentSpecification.Common.Abstractions
         /// <param name="result">Overall <c>Specification</c> result.</param>
         /// <returns>Short trace message.</returns>
         [PublicAPI]
-        [NotNull]
-        protected string CreateTraceMessage([CanBeNull] string specificationTrace, bool result)
+        protected SpecificationTrace CreateTraceMessage(SpecificationTrace specificationTrace, bool result)
         {
-            var message = $"{SpecificationResultGenerator.GetSpecificationShortName(this)}({specificationTrace})";
-            if (!result)
-                message += "+Failed";
+            var trace = new GroupingSpecificationTrace(this, result, specificationTrace);
 
-            return message;
+            return trace;
         }
 
         /// <summary>
@@ -241,15 +221,25 @@ namespace FluentSpecification.Common.Abstractions
         [PublicAPI]
         [NotNull]
         [ItemNotNull]
-        protected IEnumerable<SpecificationInfo> CreateFailedSpecifications(
-            IReadOnlyCollection<SpecificationInfo> failedSpecifications, int idx)
+        protected IEnumerable<SpecificationInfo> CreateSpecificationInfos(
+            IReadOnlyCollection<SpecificationInfo> specifications, int idx)
         {
-            foreach (var spec in failedSpecifications)
+            foreach (var spec in specifications)
                 yield return new SpecificationInfo(
+                    spec.Result,
                     spec.SpecificationType,
+                    spec.IsNegation,
                     spec.Parameters,
                     spec.Candidate,
                     spec.Errors.Select(e => $"[{idx}] {e}").ToArray());
+        }
+
+        private SpecificationTrace AddTraceIndex(SpecificationTrace baseTrace, int idx)
+        {
+            var fullTrace = $"[{idx}]({baseTrace.FullTrace})";
+            var shortTrace = $"[{idx}]({baseTrace.ShortTrace})";
+
+            return new SpecificationTrace(fullTrace, shortTrace);
         }
 
         /// <summary>

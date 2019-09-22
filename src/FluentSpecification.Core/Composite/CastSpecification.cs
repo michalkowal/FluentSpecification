@@ -16,7 +16,9 @@ namespace FluentSpecification.Core.Composite
     /// <typeparam name="TCast">Type of candidate to verify after cast.</typeparam>
     [PublicAPI]
     public sealed partial class CastSpecification<T, TCast> :
-        IComplexSpecification<T>
+        IComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IParameterizedSpecification
     {
         private readonly Expression<Func<T, bool>> _expression;
         private readonly IComplexSpecification<TCast> _specification;

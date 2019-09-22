@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -9,28 +9,23 @@ namespace FluentSpecification.Common
     ///     Checks if candidate is False.
     /// </summary>
     [PublicAPI]
-    public sealed class FalseSpecification
-        : ComplexSpecification<bool>
+    public sealed class FalseSpecification : 
+        ComplexSpecification<bool>,
+        IFailableSpecification<bool>,
+        IFailableNegatableSpecification<bool>
     {
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(bool candidate)
+        public string GetFailedMessage(bool candidate)
         {
             return "Value is True";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(bool candidate)
+        public string GetFailedNegationMessage(bool candidate)
         {
             return "Value is False";
-        }
-
-        /// <inheritdoc />
-        [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
         }
 
         /// <inheritdoc />

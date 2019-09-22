@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -14,7 +16,10 @@ namespace FluentSpecification.Common
     /// </summary>
     [PublicAPI]
     public sealed class MatchSpecification :
-        ComplexSpecification<string>
+        ComplexSpecification<string>,
+        IFailableSpecification<string>,
+        IFailableNegatableSpecification<string>,
+        IParameterizedSpecification
     {
         private readonly MethodInfo _isMatchMethodInfo;
         private readonly RegexOptions _options;
@@ -45,21 +50,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(string candidate)
+        public string GetFailedMessage(string candidate)
         {
             return $"String not match pattern [{_pattern}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(string candidate)
+        public string GetFailedNegationMessage(string candidate)
         {
             return $"String match pattern [{_pattern}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

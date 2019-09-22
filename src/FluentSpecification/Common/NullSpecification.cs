@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -11,27 +11,22 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of candidate to verify.</typeparam>
     [PublicAPI]
     public sealed class NullSpecification<T> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>
     {
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return "Object is not null";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return "Object is null";
-        }
-
-        /// <inheritdoc />
-        [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
         }
 
         /// <inheritdoc />

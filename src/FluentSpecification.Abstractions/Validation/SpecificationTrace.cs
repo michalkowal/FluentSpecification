@@ -1,4 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 
 namespace FluentSpecification.Abstractions.Validation
 {
@@ -22,6 +25,17 @@ namespace FluentSpecification.Abstractions.Validation
         public override string ToString()
         {
             return FullTrace;
+        }
+
+        public static SpecificationTrace Join([CanBeNull] string separator,
+            [NotNull] IEnumerable<SpecificationTrace> values)
+        {
+            values = values ?? throw new ArgumentNullException(nameof(values));
+
+            var fullTrace = string.Join(separator, values.Select(v => v.FullTrace));
+            var shortTrace = string.Join(separator, values.Select(v => v.ShortTrace));
+
+            return new SpecificationTrace(fullTrace, shortTrace);
         }
     }
 }

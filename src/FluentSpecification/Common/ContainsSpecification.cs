@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -14,7 +16,10 @@ namespace FluentSpecification.Common
     /// <typeparam name="TType">Type of expected element in collection.</typeparam>
     [PublicAPI]
     public sealed class ContainsSpecification<T, TType> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>,
+        IParameterizedSpecification 
         where T : IEnumerable<TType>
     {
         private readonly IEqualityComparer<TType> _comparer;
@@ -44,21 +49,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Collection not contains [{(object) _expected ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return $"Collection contains [{(object) _expected ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

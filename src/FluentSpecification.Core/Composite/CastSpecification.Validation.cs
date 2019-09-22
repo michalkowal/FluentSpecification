@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentSpecification.Abstractions.Validation;
+using FluentSpecification.Core.Utils;
 using FluentSpecification.Core.Validation;
 using JetBrains.Annotations;
 
@@ -44,31 +45,26 @@ namespace FluentSpecification.Core.Composite
             return overall;
         }
 
-        [NotNull]
-        private string CreatePropertyFailedMessage([CanBeNull] T candidate)
+        public string GetFailedMessage(T candidate)
         {
             var from = candidate != null
-                ? SpecificationResultGenerator.GetTypeShortName(candidate.GetType())
+                ? candidate.GetType().GetShortName()
                 : "null";
 
             return
                 $"Cannot cast type [{from}] to " +
-                $"[{SpecificationResultGenerator.GetTypeShortName(typeof(TCast))}]";
+                $"[{typeof(TCast).GetShortName()}]";
         }
 
         // TODO: Add Failed only when cast exception
-        [NotNull]
-        private string CreateTraceMessage([CanBeNull] string castTrace, bool result)
+        private SpecificationTrace CreateTraceMessage(SpecificationTrace castTrace, bool result)
         {
-            var message = $"{SpecificationResultGenerator.GetSpecificationShortName(this)}({castTrace})";
-            if (!result)
-                message += "+Failed";
+            var trace = new GroupingSpecificationTrace(this, result, castTrace);
 
-            return message;
+            return trace;
         }
 
-        [NotNull]
-        private IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {
@@ -80,20 +76,19 @@ namespace FluentSpecification.Core.Composite
         private SpecificationResult CreateResult([CanBeNull] T candidate,
             [CanBeNull] SpecificationResult propertyResult, bool isSatisfiedBy)
         {
-            var traceMessage = CreateTraceMessage(propertyResult?.Trace, isSatisfiedBy);
-            var errors = new List<SpecificationInfo>();
+            // TODO: Add failed message only when cast exception
 
-            if (!isSatisfiedBy)
+            var traceMessage = CreateTraceMessage(propertyResult?.Trace ?? SpecificationTrace.Empty, isSatisfiedBy);
+            var infos = new List<SpecificationInfo>()
             {
-                if (propertyResult != null)
-                    errors.AddRange(propertyResult.FailedSpecifications);
-                else
-                    errors.Add(new SpecificationInfo(GetType(), GetParameters(), candidate,
-                        CreatePropertyFailedMessage(candidate)));
-            }
+                new CommonSpecificationInfo<T>(this, candidate, isSatisfiedBy)
+            };
+
+            if (propertyResult != null)
+                infos.AddRange(propertyResult.Specifications);
 
             var result = new SpecificationResult((propertyResult?.TotalSpecificationsCount ?? 0) + 1, isSatisfiedBy,
-                traceMessage, errors.ToArray());
+                traceMessage, infos.ToArray());
             return result;
         }
     }

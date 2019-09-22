@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using JetBrains.Annotations;
 
@@ -13,7 +13,9 @@ namespace FluentSpecification.Common
     /// </summary>
     [PublicAPI]
     public sealed class CreditCardSpecification :
-        ComplexSpecification<string>
+        ComplexSpecification<string>,
+        IFailableSpecification<string>,
+        IFailableNegatableSpecification<string>
     {
         private const string AmexCard = "^3[47][0-9]{13}$";
         private const string BcGlobal = "^(6541|6556)[0-9]{12}$";
@@ -62,23 +64,16 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(string candidate)
+        public string GetFailedMessage(string candidate)
         {
             return "Value is not correct credit card number";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(string candidate)
+        public string GetFailedNegationMessage(string candidate)
         {
             return "Value is correct credit card number";
-        }
-
-        /// <inheritdoc />
-        [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
         }
 
         private Expression CreateMatchExpression(Expression replaceExpression, string pattern)

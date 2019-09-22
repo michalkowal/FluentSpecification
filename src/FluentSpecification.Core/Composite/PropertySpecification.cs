@@ -16,7 +16,9 @@ namespace FluentSpecification.Core.Composite
     /// <typeparam name="TProperty">Type of candidate property to verify.</typeparam>
     [PublicAPI]
     public sealed partial class PropertySpecification<T, TProperty> :
-        IComplexSpecification<T>
+        IComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IParameterizedSpecification
     {
         private const string SelectorPattern = "^[a-zA-Z_][a-zA-Z0-9_.]*$";
         private readonly Expression<Func<T, bool>> _expression;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
@@ -41,7 +43,10 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of compared objects.</typeparam>
     [PublicAPI]
     public sealed class EqualSpecification<T> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>,
+        IParameterizedSpecification
     {
         private readonly bool _baseEquals;
         private readonly IEqualityComparer<T> _comparer;
@@ -76,21 +81,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Object is not equal to [{(object) _expected ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return $"Object is equal to [{(object) _expected ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using FluentSpecification.Core.Utils;
@@ -15,7 +16,8 @@ namespace FluentSpecification.Common.Abstractions
     /// <typeparam name="T">Type of compared objects.</typeparam>
     [PublicAPI]
     public abstract class BaseBetweenSpecification<T> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IParameterizedSpecification
     {
         private readonly IComplexSpecification<T> _greaterThanSpecification;
         private readonly IComplexSpecification<T> _lessThanSpecification;
@@ -67,7 +69,7 @@ namespace FluentSpecification.Common.Abstractions
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

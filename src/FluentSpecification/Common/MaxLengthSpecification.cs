@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Common.Abstractions;
 using JetBrains.Annotations;
 
@@ -12,7 +14,10 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of candidate to verify (collection or string).</typeparam>
     [PublicAPI]
     public sealed class MaxLengthSpecification<T> :
-        BaseLengthSpecification<T>
+        BaseLengthSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>,
+        IParameterizedSpecification 
         where T : IEnumerable
     {
         private readonly int _max;
@@ -31,21 +36,21 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Object length is greater than [{_max}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return $"Object length is lower than [{_max}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Common.Abstractions;
 using JetBrains.Annotations;
 
@@ -32,7 +33,9 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of compared objects.</typeparam>
     [PublicAPI]
     public sealed class GreaterThanSpecification<T> :
-        BaseGreaterCompareSpecification<T>
+        BaseGreaterCompareSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>
     {
         /// <summary>
         ///     Creates <c>Specification</c> for candidate value comparison.
@@ -48,14 +51,14 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Object is lower than or equal to [{(object) Limit ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return $"Object is greater than [{(object) Limit ?? "null"}]";
         }

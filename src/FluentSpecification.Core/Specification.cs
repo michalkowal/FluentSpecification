@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
-using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
 using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
@@ -90,21 +89,6 @@ namespace FluentSpecification.Core
             var shortName = specType.GetShortName();
 
             return shortName;
-        }
-
-        [PublicAPI]
-        public static SpecificationTrace GetTrace([NotNull] this ISpecification specification, bool result)
-        {
-            if (specification is ITraceableSpecification traceableSpecification)
-                return traceableSpecification.GetTrace(result);
-
-            var trace = specification.GetShortName();
-            if (!result)
-                trace += "+Failed";
-
-            var shortTrace = trace.Replace("Specification", string.Empty);
-
-            return new SpecificationTrace(trace, shortTrace);
         }
 
         /// <summary>

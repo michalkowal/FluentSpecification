@@ -1,5 +1,6 @@
 ﻿using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
+using FluentSpecification.Core.Validation;
 using JetBrains.Annotations;
 
 namespace FluentSpecification.Core
@@ -62,14 +63,9 @@ namespace FluentSpecification.Core
         protected virtual SpecificationResult CreateNegationResult([CanBeNull] T candidate, bool isSatisfiedBy)
         {
             var traceMessage = CreateNegationTraceMessage(candidate, isSatisfiedBy);
+            var info = new NegationSpecificationInfo<T>(this, candidate, isSatisfiedBy);
 
-            SpecificationResult result;
-            if (isSatisfiedBy)
-                result = new SpecificationResult(true, traceMessage);
-            else
-                result = new SpecificationResult(false, traceMessage,
-                    new SpecificationInfo(GetType(), GetParameters(), candidate,
-                        CreateNegationFailedMessage(candidate)));
+            SpecificationResult result = new SpecificationResult(isSatisfiedBy, traceMessage, info);
 
             return result;
         }
@@ -85,22 +81,11 @@ namespace FluentSpecification.Core
         /// <param name="result">Overall <c>Specification</c> result.</param>
         /// <returns>Short negation trace message.</returns>
         [PublicAPI]
-        [NotNull]
-        protected virtual string CreateNegationTraceMessage([CanBeNull] T candidate, bool result)
+        protected virtual SpecificationTrace CreateNegationTraceMessage([CanBeNull] T candidate, bool result)
         {
-            return $"Not{CreateTraceMessage(candidate, result)}";
+            // TODO: Move this functionality to CommonSpecificationTrace class ???
+            var baseTrace = new CommonSpecificationTrace(this, result);
+            return new SpecificationTrace($"Not{baseTrace.FullTrace}", $"Not{baseTrace.ShortTrace}");
         }
-
-        /// <summary>
-        ///     Gets validation negation failed message of <c>Specification</c> for <paramref name="candidate" /> content.
-        /// </summary>
-        /// <remarks>
-        ///     Invoked only when overall result is <c>False</c>.
-        /// </remarks>
-        /// <param name="candidate">Incorrect candidate object.</param>
-        /// <returns>Validation negation failed message.</returns>
-        [PublicAPI]
-        [NotNull]
-        protected abstract string CreateNegationFailedMessage([CanBeNull] T candidate);
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using FluentSpecification.Core.Utils;
 using JetBrains.Annotations;
@@ -34,7 +34,9 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of candidate to verify.</typeparam>
     [PublicAPI]
     public sealed class EmptySpecification<T> :
-        ComplexSpecification<T>
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>
     {
         private readonly MethodInfo _anyMethodInfo;
         private readonly bool _checkIsCollectionNull;
@@ -66,23 +68,16 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return "Object is not empty";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return "Object is empty";
-        }
-
-        /// <inheritdoc />
-        [PublicAPI]
-        protected override IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
         }
 
         /// <inheritdoc />

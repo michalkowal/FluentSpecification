@@ -42,35 +42,33 @@ namespace FluentSpecification.Core.Composite
 
         [NotNull]
         [ItemNotNull]
-        private IEnumerable<SpecificationInfo> CreateFailedSpecifications(
+        private IEnumerable<SpecificationInfo> CreateSpecificationInfos(
             [NotNull] IReadOnlyCollection<SpecificationInfo> propertyFailedSpecifications)
         {
             foreach (var propError in propertyFailedSpecifications)
                 yield return new SpecificationInfo(
+                    propError.Result,
                     propError.SpecificationType,
+                    propError.IsNegation,
                     propError.Parameters,
                     propError.Candidate,
                     propError.Errors.Select(e => $"Field '{_propertyName}': [{e}]").ToArray());
         }
 
-        [NotNull]
-        private string CreatePropertyFailedMessage()
+        public string GetFailedMessage(T candidate)
         {
             return
                 $"Field '{_propertyName}' value is not valid";
         }
 
-        [NotNull]
-        private string CreateTraceMessage([CanBeNull] string propertyTrace, bool result)
+        private SpecificationTrace CreateTraceMessage(SpecificationTrace propertyTrace, bool result)
         {
-            var message = $"{SpecificationResultGenerator.GetSpecificationShortName(this)}({propertyTrace})";
-            if (!result)
-                message += "+Failed";
+            var trace = new GroupingSpecificationTrace(this, result, propertyTrace);
 
-            return message;
+            return trace;
         }
 
-        private IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {
@@ -84,19 +82,17 @@ namespace FluentSpecification.Core.Composite
         private SpecificationResult CreateResult([CanBeNull] T candidate,
             [CanBeNull] SpecificationResult propertyResult, bool isSatisfiedBy)
         {
-            var traceMessage = CreateTraceMessage(propertyResult?.Trace, isSatisfiedBy);
-            var errors = new List<SpecificationInfo>();
-
-            if (!isSatisfiedBy)
+            var traceMessage = CreateTraceMessage(propertyResult?.Trace ?? SpecificationTrace.Empty, isSatisfiedBy);
+            var infos = new List<SpecificationInfo>
             {
-                errors.Add(
-                    new SpecificationInfo(GetType(), GetParameters(), candidate, CreatePropertyFailedMessage()));
-                if (propertyResult != null)
-                    errors.AddRange(CreateFailedSpecifications(propertyResult.FailedSpecifications));
-            }
+                new CommonSpecificationInfo<T>(this, candidate, isSatisfiedBy)
+            };
+
+            if (propertyResult != null)
+                infos.AddRange(CreateSpecificationInfos(propertyResult.Specifications));
 
             var result = new SpecificationResult((propertyResult?.TotalSpecificationsCount ?? 0) + 1, isSatisfiedBy,
-                traceMessage, errors.ToArray());
+                traceMessage, infos.ToArray());
             return result;
         }
     }

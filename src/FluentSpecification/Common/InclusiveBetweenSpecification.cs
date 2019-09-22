@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Common.Abstractions;
 using JetBrains.Annotations;
 
@@ -31,7 +32,9 @@ namespace FluentSpecification.Common
     /// <typeparam name="T">Type of compared objects.</typeparam>
     [PublicAPI]
     public sealed class InclusiveBetweenSpecification<T> :
-        BaseBetweenSpecification<T>
+        BaseBetweenSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>
     {
         /// <summary>
         ///     Creates <c>Specification</c> for candidate value comparison.
@@ -50,14 +53,14 @@ namespace FluentSpecification.Common
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return $"Value is not between [{(object) From ?? "null"}] and [{(object) To ?? "null"}]";
         }
 
         /// <inheritdoc />
         [PublicAPI]
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return $"Value is between [{(object) From ?? "null"}] and [{(object) To ?? "null"}]";
         }
