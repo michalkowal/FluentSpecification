@@ -12,13 +12,10 @@ namespace FluentSpecification.Core.Tests.Composite
     {
         public class GetExpression
         {
-            [Theory]
-            [CorrectData(typeof(NotData))]
-            public void InvokeCorrectData_ReturnTrue(bool isNegatable)
+            [Fact]
+            public void InvokeCorrectData_ReturnTrue()
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.False()
-                    : MockNegatableComplexSpecification.False();
+                var specification = MockComplexSpecification.False();
 
                 var sut = new NotSpecification<object>(specification);
 
@@ -27,13 +24,34 @@ namespace FluentSpecification.Core.Tests.Composite
                 Assert.True(result);
             }
 
-            [Theory]
-            [IncorrectData(typeof(NotData))]
-            public void InvokeIncorrectData_ReturnTrue(bool isNegatable)
+            [Fact]
+            public void InvokeNegatableCorrectData_ReturnTrue()
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.True()
-                    : MockNegatableComplexSpecification.True();
+                var specification = MockNegatableComplexSpecification.False();
+
+                var sut = new NotSpecification<object>(specification);
+
+                var result = sut.GetExpression().Compile().Invoke(new object());
+
+                Assert.True(result);
+            }
+
+            [Fact]
+            public void InvokeIncorrectData_ReturnTrue()
+            {
+                var specification = MockComplexSpecification.True();
+
+                var sut = new NotSpecification<object>(specification);
+
+                var result = sut.GetExpression().Compile().Invoke(new object());
+
+                Assert.False(result);
+            }
+
+            [Fact]
+            public void InvokeNegatableIncorrectData_ReturnTrue()
+            {
+                var specification = MockNegatableComplexSpecification.True();
 
                 var sut = new NotSpecification<object>(specification);
 

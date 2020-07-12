@@ -6,86 +6,86 @@ using FluentSpecification.Tests.Sdk.Data;
 
 namespace FluentSpecification.Core.Tests.Data
 {
-    public class TypeNumericData : SpecificationData<Type>
+    public class TypeNumericData : BaseData
     {
         public TypeNumericData()
         {
-            Valid(typeof(byte));
-            Valid(typeof(sbyte));
-            Valid(typeof(ushort));
-            Valid(typeof(uint));
-            Valid(typeof(ulong));
-            Valid(typeof(short));
-            Valid(typeof(int));
-            Valid(typeof(long));
-            Valid(typeof(double));
-            Valid(typeof(decimal));
-            Valid(typeof(float));
-            Valid(typeof(byte?));
-            Valid(typeof(sbyte?));
-            Valid(typeof(ushort?));
-            Valid(typeof(uint?));
-            Valid(typeof(ulong?));
-            Valid(typeof(short?));
-            Valid(typeof(int?));
-            Valid(typeof(long?));
-            Valid(typeof(double?));
-            Valid(typeof(decimal?));
-            Valid(typeof(float?));
-
-            Invalid(typeof(string));
-            Invalid(typeof(FakeType));
-            Invalid(typeof(ChildComparableFakeType));
-            Invalid(typeof(KeyValuePair<string, int>));
-            Invalid(typeof(KeyValuePair<string, int>?));
+            AddValid(typeof(byte));
+            AddValid(typeof(sbyte));
+            AddValid(typeof(ushort));
+            AddValid(typeof(uint));
+            AddValid(typeof(ulong));
+            AddValid(typeof(short));
+            AddValid(typeof(int));
+            AddValid(typeof(long));
+            AddValid(typeof(double));
+            AddValid(typeof(decimal));
+            AddValid(typeof(float));
+            AddValid(typeof(byte?));
+            AddValid(typeof(sbyte?));
+            AddValid(typeof(ushort?));
+            AddValid(typeof(uint?));
+            AddValid(typeof(ulong?));
+            AddValid(typeof(short?));
+            AddValid(typeof(int?));
+            AddValid(typeof(long?));
+            AddValid(typeof(double?));
+            AddValid(typeof(decimal?));
+            AddValid(typeof(float?));
+            
+            AddInvalid(typeof(string));
+            AddInvalid(typeof(FakeType));
+            AddInvalid(typeof(ChildComparableFakeType));
+            AddInvalid(typeof(KeyValuePair<string, int>));
+            AddInvalid(typeof(KeyValuePair<string, int>?));
         }
     }
 
-    public class TypeIsEnumerableData : SpecificationData<Type>
+    public class TypeIsEnumerableData : BaseData
     {
         public TypeIsEnumerableData()
         {
-            Valid(typeof(FakeType));
-            Valid(typeof(ChildFakeType));
-            Valid(typeof(string[]));
-            Valid(typeof(string));
-            Valid(typeof(List<int>));
-            Valid(typeof(Dictionary<string, bool>));
-            Valid(typeof(IReadOnlyCollection<int>));
-            Valid(typeof(IEnumerable<int>));
+            AddValid(typeof(FakeType));
+            AddValid(typeof(ChildFakeType));
+            AddValid(typeof(string[]));
+            AddValid(typeof(string));
+            AddValid(typeof(List<int>));
+            AddValid(typeof(Dictionary<string, bool>));
+            AddValid(typeof(IReadOnlyCollection<int>));
+            AddValid(typeof(IEnumerable<int>));
 
-            Invalid(typeof(int));
-            Invalid(typeof(object));
-            Invalid(typeof(IComparable));
-            Invalid(typeof(InterFakeType));
-            Invalid(typeof(IEnumerable));
+            AddInvalid(typeof(int));
+            AddInvalid(typeof(object));
+            AddInvalid(typeof(IComparable));
+            AddInvalid(typeof(InterFakeType));
+            AddInvalid(typeof(IEnumerable));
         }
     }
 
-    public class TypeEnumerableAttributeData : SpecificationData<Type, Type>
+    public class TypeEnumerableAttributeData : BaseData
     {
         public TypeEnumerableAttributeData()
         {
-            Valid(typeof(FakeType), typeof(char));
-            Valid(typeof(ChildFakeType), typeof(char));
-            Valid(typeof(string[]), typeof(string));
-            Valid(typeof(string), typeof(char));
-            Valid(typeof(List<int>), typeof(int));
-            Valid(typeof(Dictionary<string, bool>), typeof(KeyValuePair<string, bool>));
-            Valid(typeof(IReadOnlyCollection<int>), typeof(int));
-            Valid(typeof(IEnumerable<int>), typeof(int));
+            AddValid(typeof(FakeType), typeof(char));
+            AddValid(typeof(ChildFakeType), typeof(char));
+            AddValid(typeof(string[]), typeof(string));
+            AddValid(typeof(string), typeof(char));
+            AddValid(typeof(List<int>), typeof(int));
+            AddValid(typeof(Dictionary<string, bool>), typeof(KeyValuePair<string, bool>));
+            AddValid(typeof(IReadOnlyCollection<int>), typeof(int));
+            AddValid(typeof(IEnumerable<int>), typeof(int));
         }
     }
 
-    public class TypeComparableData : SpecificationData<Type>
+    public class TypeComparableData : BaseData
     {
         public TypeComparableData()
         {
-            Valid(typeof(ComparableFakeType));
-            Valid(typeof(ChildComparableFakeType));
+            AddValid(typeof(ComparableFakeType));
+            AddValid(typeof(ChildComparableFakeType));
 
-            Invalid(typeof(FakeType));
-            Invalid(typeof(ChildFakeType));
+            AddInvalid(typeof(FakeType));
+            AddInvalid(typeof(ChildFakeType));
         }
     }
 }

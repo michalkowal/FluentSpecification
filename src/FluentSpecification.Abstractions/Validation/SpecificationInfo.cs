@@ -62,7 +62,7 @@ namespace FluentSpecification.Abstractions.Validation
         public Type SpecificationType { get; }
 
         [PublicAPI]
-        public bool IsNegation { get; set; }
+        public bool IsNegation { get; }
 
         /// <summary>
         ///     <c>Specification</c> parameters used during candidate verification.

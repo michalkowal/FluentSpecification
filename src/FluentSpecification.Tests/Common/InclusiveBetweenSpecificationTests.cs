@@ -1,37 +1,41 @@
 ﻿using System;
 using FluentSpecification.Common;
 using FluentSpecification.Tests.Data;
+using FluentSpecification.Tests.Data.Factories;
 using FluentSpecification.Tests.Mocks;
 using FluentSpecification.Tests.Sdk;
+using FluentSpecification.Tests.Sdk.Data;
+using FluentSpecification.Tests.Sdk.Framework;
 using JetBrains.Annotations;
 using Xunit;
 
 namespace FluentSpecification.Tests.Common
 {
     [UsedImplicitly]
-    public partial class InclusiveBetweenSpecificationTests
+    [SpecificationData(typeof(InclusiveBetweenData))]
+    [SpecificationFactoryData(typeof(InclusiveBetweenFactory))]
+    public class InclusiveBetweenSpecificationTests : ComplexNegatableSpecificationTests<InclusiveBetweenSpecificationTests>
     {
-        public class Constructor
+        [Theory]
+        [IncorrectData(typeof(InclusiveBetweenConstructorData))]
+        [Trait("Category", "Constructor")]
+        public void Constructor_FromGreaterThanTo_ArgumentException<T>(SpecificationFactory<T> factory)
         {
-            [Theory]
-            [IncorrectData(typeof(InclusiveBetweenConstructorData))]
-            public void FromGreaterThanTo_ArgumentException<T>(T from, T to)
-            {
-                var exception = Record.Exception(() => new InclusiveBetweenSpecification<T>(from, to));
+            var exception = Record.Exception(() => factory.Create());
 
-                Assert.NotNull(exception);
-                Assert.IsType<ArgumentException>(exception);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentException>(exception);
+        }
 
-            [Fact]
-            public void NotComparableType_Exception()
-            {
-                var exception = Record.Exception(() =>
-                    new InclusiveBetweenSpecification<FakeType>(new FakeType(), new FakeType()));
+        [Fact]
+        [Trait("Category", "Constructor")]
+        public void Constructor_NotComparableType_Exception()
+        {
+            var exception = Record.Exception(() =>
+                new InclusiveBetweenSpecification<FakeType>(new FakeType(), new FakeType()));
 
-                Assert.NotNull(exception);
-                Assert.IsType<ArgumentException>(exception);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentException>(exception);
         }
     }
 }

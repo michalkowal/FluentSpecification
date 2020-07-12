@@ -19,20 +19,20 @@ namespace FluentSpecification.Core.Tests.Mocks
         public bool IsNotSatisfiedBy(T candidate, out SpecificationResult result)
         {
             var overall = IsNotSatisfiedBy(candidate);
-            var trace = "Not" + TraceMessage;
+            var trace = new SpecificationTrace("Not" + TraceMessage.FullTrace, "Not" + TraceMessage.ShortTrace);
+            string[] error = null;
 
             if (!overall)
             {
-                var error = new SpecificationInfo(GetType(), GetParameters(), candidate,
-                    "NotMockNegatableValidationSpecification is satisfied");
-                trace = "Failed" + trace;
-                result = new SpecificationResult(false, trace, error);
-            }
-            else
-            {
-                result = new SpecificationResult(true, trace);
+                error = new[] 
+                {
+                    "NotMockNegatableValidationSpecification is satisfied"
+                };
+                trace = new SpecificationTrace("Failed" + trace.FullTrace, "Failed" + trace.ShortTrace);
             }
 
+            result = new SpecificationResult(overall, trace, new SpecificationInfo(
+                overall, GetType(), true, GetParameters(), candidate, error));
 
             return overall;
         }
@@ -82,7 +82,9 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "TrueMockNegatableValidationSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("TrueMockNegatableValidationSpecification",
+                "TrueMockNegatableValidation");
     }
 
     internal class FalseMockNegatableValidationSpecification : MockNegatableValidationSpecification
@@ -91,6 +93,8 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "FalseMockNegatableValidationSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("FalseMockNegatableValidationSpecification",
+                "FalseMockNegatableValidation");
     }
 }

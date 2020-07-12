@@ -22,15 +22,51 @@ namespace FluentSpecification.Core.Tests.Data
             var ftThirdSelector = (Expression<Func<FakeType, bool>>) (ft => ft.Inter.Third);
 
             AddValid(candidate, ftSecondSelector)
-                .Result(2, "PropertySpecification<FakeType,String>(TrueMockValidationSpecification[System.String])");
+                .Result("PropertySpecification<FakeType,String>(TrueMockComplexSpecification[String])",
+                    "Property(TrueMockComplex)",
+                    c =>
+                    {
+                        c.Specification(typeof(PropertySpecification<FakeType, string>))
+                            .Candidate(candidate)
+                            .AddParameter("PropertySelector", ftSecondSelector)
+                            .AddParameter("PropertyName", "Second")
+                            .AddParameter("PropertySpecification", null);
+                        c.Specification(typeof(TrueMockComplexSpecification<string>))
+                            .Candidate("2")
+                            .AddParameter("Result", true);
+                    });
             AddValid(candidate, ftThirdSelector)
-                .Result(2, "PropertySpecification<FakeType,Boolean>(TrueMockValidationSpecification[System.Boolean])");
+                .Result("PropertySpecification<FakeType,Boolean>(TrueMockComplexSpecification[Boolean])",
+                    "Property(TrueMockComplex)",
+                    c =>
+                    {
+                        c.Specification(typeof(PropertySpecification<FakeType, bool>))
+                            .Candidate(candidate)
+                            .AddParameter("PropertySelector", ftThirdSelector)
+                            .AddParameter("PropertyName", "Inter.Third")
+                            .AddParameter("PropertySpecification", null);
+                        c.Specification(typeof(TrueMockComplexSpecification<bool>))
+                            .Candidate(false)
+                            .AddParameter("Result", true);
+                    });
             AddValid(empty, ftSecondSelector)
-                .Result(2, "PropertySpecification<FakeType,String>(TrueMockValidationSpecification[System.String])");
+                .Result("PropertySpecification<FakeType,String>(TrueMockComplexSpecification[String])",
+                    "Property(TrueMockComplex)",
+                    c =>
+                    {
+                        c.Specification(typeof(PropertySpecification<FakeType, string>))
+                            .Candidate(empty)
+                            .AddParameter("PropertySelector", ftSecondSelector)
+                            .AddParameter("PropertyName", "Second")
+                            .AddParameter("PropertySpecification", null);
+                        c.Specification(typeof(TrueMockComplexSpecification<string>))
+                            .Candidate(null)
+                            .AddParameter("Result", true);
+                    });
 
             AddInvalid(candidate, ftSecondSelector)
-                .Result(2,
-                    "PropertySpecification<FakeType,String>(FailedFalseMockComplexSpecification[System.String])+Failed",
+                .Result("PropertySpecification<FakeType,String>(FailedFalseMockComplexSpecification[String])+Failed",
+                    "Property(FailedFalseMockComplex)+Failed",
                     c =>
                     {
                         c.FailedSpecification(typeof(PropertySpecification<FakeType, string>),
@@ -45,8 +81,8 @@ namespace FluentSpecification.Core.Tests.Data
                             .AddParameter("Result", false);
                     });
             AddInvalid(candidate, ftThirdSelector)
-                .Result(2,
-                    "PropertySpecification<FakeType,Boolean>(FailedFalseMockComplexSpecification[System.Boolean])+Failed",
+                .Result("PropertySpecification<FakeType,Boolean>(FailedFalseMockComplexSpecification[Boolean])+Failed",
+                    "Property(FailedFalseMockComplex)+Failed",
                     c =>
                     {
                         c.FailedSpecification(typeof(PropertySpecification<FakeType, bool>),
@@ -62,6 +98,7 @@ namespace FluentSpecification.Core.Tests.Data
                     });
             AddInvalid(empty, ftThirdSelector)
                 .Result("PropertySpecification<FakeType,Boolean>()+Failed",
+                    "Property()+Failed",
                     c =>
                         c.FailedSpecification(typeof(PropertySpecification<FakeType, bool>),
                                 "Field 'Inter.Third' value is not valid")
@@ -71,6 +108,7 @@ namespace FluentSpecification.Core.Tests.Data
                             .AddParameter("PropertySpecification", null));
             AddInvalid(nullFake, ftSecondSelector)
                 .Result("PropertySpecification<FakeType,String>()+Failed",
+                    "Property()+Failed",
                     c =>
                         c.FailedSpecification(typeof(PropertySpecification<FakeType, string>),
                                 "Field 'Second' value is not valid")

@@ -82,14 +82,15 @@ namespace FluentSpecification.Core.Tests
             [CorrectValidationData(typeof(AdapterData), AsNegation = true)]
             public void FalseSpecification_ReturnExpectedResultObject(bool isNegatable, SpecificationResult expected)
             {
+                var dum = new object();
                 var specification =
                     isNegatable ? MockNegatableValidationSpecification.False() : MockSpecification.False();
                 var sut = new SpecificationAdapter<object>(specification);
 
-                var overall = sut.IsNotSatisfiedBy(new object(), out var result);
+                var overall = sut.IsNotSatisfiedBy(dum, out var result);
 
                 Assert.True(overall);
-                Assert.Equal(expected, result, new SpecificationResultComparer());
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
             }
 
             [Theory]

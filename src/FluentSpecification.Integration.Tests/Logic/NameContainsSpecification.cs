@@ -1,13 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using FluentSpecification.Integration.Tests.Data;
 
 namespace FluentSpecification.Integration.Tests.Logic
 {
     internal sealed class NameContainsSpecification :
-        ComplexSpecification<Event>
+        ComplexSpecification<Event>,
+        IFailableSpecification<Event>,
+        IFailableNegatableSpecification<Event>,
+        IParameterizedSpecification
     {
         private readonly MethodInfo _contains;
         private readonly string _filter;
@@ -18,17 +23,17 @@ namespace FluentSpecification.Integration.Tests.Logic
             _contains = typeof(string).GetMethod(nameof(string.Contains), new[] {typeof(string)});
         }
 
-        protected override string CreateFailedMessage(Event candidate)
+        public string GetFailedMessage(Event candidate)
         {
             return $"Item [{candidate?.Name}] not contains: [{_filter}]";
         }
 
-        protected override string CreateNegationFailedMessage(Event candidate)
+        public string GetFailedNegationMessage(Event candidate)
         {
             return $"Item [{candidate?.Name}] contains: [{_filter}]";
         }
 
-        protected override IReadOnlyDictionary<string, object> GetParameters()
+        public IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

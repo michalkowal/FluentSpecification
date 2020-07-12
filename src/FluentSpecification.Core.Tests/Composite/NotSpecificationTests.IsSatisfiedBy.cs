@@ -12,13 +12,10 @@ namespace FluentSpecification.Core.Tests.Composite
     {
         public class IsSatisfiedBy
         {
-            [Theory]
-            [CorrectData(typeof(NotData))]
-            public void CorrectData_ReturnTrue(bool isNegatable)
+            [Fact]
+            public void CorrectData_ReturnTrue()
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.False()
-                    : MockNegatableComplexSpecification.False();
+                var specification = MockComplexSpecification.False();
                 var sut = new NotSpecification<object>(specification);
 
                 var result = sut.IsSatisfiedBy(new object());
@@ -26,13 +23,32 @@ namespace FluentSpecification.Core.Tests.Composite
                 Assert.True(result);
             }
 
-            [Theory]
-            [IncorrectData(typeof(NotData))]
-            public void IncorrectData_ReturnFalse(bool isNegatable)
+            [Fact]
+            public void CorrectNegatableData_ReturnTrue()
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.True()
-                    : MockNegatableComplexSpecification.True();
+                var specification = MockNegatableComplexSpecification.False();
+                var sut = new NotSpecification<object>(specification);
+
+                var result = sut.IsSatisfiedBy(new object());
+
+                Assert.True(result);
+            }
+
+            [Fact]
+            public void IncorrectData_ReturnFalse()
+            {
+                var specification = MockComplexSpecification.True();
+                var sut = new NotSpecification<object>(specification);
+
+                var result = sut.IsSatisfiedBy(new object());
+
+                Assert.False(result);
+            }
+
+            [Fact]
+            public void IncorrectNegatableData_ReturnFalse()
+            {
+                var specification = MockNegatableComplexSpecification.True();
                 var sut = new NotSpecification<object>(specification);
 
                 var result = sut.IsSatisfiedBy(new object());
@@ -84,26 +100,51 @@ namespace FluentSpecification.Core.Tests.Composite
         {
             [Theory]
             [CorrectValidationData(typeof(NotData))]
-            public void CorrectData_ReturnExpectedResultObject(bool isNegatable, SpecificationResult expected)
+            public void CorrectData_ReturnExpectedResultObject(SpecificationResult expected)
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.False()
-                    : MockNegatableComplexSpecification.False();
+                var specification = MockComplexSpecification.False();
                 var sut = new NotSpecification<object>(specification);
+                var dum = new object();
 
-                var overall = sut.IsSatisfiedBy(new object(), out var result);
+                var overall = sut.IsSatisfiedBy(dum, out var result);
 
                 Assert.True(overall);
-                Assert.Equal(expected, result, new SpecificationResultComparer());
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
+            }
+
+            [Theory]
+            [CorrectValidationData(typeof(NotData), AsNegation = true)]
+            public void CorrectNegatableData_ReturnExpectedResultObject(SpecificationResult expected)
+            {
+                var specification = MockNegatableComplexSpecification.False();
+                var sut = new NotSpecification<object>(specification);
+                var dum = new object();
+
+                var overall = sut.IsSatisfiedBy(dum, out var result);
+
+                Assert.True(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
             }
 
             [Theory]
             [IncorrectValidationData(typeof(NotData))]
-            public void IncorrectData_ReturnExpectedResultObject(bool isNegatable, SpecificationResult expected)
+            public void IncorrectData_ReturnExpectedResultObject(SpecificationResult expected)
             {
-                var specification = !isNegatable
-                    ? MockComplexSpecification.True()
-                    : MockNegatableComplexSpecification.True();
+                var specification = MockComplexSpecification.True();
+                var sut = new NotSpecification<object>(specification);
+                var dum = new object();
+
+                var overall = sut.IsSatisfiedBy(dum, out var result);
+
+                Assert.False(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
+            }
+
+            [Theory]
+            [IncorrectValidationData(typeof(NotData), AsNegation = true)]
+            public void IncorrectNegatableData_ReturnExpectedResultObject(SpecificationResult expected)
+            {
+                var specification = MockNegatableComplexSpecification.True();
                 var sut = new NotSpecification<object>(specification);
                 var dum = new object();
 

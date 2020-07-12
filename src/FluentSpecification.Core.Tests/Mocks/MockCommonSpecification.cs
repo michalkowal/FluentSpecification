@@ -1,15 +1,19 @@
 ﻿using System.Linq.Expressions;
+using FluentSpecification.Abstractions.Generic;
 
 namespace FluentSpecification.Core.Tests.Mocks
 {
-    internal class MockCommonSpecification<T> : ComplexSpecification<T>
+    internal class MockCommonSpecification<T> : 
+        ComplexSpecification<T>,
+        IFailableSpecification<T>,
+        IFailableNegatableSpecification<T>
     {
-        protected override string CreateFailedMessage(T candidate)
+        public string GetFailedMessage(T candidate)
         {
             return "Not match";
         }
 
-        protected override string CreateNegationFailedMessage(T candidate)
+        public string GetFailedNegationMessage(T candidate)
         {
             return "Match";
         }

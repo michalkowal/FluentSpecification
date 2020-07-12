@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
+using FluentSpecification.Abstractions.Validation;
 
 namespace FluentSpecification.Core.Tests.Mocks
 {
@@ -67,7 +68,9 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "TrueMockComplexSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("TrueMockComplexSpecification",
+                "TrueMockComplex");
     }
 
     internal class FalseMockComplexSpecification : MockComplexSpecification
@@ -76,6 +79,8 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "FalseMockComplexSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("FalseMockComplexSpecification",
+            "FalseMockComplex");
     }
 }

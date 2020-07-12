@@ -91,7 +91,7 @@ namespace FluentSpecification.Core.Composite
             if (propertyResult != null)
                 infos.AddRange(CreateSpecificationInfos(propertyResult.Specifications));
 
-            var result = new SpecificationResult((propertyResult?.TotalSpecificationsCount ?? 0) + 1, isSatisfiedBy,
+            var result = new SpecificationResult(isSatisfiedBy,
                 traceMessage, infos.ToArray());
             return result;
         }

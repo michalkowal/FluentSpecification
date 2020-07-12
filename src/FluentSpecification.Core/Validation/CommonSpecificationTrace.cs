@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Validation;
 using JetBrains.Annotations;
@@ -7,6 +8,8 @@ namespace FluentSpecification.Core.Validation
 {
     public struct CommonSpecificationTrace
     {
+        private const string ReplaceRegex = "(Specification)*(<.+>)*";
+
         private readonly SpecificationTrace _trace;
 
         public CommonSpecificationTrace(ISpecification specification, bool result)
@@ -30,7 +33,7 @@ namespace FluentSpecification.Core.Validation
                 return traceableSpecification.GetTrace(result);
 
             var fullTrace = specification.GetShortName();
-            var shortTrace = fullTrace.Replace("Specification", string.Empty);
+            var shortTrace = Regex.Replace(fullTrace, ReplaceRegex, String.Empty);
 
             if (inner.HasValue)
             {

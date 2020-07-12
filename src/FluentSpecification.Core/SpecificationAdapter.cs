@@ -16,8 +16,7 @@ namespace FluentSpecification.Core
     /// <typeparam name="T"></typeparam>
     internal sealed class SpecificationAdapter<T> :
         IComplexSpecification<T>,
-        INegatableValidationSpecification<T>,
-        INegatableLinqSpecification<T>
+        IComplexNegatableSpecification<T>
     {
         private readonly ISpecification<T> _baseSpecification;
 
@@ -182,8 +181,14 @@ namespace FluentSpecification.Core
         private SpecificationResult CreateResult([CanBeNull] T candidate, bool overall, bool isNegation)
         {
             var trace = CreateTraceMessage(overall, isNegation);
+            string[] errors = null;
+            if (!overall)
+            {
+                errors = new[] { CreateFailedMessage(isNegation) };
+            }
+
             var info = new SpecificationInfo(overall, _baseSpecification.GetType(),
-                isNegation, null, candidate, CreateFailedMessage(isNegation));
+                isNegation, null, candidate, errors);
 
             return new SpecificationResult(overall, trace, info);
         }
@@ -251,10 +256,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Expression<Func<T, bool>>([NotNull] SpecificationAdapter<T> self)
+        [CanBeNull]
+        public static implicit operator Expression<Func<T, bool>>([CanBeNull] SpecificationAdapter<T> self)
         {
-            return self.GetExpression();
+            return self?.GetExpression();
         }
 
         /// <summary>
@@ -263,10 +268,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Func<T, bool>([NotNull] SpecificationAdapter<T> self)
+        [CanBeNull]
+        public static implicit operator Func<T, bool>([CanBeNull] SpecificationAdapter<T> self)
         {
-            return self.IsSatisfiedBy;
+            return self != null ? self.IsSatisfiedBy : (Func<T, bool>)null;
         }
 
         /// <summary>
@@ -275,10 +280,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static explicit operator Expression([NotNull] SpecificationAdapter<T> self)
+        [CanBeNull]
+        public static explicit operator Expression([CanBeNull] SpecificationAdapter<T> self)
         {
-            return ((ILinqSpecification) self).GetExpression();
+            return ((ILinqSpecification) self)?.GetExpression();
         }
     }
 }

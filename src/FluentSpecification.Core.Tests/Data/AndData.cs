@@ -8,20 +8,38 @@ namespace FluentSpecification.Core.Tests.Data
         public AndData()
         {
             Valid(true, true)
-                .Result(2, "TrueMockValidationSpecification And TrueMockValidationSpecification");
+                .Result("TrueMockValidationSpecification And TrueMockValidationSpecification",
+                    "TrueMockValidation And TrueMockValidation", c =>
+                    {
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                    });
 
             Invalid(false, true)
-                .Result(2, "FailedFalseMockValidationSpecification And TrueMockValidationSpecification", c =>
-                    c.FailedSpecification(typeof(FalseMockValidationSpecification),
-                            "MockValidationSpecification is not satisfied")
-                        .AddParameter("Result", false));
+                .Result("FailedFalseMockValidationSpecification And TrueMockValidationSpecification",
+                    "FailedFalseMockValidation And TrueMockValidation", c =>
+                    {
+                        c.FailedSpecification(typeof(FalseMockValidationSpecification),
+                                "MockValidationSpecification is not satisfied")
+                            .AddParameter("Result", false);
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                    });
             Invalid(true, false)
-                .Result(2, "TrueMockValidationSpecification And FailedFalseMockValidationSpecification", c =>
-                    c.FailedSpecification(typeof(FalseMockValidationSpecification),
-                            "MockValidationSpecification is not satisfied")
-                        .AddParameter("Result", false));
+                .Result("TrueMockValidationSpecification And FailedFalseMockValidationSpecification",
+                    "TrueMockValidation And FailedFalseMockValidation", c =>
+                    {
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                        c.FailedSpecification(typeof(FalseMockValidationSpecification),
+                                "MockValidationSpecification is not satisfied")
+                            .AddParameter("Result", false);
+                    });
             Invalid(false, false)
-                .Result(2, "FailedFalseMockValidationSpecification And FailedFalseMockValidationSpecification", c =>
+                .Result("FailedFalseMockValidationSpecification And FailedFalseMockValidationSpecification",
+                    "FailedFalseMockValidation And FailedFalseMockValidation", c =>
                 {
                     c.FailedSpecification(typeof(FalseMockValidationSpecification),
                             "MockValidationSpecification is not satisfied")

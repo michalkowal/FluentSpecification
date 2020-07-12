@@ -18,8 +18,8 @@ namespace FluentSpecification.Abstractions.Validation
         ///     Create "empty" result for successful single <c>Specification</c>.
         /// </summary>
         [PublicAPI]
-        public SpecificationResult() :
-            this(SpecificationTrace.Empty)
+        public SpecificationResult(params SpecificationInfo[] specifications) :
+            this(SpecificationTrace.Empty, specifications)
         {
         }
 
@@ -32,8 +32,8 @@ namespace FluentSpecification.Abstractions.Validation
         ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
         /// </param>
         [PublicAPI]
-        public SpecificationResult(SpecificationTrace trace) :
-            this(1, true, trace)
+        public SpecificationResult(SpecificationTrace trace, params SpecificationInfo[] specifications) :
+            this(true, trace, specifications)
         {
         }
 
@@ -66,29 +66,8 @@ namespace FluentSpecification.Abstractions.Validation
         /// </param>
         [PublicAPI]
         public SpecificationResult(bool overallResult, SpecificationTrace trace,
-            [CanBeNull] [ItemNotNull] params SpecificationInfo[] specifications) :
-            this(1, overallResult, trace, specifications)
+            [CanBeNull] [ItemNotNull] params SpecificationInfo[] specifications)
         {
-        }
-
-        /// <summary>
-        ///     Create result for combined multiple <c>Specifications</c>.
-        /// </summary>
-        /// <param name="totalSpecificationsCount">Count of all executed <c>Specifications</c> in chain.</param>
-        /// <param name="overallResult">Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.</param>
-        /// <param name="trace">
-        ///     <para>Trace message.</para>
-        ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
-        /// </param>
-        /// <param name="specifications">
-        ///     <para>List of <c>Specifications</c> in chain.</para>
-        ///     <para>For definition see <see cref="SpecificationInfo" />.</para>
-        /// </param>
-        [PublicAPI]
-        public SpecificationResult(int totalSpecificationsCount, bool overallResult, SpecificationTrace trace,
-            params SpecificationInfo[] specifications)
-        {
-            TotalSpecificationsCount = totalSpecificationsCount;
             OverallResult = overallResult;
             Specifications = specifications ?? new SpecificationInfo[0];
             Trace = trace;
@@ -98,7 +77,7 @@ namespace FluentSpecification.Abstractions.Validation
         ///     Count of all executed <c>Specifications</c> in chain.
         /// </summary>
         [PublicAPI]
-        public int TotalSpecificationsCount { get; }
+        public int TotalSpecificationsCount => Specifications.Count;
 
         /// <summary>
         ///     Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.

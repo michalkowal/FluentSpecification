@@ -8,14 +8,38 @@ namespace FluentSpecification.Core.Tests.Data
         public OrData()
         {
             Valid(true, true)
-                .Result(2, "TrueMockValidationSpecification Or TrueMockValidationSpecification");
+                .Result("TrueMockValidationSpecification Or TrueMockValidationSpecification",
+                    "TrueMockValidation Or TrueMockValidation", c =>
+                    {
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                    });
             Valid(false, true)
-                .Result(2, "FailedFalseMockValidationSpecification Or TrueMockValidationSpecification");
+                .Result("FailedFalseMockValidationSpecification Or TrueMockValidationSpecification",
+                    "FailedFalseMockValidation Or TrueMockValidation", c =>
+                    {
+                        c.FailedSpecification(typeof(FalseMockValidationSpecification),
+                                "MockValidationSpecification is not satisfied")
+                            .AddParameter("Result", false);
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                    });
             Valid(true, false)
-                .Result(2, "TrueMockValidationSpecification Or FailedFalseMockValidationSpecification");
+                .Result("TrueMockValidationSpecification Or FailedFalseMockValidationSpecification",
+                    "TrueMockValidation Or FailedFalseMockValidation", c =>
+                    {
+                        c.Specification(typeof(TrueMockValidationSpecification))
+                            .AddParameter("Result", true);
+                        c.FailedSpecification(typeof(FalseMockValidationSpecification),
+                                "MockValidationSpecification is not satisfied")
+                            .AddParameter("Result", false);
+                    });
 
             Invalid(false, false)
-                .Result(2, "FailedFalseMockValidationSpecification Or FailedFalseMockValidationSpecification", c =>
+                .Result("FailedFalseMockValidationSpecification Or FailedFalseMockValidationSpecification",
+                    "FailedFalseMockValidation Or FailedFalseMockValidation", c =>
                 {
                     c.FailedSpecification(typeof(FalseMockValidationSpecification),
                             "MockValidationSpecification is not satisfied")

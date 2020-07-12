@@ -108,20 +108,18 @@ namespace FluentSpecification.Common.Abstractions
             var traces = new List<SpecificationTrace>();
 
             var idx = 0;
-            var total = 1;
             foreach (var el in candidate)
             {
                 var specOverall = CollectionElementSpecification.IsSatisfiedBy(el, out var specResult);
 
-                total += specResult.TotalSpecificationsCount;
                 if (!string.IsNullOrEmpty(specResult.Trace.FullTrace))
                     traces.Add(AddTraceIndex(specResult.Trace, idx));
 
-                if (!CanContinue(specOverall, ref overall))
-                    break;
-
                 var infos = CreateSpecificationInfos(specResult.Specifications, idx);
                 specifications.AddRange(infos);
+
+                if (!CanContinue(specOverall, ref overall))
+                    break;
 
                 idx++;
             }
@@ -129,7 +127,7 @@ namespace FluentSpecification.Common.Abstractions
             specifications.Insert(0, new CommonSpecificationInfo<T>(this, candidate, overall));
             
             var trace = CreateTraceMessage(SpecificationTrace.Join($" {TraceConnector} ", traces), overall);
-            result = new SpecificationResult(total, overall, trace, specifications.ToArray());
+            result = new SpecificationResult(overall, trace, specifications.ToArray());
 
             return overall;
         }
@@ -248,10 +246,10 @@ namespace FluentSpecification.Common.Abstractions
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Expression<Func<T, bool>>([NotNull] BaseCollectionSpecification<T, TType> self)
+        [CanBeNull]
+        public static implicit operator Expression<Func<T, bool>>([CanBeNull] BaseCollectionSpecification<T, TType> self)
         {
-            return self.GetExpression();
+            return self?.GetExpression();
         }
 
         /// <summary>
@@ -260,10 +258,10 @@ namespace FluentSpecification.Common.Abstractions
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Func<T, bool>([NotNull] BaseCollectionSpecification<T, TType> self)
+        [CanBeNull]
+        public static implicit operator Func<T, bool>([CanBeNull] BaseCollectionSpecification<T, TType> self)
         {
-            return self.IsSatisfiedBy;
+            return self != null ? self.IsSatisfiedBy : (Func<T, bool>)null;
         }
 
         /// <summary>
@@ -272,10 +270,10 @@ namespace FluentSpecification.Common.Abstractions
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static explicit operator Expression([NotNull] BaseCollectionSpecification<T, TType> self)
+        [CanBeNull]
+        public static explicit operator Expression([CanBeNull] BaseCollectionSpecification<T, TType> self)
         {
-            return ((ILinqSpecification) self).GetExpression();
+            return ((ILinqSpecification) self)?.GetExpression();
         }
     }
 }

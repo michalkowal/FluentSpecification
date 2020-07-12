@@ -70,10 +70,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Func<T, bool>([NotNull] ValidationSpecification<T> self)
+        [CanBeNull]
+        public static implicit operator Func<T, bool>([CanBeNull] ValidationSpecification<T> self)
         {
-            return self.IsSatisfiedBy;
+            return self != null ? self.IsSatisfiedBy : (Func<T, bool>)null;
         }
     }
 }

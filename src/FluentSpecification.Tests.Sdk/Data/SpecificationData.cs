@@ -1,109 +1,78 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
+using FluentSpecification.Tests.Sdk.Data.Negations;
+using FluentSpecification.Tests.Sdk.Data.Validation;
 
 namespace FluentSpecification.Tests.Sdk.Data
 {
-    public abstract class SpecificationData
+    public abstract partial class SpecificationData : IData
     {
-        protected const string DateTimeRegexPattern =
-            "(([0-9]{1,2}.{1}[0-9]{1,2}.{1}[0-9]{4})|([0-9]{4}.[0-9]{1,2}.[0-9]{1,2})) [0-9]{2}:[0-9]{2}:[0-9]{2}.*";
+        private readonly Dictionary<Type, IReadOnlyList<ExpectedSpecificationResult>> ResultsCache = 
+            new Dictionary<Type, IReadOnlyList<ExpectedSpecificationResult>>();
 
-        private readonly List<SpecificationDataRow> _invalid = new List<SpecificationDataRow>();
+        private protected readonly List<ISpecificationTestCaseDataBuilder> Invalid = new List<ISpecificationTestCaseDataBuilder>();
+        private protected readonly List<ISpecificationTestCaseDataBuilder> Valid = new List<ISpecificationTestCaseDataBuilder>();
 
-        private readonly List<SpecificationDataRow> _valid = new List<SpecificationDataRow>();
-
-        [PublicAPI] public bool AsNegation { get; set; }
-
-        protected SpecificationDataRow AddValid(params object[] data)
+        public ITestCaseData[] GetValidData()
         {
-            var row = new SpecificationDataRow(true, data);
-            _valid.Add(row);
+            return Valid.Select(a => a.Build()).ToArray();
+        }
+
+        public ITestCaseData[] GetInvalidData()
+        {
+            return Invalid.Select(a => a.Build()).ToArray();
+        }
+
+        public ITestCaseData[] GetValidNegationData()
+        {
+            return Invalid.Select(a => a.BuildNegation()).ToArray();
+        }
+
+        public ITestCaseData[] GetInvalidNegationData()
+        {
+            return Valid.Select(a => a.BuildNegation()).ToArray();
+        }
+
+        protected SpecificationTestCaseDataBuilder<T, SpecificationFactory<T>> AddValid<T>(T candidate, SpecificationFactory<T> factory)
+        {
+            var row = CreateDataBuilder(candidate, factory);
+            Valid.Add(row);
 
             return row;
         }
 
-        protected SpecificationDataRow AddInvalid(params object[] data)
+        protected SpecificationTestCaseDataBuilder<T, SpecificationFactory<T>> AddInvalid<T>(T candidate, SpecificationFactory<T> factory)
         {
-            var row = new SpecificationDataRow(false, data);
-            _invalid.Add(row);
+            var row = CreateDataBuilder(candidate, factory);
+            Invalid.Add(row);
 
             return row;
         }
 
-        public IEnumerable<object[]> GetValidData(bool skipResult = true)
+        protected SpecificationTestCaseDataBuilder<T, NegatableSpecificationFactory<T>> AddValid<T>(T candidate, NegatableSpecificationFactory<T> factory)
         {
-            if (!AsNegation)
-                return _valid.Select(a => a.GetData(!skipResult));
-            return _invalid.Select(a => a.GetData(false, !skipResult));
+            var row = CreateDataBuilder(candidate, factory);
+            Valid.Add(row);
+
+            return row;
         }
 
-        public IEnumerable<object[]> GetInvalidData(bool skipResult = true)
+        protected SpecificationTestCaseDataBuilder<T, NegatableSpecificationFactory<T>> AddInvalid<T>(T candidate, NegatableSpecificationFactory<T> factory)
         {
-            if (!AsNegation)
-                return _invalid.Select(a => a.GetData(!skipResult));
-            return _valid.Select(a => a.GetData(false, !skipResult));
-        }
-    }
+            var row = CreateDataBuilder(candidate, factory);
+            Invalid.Add(row);
 
-    public class SpecificationData<T> : SpecificationData
-    {
-        [PublicAPI]
-        public SpecificationDataRow Valid(T p)
-        {
-            return AddValid(p);
+            return row;
         }
 
-        [PublicAPI]
-        public SpecificationDataRow Invalid(T p)
+        private SpecificationTestCaseDataBuilder<T, TFactory> CreateDataBuilder<T, TFactory>(T candidate, TFactory factory)
+            where TFactory : SpecificationFactory<T>
         {
-            return AddInvalid(p);
-        }
-    }
-
-    public class SpecificationData<T1, T2> : SpecificationData
-    {
-        [PublicAPI]
-        public SpecificationDataRow Valid(T1 p1, T2 p2)
-        {
-            return AddValid(p1, p2);
-        }
-
-        [PublicAPI]
-        public SpecificationDataRow Invalid(T1 p1, T2 p2)
-        {
-            return AddInvalid(p1, p2);
-        }
-    }
-
-    public class SpecificationData<T1, T2, T3> : SpecificationData
-    {
-        [PublicAPI]
-        public SpecificationDataRow Valid(T1 p1, T2 p2, T3 p3)
-        {
-            return AddValid(p1, p2, p3);
-        }
-
-        [PublicAPI]
-        public SpecificationDataRow Invalid(T1 p1, T2 p2, T3 p3)
-        {
-            return AddInvalid(p1, p2, p3);
-        }
-    }
-
-    [PublicAPI]
-    public class SpecificationData<T1, T2, T3, T4> : SpecificationData
-    {
-        [PublicAPI]
-        public SpecificationDataRow Valid(T1 p1, T2 p2, T3 p3, T4 p4)
-        {
-            return AddValid(p1, p2, p3, p4);
-        }
-
-        [PublicAPI]
-        public SpecificationDataRow Invalid(T1 p1, T2 p2, T3 p3, T4 p4)
-        {
-            return AddInvalid(p1, p2, p3, p4);
+            return new SpecificationTestCaseDataBuilder<T, TFactory>(candidate, factory)
+            {
+                Cache = ResultsCache
+            };
         }
     }
 }

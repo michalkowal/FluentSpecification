@@ -11,7 +11,7 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected abstract string TraceMessage { get; }
+        protected abstract SpecificationTrace TraceMessage { get; }
 
         public bool IsSatisfiedBy(T candidate, out SpecificationResult result)
         {
@@ -20,14 +20,15 @@ namespace FluentSpecification.Core.Tests.Mocks
 
             if (!overall)
             {
-                var error = new SpecificationInfo(GetType(), GetParameters(), candidate,
+                var error = new SpecificationInfo(false, GetType(), false, GetParameters(), candidate,
                     "MockValidationSpecification is not satisfied");
-                trace = "Failed" + trace;
+                trace = new SpecificationTrace("Failed" + trace.FullTrace, "Failed" + trace.ShortTrace);
                 result = new SpecificationResult(false, trace, error);
             }
             else
             {
-                result = new SpecificationResult(true, trace);
+                var info = new SpecificationInfo(true, GetType(), false, GetParameters(), candidate);
+                result = new SpecificationResult(true, trace, info);
             }
 
 
@@ -87,7 +88,8 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "TrueMockValidationSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("TrueMockValidationSpecification", "TrueMockValidation");
     }
 
     internal class FalseMockValidationSpecification : MockValidationSpecification
@@ -96,6 +98,7 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        protected override string TraceMessage { get; } = "FalseMockValidationSpecification";
+        protected override SpecificationTrace TraceMessage { get; } = 
+            new SpecificationTrace("FalseMockValidationSpecification", "FalseMockValidation");
     }
 }

@@ -1,4 +1,4 @@
-﻿using FluentSpecification.Core.Validation;
+﻿using FluentSpecification.Core.Utils;
 
 namespace FluentSpecification.Tests.Mocks
 {
@@ -6,7 +6,7 @@ namespace FluentSpecification.Tests.Mocks
     {
         public TrueMockComplexSpecification() : base(candidate => true)
         {
-            TraceMessage = $"TrueMockComplexSpecification[{SpecificationResultGenerator.GetTypeShortName(typeof(T))}]";
+            TraceMessage = $"TrueMockComplexSpecification[{typeof(T).GetShortName()}]";
         }
     }
 }

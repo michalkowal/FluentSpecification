@@ -1,106 +1,123 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Common;
+using FluentSpecification.Tests.Data;
+using FluentSpecification.Tests.Data.Factories;
 using FluentSpecification.Tests.Mocks;
+using FluentSpecification.Tests.Sdk;
+using FluentSpecification.Tests.Sdk.Framework;
 using JetBrains.Annotations;
 using Xunit;
 
 namespace FluentSpecification.Tests.Common
 {
     [UsedImplicitly]
-    public partial class AllSpecificationTests
+    [SpecificationData(typeof(AllData))]
+    [SpecificationFactoryData(typeof(AllFactory))]
+
+    public class AllSpecificationTests : ComplexSpecificationTests<AllSpecificationTests>
     {
-        public class Constructor
+        [Fact]
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+        [Trait("Category", "Constructor")]
+        public void Constructor_NullSpecification_ArgumentNullException()
         {
-            [Fact]
-            [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
-            public void NullSpecification_ArgumentNullException()
-            {
-                var exception = Record.Exception(() =>
-                    new AllSpecification<int[], int>(null));
+            var exception = Record.Exception(() =>
+                new AllSpecification<int[], int>(null));
 
-                Assert.NotNull(exception);
-                Assert.IsType<ArgumentNullException>(exception);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
         }
 
-        public class ExpressionOperator
+        [Fact]
+        [Trait("Category", "GetExpression")]
+        public void GetExpression_CorrectComplexSpecification_ReturnExpressionForAll()
         {
-            [Fact]
-            public void CastCorrectSpecification_ReturnExpressionWithParameterFromSelector()
-            {
-                ISpecification<string> specification = MockComplexSpecification<string>.True();
-                var sut = new AllSpecification<string[], string>(specification);
+            ISpecification<string> specification = MockComplexSpecification<string>.True();
+            var sut = new AllSpecification<string[], string>(specification);
 
-                var expected = sut.GetExpression().ToString();
-                var sutExpression = (Expression<Func<string[], bool>>) sut;
-                var result = sutExpression.ToString();
+            var sutExpression = sut.GetExpression();
+            var result = sutExpression.ToString();
 
-                Assert.Equal(expected, result);
-            }
-
-            [Fact]
-            public void CastNull_Exception()
-            {
-                var exception = Record.Exception(() =>
-                    (Expression<Func<string[], bool>>) (AllSpecification<string[], string>) null);
-
-                Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
-            }
+            Assert.Equal(@"candidate => ((candidate != null) AndAlso candidate.All(candidate => True))", result);
         }
 
-        public class AbstractExpressionOperator
+        [Fact]
+        [Trait("Category", "GetExpression")]
+        public void GetExpression_InvokeNullCollectionLinqToEntities_Exception()
         {
-            [Fact]
-            public void CastCorrectSpecification_ReturnExpressionWithParameterFromSelector()
-            {
-                ISpecification<string> specification = MockComplexSpecification<string>.True();
-                var sut = new AllSpecification<string[], string>(specification);
+            var specification = MockComplexSpecification<int>.True();
+            var sut = new AllSpecification<int[], int>(specification, true);
+            var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(null));
 
-                var expected = sut.GetExpression().ToString();
-                var sutExpression = (Expression) sut;
-                var result = sutExpression.ToString();
-
-                Assert.Equal(expected, result);
-            }
-
-            [Fact]
-            public void CastNull_Exception()
-            {
-                var exception = Record.Exception(() => (Expression) (AllSpecification<string[], string>) null);
-
-                Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
         }
 
-        public class FuncOperator
+        [Fact]
+        [Trait("Category", "GetExpression")]
+        public void GetExpression_InvokeRelatedTypes_NoException()
         {
-            [Fact]
-            public void CastCorrectSpecification_ReturnIsSatisfiedByFunction()
+            var specification = MockComplexSpecification<IEnumerable<int>>.True();
+            var exception = Record.Exception(() =>
             {
-                ISpecification<string> specification = MockComplexSpecification<string>.True();
-                var sut = new AllSpecification<string[], string>(specification);
-                Func<string[], bool> expected = sut.IsSatisfiedBy;
+                var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                sut.GetExpression().Compile().Invoke(new EquatableFakeType[0]);
+            });
 
-                var result = (Func<string[], bool>) sut;
+            Assert.Null(exception);
+        }
 
-                Assert.NotNull(result);
-                Assert.Equal(expected, result);
-            }
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedBy_NullCollectionLinqToEntities_NoException()
+        {
+            var specification = MockComplexSpecification<int>.True();
+            var sut = new AllSpecification<int[], int>(specification, true);
+            var exception = Record.Exception(() => sut.IsSatisfiedBy(null));
 
-            [Fact]
-            public void CastNull_Exception()
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedBy_RelatedTypes_NoException()
+        {
+            var specification = MockComplexSpecification<IEnumerable<int>>.True();
+            var exception = Record.Exception(() =>
             {
-                var exception =
-                    Record.Exception(() => (Func<string[], bool>) (AllSpecification<string[], string>) null);
+                var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                sut.IsSatisfiedBy(new EquatableFakeType[0]);
+            });
 
-                Assert.NotNull(exception);
-                Assert.IsType<NullReferenceException>(exception);
-            }
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedByValidation_NullCollectionLinqToEntities_NoException()
+        {
+            var specification = MockComplexSpecification<int>.True();
+            var sut = new AllSpecification<int[], int>(specification, true);
+            var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
+
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedByValidation_RelatedTypes_NoException()
+        {
+            var specification = MockComplexSpecification<IEnumerable<int>>.True();
+            var exception = Record.Exception(() =>
+            {
+                var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
+                sut.IsSatisfiedBy(new EquatableFakeType[0], out _);
+            });
+
+            Assert.Null(exception);
         }
     }
 }

@@ -65,13 +65,14 @@ namespace FluentSpecification.Core.Tests
             [CorrectValidationData(typeof(AdapterData))]
             public void TrueSpecification_ReturnExpectedResultObject(bool isValidable, SpecificationResult expected)
             {
+                var dum = new object();
                 var specification = isValidable ? MockValidationSpecification.True() : MockSpecification.True();
                 var sut = new SpecificationAdapter<object>(specification);
 
-                var overall = sut.IsSatisfiedBy(new object(), out var result);
+                var overall = sut.IsSatisfiedBy(dum, out var result);
 
                 Assert.True(overall);
-                Assert.Equal(expected, result, new SpecificationResultComparer());
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
             }
 
             [Theory]

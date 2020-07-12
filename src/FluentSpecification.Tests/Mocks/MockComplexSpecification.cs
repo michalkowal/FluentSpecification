@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using FluentSpecification.Abstractions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
-using FluentSpecification.Core.Validation;
+using FluentSpecification.Core.Utils;
 
 namespace FluentSpecification.Tests.Mocks
 {
@@ -16,10 +16,12 @@ namespace FluentSpecification.Tests.Mocks
         public MockComplexSpecification(Expression<Func<T, bool>> expression)
         {
             _expression = expression;
-            TraceMessage = $"MockComplexSpecification[{SpecificationResultGenerator.GetTypeShortName(typeof(T))}]";
+            TraceMessage = $"MockComplexSpecification[{typeof(T).GetShortName()}]";
+            ShortTraceMessage = "MockComplex";
         }
 
         protected string TraceMessage { get; set; }
+        protected string ShortTraceMessage { get; set; }
 
         public bool IsSatisfiedBy(T candidate)
         {
@@ -29,20 +31,20 @@ namespace FluentSpecification.Tests.Mocks
         public bool IsSatisfiedBy(T candidate, out SpecificationResult result)
         {
             var overall = IsSatisfiedBy(candidate);
-            var trace = TraceMessage;
 
+            var traceMessage = TraceMessage;
+            var shortTraceMessage = ShortTraceMessage;
             if (!overall)
             {
-                var error = new SpecificationInfo(GetType(), GetParameters(), candidate,
-                    "MockComplexSpecification is not satisfied");
-                trace = "Failed" + trace;
-                result = new SpecificationResult(false, trace, error);
-            }
-            else
-            {
-                result = new SpecificationResult(true, trace);
+                traceMessage = "Failed" + traceMessage;
+                shortTraceMessage = "Failed" + shortTraceMessage;
             }
 
+            var info = new SpecificationInfo(overall, GetType(), false, GetParameters(), candidate,
+                        overall ? null : new [] { "MockComplexSpecification is not satisfied" });
+            var trace = new SpecificationTrace(traceMessage, shortTraceMessage);
+            
+            result = new SpecificationResult(overall, trace, info);
 
             return overall;
         }
@@ -101,6 +103,7 @@ namespace FluentSpecification.Tests.Mocks
         public TrueMockComplexSpecification() : base(candidate => true)
         {
             TraceMessage = "TrueMockComplexSpecification";
+            ShortTraceMessage = "TrueMockComplex";
         }
     }
 
@@ -109,6 +112,7 @@ namespace FluentSpecification.Tests.Mocks
         public FalseMockComplexSpecification() : base(candidate => false)
         {
             TraceMessage = "FalseMockComplexSpecification";
+            ShortTraceMessage = "FalseMockComplex";
         }
     }
 }

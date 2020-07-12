@@ -76,11 +76,12 @@ namespace FluentSpecification.Core.Tests.Composite
                 var left = MockValidationSpecification.Create(leftResult);
                 var right = MockValidationSpecification.Create(rightResult);
                 var sut = new AndSpecification<object>(left, right);
+                var dum = new object();
 
-                var overall = sut.IsSatisfiedBy(new object(), out var result);
+                var overall = sut.IsSatisfiedBy(dum, out var result);
 
                 Assert.True(overall);
-                Assert.Equal(expected, result, new SpecificationResultComparer());
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
             }
 
             [Theory]
@@ -111,7 +112,10 @@ namespace FluentSpecification.Core.Tests.Composite
 
                 Assert.Equal(
                     "TrueMockValidationSpecification And (TrueMockValidationSpecification Or TrueMockValidationSpecification)",
-                    result.Trace);
+                    result.Trace.FullTrace);
+                Assert.Equal(
+                    "TrueMockValidation And (TrueMockValidation Or TrueMockValidation)",
+                    result.Trace.ShortTrace);
             }
 
             [Fact]

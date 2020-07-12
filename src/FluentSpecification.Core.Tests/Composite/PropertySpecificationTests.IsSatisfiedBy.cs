@@ -62,13 +62,17 @@ namespace FluentSpecification.Core.Tests.Composite
             public void TrueSpecification_ReturnExpectedResultObject<T>(FakeType candidate,
                 Expression<Func<FakeType, T>> selector, SpecificationResult expected)
             {
-                ISpecification<T> specification = MockValidationSpecification<T>.True();
+                ISpecification<T> specification = MockComplexSpecification<T>.True();
                 var sut = new PropertySpecification<FakeType, T>(selector, specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
 
                 Assert.True(overall);
-                Assert.Equal(expected, result, new SpecificationResultComparer());
+                Assert.Equal(expected, result, new SpecificationResultComparer(
+                    parameters: new Dictionary<string, object>
+                    {
+                        {"PropertySpecification", specification}
+                    }));
             }
 
             [Theory]

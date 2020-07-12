@@ -1,65 +1,34 @@
-﻿using FluentSpecification.Abstractions.Validation;
-using FluentSpecification.Common;
+﻿using FluentSpecification.Tests.Data.Factories;
+using FluentSpecification.Tests.Data.Results.StringContainsSpecificationResults;
 using FluentSpecification.Tests.Sdk.Data;
 
 namespace FluentSpecification.Tests.Data
 {
-    public class StringContainsData : SpecificationData<string, string>
+    public class StringContainsData : SpecificationData
     {
+        private void Valid(string candidate, string expected)
+        {
+            AddValidWithResults<string, StringContainsValidResults, StringContainsNegationInvalidResults>(
+                candidate, new StringContainsFactory(expected));
+        }
+
+        private void Invalid(string candidate, string expected)
+        {
+            AddInvalidWithResults<string, StringContainsInvalidResults, StringContainsNegationValidResults>(
+                candidate, new StringContainsFactory(expected));
+        }
+
         public StringContainsData()
         {
-            SpecificationResult validResult = new SpecificationResult("ContainsSpecification"),
-                negationResult = new SpecificationResult("NotContainsSpecification");
+            Valid("lorem ipsum", "lorem ipsum");
+            Valid("lorem ipsum", "lorem");
+            Valid("lorem ipsum", "ipsum");
+            Valid("lorem ipsum", " ");
 
-            Valid("lorem ipsum", "lorem ipsum")
-                .Result(validResult)
-                .NegationResult("NotContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String contains [lorem ipsum]")
-                    .Candidate("lorem ipsum")
-                    .AddParameter("Expected", "lorem ipsum"));
-            Valid("lorem ipsum", "lorem")
-                .Result(validResult)
-                .NegationResult("NotContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String contains [lorem]")
-                    .Candidate("lorem ipsum")
-                    .AddParameter("Expected", "lorem"));
-            Valid("lorem ipsum", "ipsum")
-                .Result(validResult)
-                .NegationResult("NotContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String contains [ipsum]")
-                    .Candidate("lorem ipsum")
-                    .AddParameter("Expected", "ipsum"));
-            Valid("lorem ipsum", " ")
-                .Result(validResult)
-                .NegationResult("NotContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String contains [ ]")
-                    .Candidate("lorem ipsum")
-                    .AddParameter("Expected", " "));
-
-            Invalid(null, "test")
-                .NegationResult(negationResult)
-                .Result("ContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String not contains [test]")
-                    .Candidate(null)
-                    .AddParameter("Expected", "test"));
-            Invalid("test", "Test")
-                .NegationResult(negationResult)
-                .Result("ContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String not contains [Test]")
-                    .Candidate("test")
-                    .AddParameter("Expected", "Test"));
-            Invalid("test", "TEST")
-                .NegationResult(negationResult)
-                .Result("ContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String not contains [TEST]")
-                    .Candidate("test")
-                    .AddParameter("Expected", "TEST"));
-            Invalid("test", "testing")
-                .NegationResult(negationResult)
-                .Result("ContainsSpecification+Failed", c => c
-                    .FailedSpecification(typeof(ContainsSpecification), "String not contains [testing]")
-                    .Candidate("test")
-                    .AddParameter("Expected", "testing"));
+            Invalid(null, "test");
+            Invalid("test", "Test");
+            Invalid("test", "TEST");
+            Invalid("test", "testing");
         }
     }
 }

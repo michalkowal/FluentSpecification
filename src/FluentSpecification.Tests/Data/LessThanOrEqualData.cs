@@ -1,5 +1,7 @@
 ﻿using System;
-using FluentSpecification.Common;
+using System.Collections.Generic;
+using FluentSpecification.Tests.Data.Factories;
+using FluentSpecification.Tests.Data.Results.LessThanOrEqualSpecificationResults;
 using FluentSpecification.Tests.Mocks;
 using FluentSpecification.Tests.Sdk.Data;
 
@@ -7,6 +9,20 @@ namespace FluentSpecification.Tests.Data
 {
     public class LessThanOrEqualData : SpecificationData
     {
+        private void Valid<T>(T candidate, T lessThan,
+            IComparer<T> comparer = null)
+        {
+            AddValidWithResults<T, LessThanOrEqualValidResults, LessThanOrEqualNegationInvalidResults>(
+                candidate, new LessThanOrEqualFactory<T>(lessThan, comparer));
+        }
+
+        private void Invalid<T>(T candidate, T lessThan,
+            IComparer<T> comparer = null)
+        {
+            AddInvalidWithResults<T, LessThanOrEqualInvalidResults, LessThanOrEqualNegationValidResults>(
+                candidate, new LessThanOrEqualFactory<T>(lessThan, comparer));
+        }
+
         public LessThanOrEqualData()
         {
             var comparer = new FakeTypeComparer();
@@ -23,301 +39,56 @@ namespace FluentSpecification.Tests.Data
                 cmpFakeType3 = new FakeType {First = 10},
                 cmpFakeType4 = new FakeType {First = 10};
 
-            AddValid(2, 2, null)
-                .Result("LessThanOrEqualSpecification<Int32>")
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>),
-                        "Object is lower than or equal to [2]")
-                    .Candidate(2)
-                    .AddParameter("LessThan", 2));
-            AddValid(-2, -2, null)
-                .Result("LessThanOrEqualSpecification<Int32>")
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>),
-                        "Object is lower than or equal to [-2]")
-                    .Candidate(-2)
-                    .AddParameter("LessThan", -2));
-            AddValid(1, 5, null)
-                .Result("LessThanOrEqualSpecification<Int32>")
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>),
-                        "Object is lower than or equal to [5]")
-                    .Candidate(1)
-                    .AddParameter("LessThan", 5));
-            AddValid(-1, 1, null)
-                .Result("LessThanOrEqualSpecification<Int32>")
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>),
-                        "Object is lower than or equal to [1]")
-                    .Candidate(-1)
-                    .AddParameter("LessThan", 1));
-            AddValid(-9, -1, intComparer)
-                .Result("LessThanOrEqualSpecification<Int32>")
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>),
-                        "Object is lower than or equal to [-1]")
-                    .Candidate(-9)
-                    .AddParameter("LessThan", -1));
-            AddValid(3.5, 3.5, null)
-                .Result("LessThanOrEqualSpecification<Double>")
-                .NegationResult("NotLessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>),
-                        "Object is lower than or equal to [3.5]")
-                    .Candidate(3.5)
-                    .AddParameter("LessThan", 3.5));
-            AddValid(-3.5, -3.5, null)
-                .Result("LessThanOrEqualSpecification<Double>")
-                .NegationResult("NotLessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>),
-                        "Object is lower than or equal to [-3.5]")
-                    .Candidate(-3.5)
-                    .AddParameter("LessThan", -3.5));
-            AddValid(5.74, 5.75, null)
-                .Result("LessThanOrEqualSpecification<Double>")
-                .NegationResult("NotLessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>),
-                        "Object is lower than or equal to [5.75]")
-                    .Candidate(5.74)
-                    .AddParameter("LessThan", 5.75));
-            AddValid(-2.5, 0.0, null)
-                .Result("LessThanOrEqualSpecification<Double>")
-                .NegationResult("NotLessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>),
-                        "Object is lower than or equal to [0]")
-                    .Candidate(-2.5)
-                    .AddParameter("LessThan", 0.0));
-            AddValid(-5.75, -5.74, null)
-                .Result("LessThanOrEqualSpecification<Double>")
-                .NegationResult("NotLessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>),
-                        "Object is lower than or equal to [-5.74]")
-                    .Candidate(-5.75)
-                    .AddParameter("LessThan", -5.74));
-            AddValid(false, false, null)
-                .Result("LessThanOrEqualSpecification<Boolean>")
-                .NegationResult("NotLessThanOrEqualSpecification<Boolean>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<bool>),
-                        "Object is lower than or equal to [False]")
-                    .Candidate(false)
-                    .AddParameter("LessThan", false));
-            AddValid(false, true, null)
-                .Result("LessThanOrEqualSpecification<Boolean>")
-                .NegationResult("NotLessThanOrEqualSpecification<Boolean>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<bool>),
-                        "Object is lower than or equal to [True]")
-                    .Candidate(false)
-                    .AddParameter("LessThan", true));
-            AddValid("123", "124", null)
-                .Result("LessThanOrEqualSpecification<String>")
-                .NegationResult("NotLessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>),
-                        "Object is lower than or equal to [124]")
-                    .Candidate("123")
-                    .AddParameter("LessThan", "124"));
-            AddValid("123", "1234", null)
-                .Result("LessThanOrEqualSpecification<String>")
-                .NegationResult("NotLessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>),
-                        "Object is lower than or equal to [1234]")
-                    .Candidate("123")
-                    .AddParameter("LessThan", "1234"));
-            AddValid("123", "123", null)
-                .Result("LessThanOrEqualSpecification<String>")
-                .NegationResult("NotLessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>),
-                        "Object is lower than or equal to [123]")
-                    .Candidate("123")
-                    .AddParameter("LessThan", "123"));
-            AddValid("null", "test", null)
-                .Result("LessThanOrEqualSpecification<String>")
-                .NegationResult("NotLessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>),
-                        "Object is lower than or equal to [test]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", "test"));
-            AddValid("null", null, null)
-                .Result("LessThanOrEqualSpecification<String>")
-                .NegationResult("NotLessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>),
-                        "Object is lower than or equal to [null]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", null));
-            AddValid(DateTime.Parse("2018-01-15"), DateTime.Parse("2019-07-11"), null)
-                .Result("LessThanOrEqualSpecification<DateTime>")
-                .NegationResult("NotLessThanOrEqualSpecification<DateTime>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<DateTime>),
-                        $"Object is lower than or equal to \\[{DateTimeRegexPattern}\\]")
-                    .Candidate(DateTime.Parse("2018-01-15"))
-                    .AddParameter("LessThan", DateTime.Parse("2019-07-11")));
-            AddValid(DateTime.Parse("2019-07-01"), DateTime.Parse("2019-07-11"), null)
-                .Result("LessThanOrEqualSpecification<DateTime>")
-                .NegationResult("NotLessThanOrEqualSpecification<DateTime>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<DateTime>),
-                        $"Object is lower than or equal to \\[{DateTimeRegexPattern}\\]")
-                    .Candidate(DateTime.Parse("2019-07-01"))
-                    .AddParameter("LessThan", DateTime.Parse("2019-07-11")));
-            AddValid(DateTime.Parse("2019-07-11"), DateTime.Parse("2019-07-11"), null)
-                .Result("LessThanOrEqualSpecification<DateTime>")
-                .NegationResult("NotLessThanOrEqualSpecification<DateTime>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<DateTime>),
-                        $"Object is lower than or equal to \\[{DateTimeRegexPattern}\\]")
-                    .Candidate(DateTime.Parse("2019-07-11"))
-                    .AddParameter("LessThan", DateTime.Parse("2019-07-11")));
-            AddValid(cmp, cmp2, null)
-                .Result("LessThanOrEqualSpecification<ComparableFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableFakeType>),
-                        "Object is lower than or equal to [Fake(154)]")
-                    .Candidate(cmp)
-                    .AddParameter("LessThan", cmp2));
-            AddValid(cmp3, cmp4, null)
-                .Result("LessThanOrEqualSpecification<ComparableFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableFakeType>),
-                        "Object is lower than or equal to [Fake(10)]")
-                    .Candidate(cmp3)
-                    .AddParameter("LessThan", cmp4));
-            AddValid(cmpInter1, cmpInter3, null)
-                .Result("LessThanOrEqualSpecification<ComparableInterFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableInterFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableInterFakeType>),
-                        "Object is lower than or equal to [FluentSpecification.Tests.Mocks.ComparableInterFakeType]")
-                    .Candidate(cmpInter1)
-                    .AddParameter("LessThan", cmpInter3));
-            AddValid(cmpInter1, cmpInter2, null)
-                .Result("LessThanOrEqualSpecification<ComparableInterFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableInterFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableInterFakeType>),
-                        "Object is lower than or equal to [FluentSpecification.Tests.Mocks.ComparableInterFakeType]")
-                    .Candidate(cmpInter1)
-                    .AddParameter("LessThan", cmpInter2));
-            AddValid(new ComparableFakeType {Second = "null"}, new ComparableFakeType(), null)
-                .Result("LessThanOrEqualSpecification<ComparableFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableFakeType>),
-                        "Object is lower than or equal to [Fake(0)]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", new ComparableFakeType()));
-            AddValid(new ComparableFakeType {Second = "null"}, null, null)
-                .Result("LessThanOrEqualSpecification<ComparableFakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableFakeType>),
-                        "Object is lower than or equal to [null]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", null));
-            AddValid(cmpFakeType, cmpFakeType2, comparer)
-                .Result("LessThanOrEqualSpecification<FakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<FakeType>),
-                        "Object is lower than or equal to [Fake(154)]")
-                    .Candidate(cmpFakeType)
-                    .AddParameter("LessThan", cmpFakeType2));
-            AddValid(cmpFakeType3, cmpFakeType4, comparer)
-                .Result("LessThanOrEqualSpecification<FakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<FakeType>),
-                        "Object is lower than or equal to [Fake(10)]")
-                    .Candidate(cmpFakeType3)
-                    .AddParameter("LessThan", cmpFakeType4));
-            AddValid(new FakeType {Second = "null"}, new FakeType(), comparer)
-                .Result("LessThanOrEqualSpecification<FakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<FakeType>),
-                        "Object is lower than or equal to [Fake(0)]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", new FakeType()));
-            AddValid(new FakeType {Second = "null"}, null, comparer)
-                .Result("LessThanOrEqualSpecification<FakeType>")
-                .NegationResult("NotLessThanOrEqualSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<FakeType>),
-                        "Object is lower than or equal to [null]")
-                    .Candidate(null)
-                    .AddParameter("LessThan", null));
+            Valid(2, 2);
+            Valid(-2, -2);
+            Valid(1, 5);
+            Valid(-1, 1);
+            Valid(-9, -1, intComparer);
+            Valid(3.5, 3.5);
+            Valid(-3.5, -3.5);
+            Valid(5.74, 5.75);
+            Valid(-2.5, 0.0);
+            Valid(-5.75, -5.74);
+            Valid(false, false);
+            Valid(false, true);
+            Valid("123", "124");
+            Valid("123", "1234");
+            Valid("123", "123");
+            Valid(null, "test");
+            Valid((string)null, null);
+            Valid(DateTime.Parse("2018-01-15"), DateTime.Parse("2019-07-11"));
+            Valid(DateTime.Parse("2019-07-01"), DateTime.Parse("2019-07-11"));
+            Valid(DateTime.Parse("2019-07-11"), DateTime.Parse("2019-07-11"));
+            Valid(cmp, cmp2);
+            Valid(cmp3, cmp4);
+            Valid(cmpInter1, cmpInter3);
+            Valid(cmpInter1, cmpInter2);
+            Valid(null, new ComparableFakeType());
+            Valid((ComparableFakeType)null, null);
+            Valid(cmpFakeType, cmpFakeType2, comparer);
+            Valid(cmpFakeType3, cmpFakeType4, comparer);
+            Valid(null, new FakeType(), comparer);
+            Valid(null, null, comparer);
+            Valid((int?)null, 0);
+            Valid((int?)null, null);
 
             var notCmp1 = new ComparableFakeType {First = 11};
             var notCmpFakeType1 = new FakeType {First = 11};
 
-            AddInvalid(1, -1, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>")
-                .Result("LessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>), "Object is greater than [-1]")
-                    .Candidate(1)
-                    .AddParameter("LessThan", -1));
-            AddInvalid(5, 3, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>")
-                .Result("LessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>), "Object is greater than [3]")
-                    .Candidate(5)
-                    .AddParameter("LessThan", 3));
-            AddInvalid(-1, -10, intComparer)
-                .NegationResult("NotLessThanOrEqualSpecification<Int32>")
-                .Result("LessThanOrEqualSpecification<Int32>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<int>), "Object is greater than [-10]")
-                    .Candidate(-1)
-                    .AddParameter("LessThan", -10));
-            AddInvalid(5.74, 3.74, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Double>")
-                .Result("LessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>), "Object is greater than [3.74]")
-                    .Candidate(5.74)
-                    .AddParameter("LessThan", 3.74));
-            AddInvalid(-3.74, -5.74, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Double>")
-                .Result("LessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>), "Object is greater than [-5.74]")
-                    .Candidate(-3.74)
-                    .AddParameter("LessThan", -5.74));
-            AddInvalid(5.74, -3.74, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Double>")
-                .Result("LessThanOrEqualSpecification<Double>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<double>), "Object is greater than [-3.74]")
-                    .Candidate(5.74)
-                    .AddParameter("LessThan", -3.74));
-            AddInvalid(true, false, null)
-                .NegationResult("NotLessThanOrEqualSpecification<Boolean>")
-                .Result("LessThanOrEqualSpecification<Boolean>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<bool>), "Object is greater than [False]")
-                    .Candidate(true)
-                    .AddParameter("LessThan", false));
-            AddInvalid("123", "122", null)
-                .NegationResult("NotLessThanOrEqualSpecification<String>")
-                .Result("LessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>), "Object is greater than [122]")
-                    .Candidate("123")
-                    .AddParameter("LessThan", "122"));
-            AddInvalid("1234", "123", null)
-                .NegationResult("NotLessThanOrEqualSpecification<String>")
-                .Result("LessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>), "Object is greater than [123]")
-                    .Candidate("1234")
-                    .AddParameter("LessThan", "123"));
-            AddInvalid("test1", null, null)
-                .NegationResult("NotLessThanOrEqualSpecification<String>")
-                .Result("LessThanOrEqualSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<string>), "Object is greater than [null]")
-                    .Candidate("test1")
-                    .AddParameter("LessThan", null));
-            AddInvalid(DateTime.Parse("2019-11-15"), DateTime.Parse("2019-07-11"), null)
-                .NegationResult("NotLessThanOrEqualSpecification<DateTime>")
-                .Result("LessThanOrEqualSpecification<DateTime>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<DateTime>),
-                        $"Object is greater than \\[{DateTimeRegexPattern}\\]")
-                    .Candidate(DateTime.Parse("2019-11-15"))
-                    .AddParameter("LessThan", DateTime.Parse("2019-07-11")));
-            AddInvalid(notCmp1, cmp3, null)
-                .NegationResult("NotLessThanOrEqualSpecification<ComparableFakeType>")
-                .Result("LessThanOrEqualSpecification<ComparableFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<ComparableFakeType>),
-                        "Object is greater than [Fake(10)]")
-                    .Candidate(notCmp1)
-                    .AddParameter("LessThan", cmp3));
-            AddInvalid(notCmpFakeType1, cmpFakeType3, comparer)
-                .NegationResult("NotLessThanOrEqualSpecification<FakeType>")
-                .Result("LessThanOrEqualSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LessThanOrEqualSpecification<FakeType>),
-                        "Object is greater than [Fake(10)]")
-                    .Candidate(notCmpFakeType1)
-                    .AddParameter("LessThan", cmpFakeType3));
+            Invalid(1, -1);
+            Invalid(5, 3);
+            Invalid(-1, -10, intComparer);
+            Invalid(5.74, 3.74);
+            Invalid(-3.74, -5.74);
+            Invalid(5.74, -3.74);
+            Invalid(true, false);
+            Invalid("123", "122");
+            Invalid("1234", "123");
+            Invalid("test1", null);
+            Invalid(DateTime.Parse("2019-11-15"), DateTime.Parse("2019-07-11"));
+            Invalid(notCmp1, cmp3);
+            Invalid(notCmpFakeType1, cmpFakeType3, comparer);
+            Invalid((int?)0, null);
         }
     }
 }

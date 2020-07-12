@@ -75,7 +75,8 @@ namespace FluentSpecification.Common
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        public static implicit operator Expression<Func<T, bool>>(ExpressionSpecification<T> self)
+        [CanBeNull]
+        public static implicit operator Expression<Func<T, bool>>([CanBeNull] ExpressionSpecification<T> self)
         {
             return self?.GetExpression();
         }
@@ -86,7 +87,8 @@ namespace FluentSpecification.Common
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        public static explicit operator Expression(ExpressionSpecification<T> self)
+        [CanBeNull]
+        public static explicit operator Expression([CanBeNull] ExpressionSpecification<T> self)
         {
             return ((ILinqSpecification) self)?.GetExpression();
         }

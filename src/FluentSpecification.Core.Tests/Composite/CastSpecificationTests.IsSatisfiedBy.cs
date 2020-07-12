@@ -137,9 +137,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastFromBaseType_ReturnExpectedResultObject()
             {
                 FakeType candidate = new ChildFakeType();
-                var specification = MockSpecification<ChildFakeType>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<FakeType,ChildFakeType>(TrueMockSpecification<ChildFakeType>)");
+                var specification = MockComplexSpecification<ChildFakeType>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<FakeType,ChildFakeType>(TrueMockComplexSpecification[ChildFakeType])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<FakeType, ChildFakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<ChildFakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<FakeType, ChildFakeType>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -152,9 +164,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastFromInterfaceType_ReturnExpectedResultObject()
             {
                 IEnumerable<char> candidate = new FakeType();
-                var specification = MockSpecification<FakeType>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<IEnumerable<Char>,FakeType>(TrueMockSpecification<FakeType>)");
+                var specification = MockComplexSpecification<FakeType>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<IEnumerable<Char>,FakeType>(TrueMockComplexSpecification[FakeType])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<IEnumerable<char>, FakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<FakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<IEnumerable<char>, FakeType>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -167,9 +191,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastFromObject_ReturnExpectedResultObject()
             {
                 var candidate = 0;
-                var specification = MockSpecification<object>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<Int32,Object>(TrueMockSpecification<Object>)");
+                var specification = MockComplexSpecification<object>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<Int32,Object>(TrueMockComplexSpecification[Object])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<int, object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<int, object>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -182,9 +218,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastToBaseType_ReturnExpectedResultObject()
             {
                 var candidate = new ChildFakeType();
-                var specification = MockSpecification<FakeType>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<ChildFakeType,FakeType>(TrueMockSpecification<FakeType>)");
+                var specification = MockComplexSpecification<FakeType>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<ChildFakeType,FakeType>(TrueMockComplexSpecification[FakeType])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<ChildFakeType, FakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<FakeType>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<ChildFakeType, FakeType>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -197,9 +245,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastToInterfaceType_ReturnExpectedResultObject()
             {
                 var candidate = new FakeType();
-                var specification = MockSpecification<IEnumerable<char>>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<FakeType,IEnumerable<Char>>(TrueMockSpecification<IEnumerable<Char>>)");
+                var specification = MockComplexSpecification<IEnumerable<char>>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<FakeType,IEnumerable<Char>>(TrueMockComplexSpecification[IEnumerable`1])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<FakeType, IEnumerable<char>>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<IEnumerable<char>>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<FakeType, IEnumerable<char>>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -212,9 +272,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastToObject_ReturnExpectedResultObject()
             {
                 var candidate = 0;
-                var specification = MockSpecification<object>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<Int32,Object>(TrueMockSpecification<Object>)");
+                var specification = MockComplexSpecification<object>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<Int32,Object>(TrueMockComplexSpecification[Object])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<int, object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, candidate));
                 var sut = new CastSpecification<int, object>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -227,9 +299,21 @@ namespace FluentSpecification.Core.Tests.Composite
             public void CastNumeric_ReturnTrue()
             {
                 var candidate = 0.0;
-                var specification = MockSpecification<int>.True();
-                var expected = new SpecificationResult(2, true,
-                    "CastSpecification<Double,Int32>(TrueMockSpecification<Int32>)");
+                var specification = MockComplexSpecification<int>.True();
+                var expected = new SpecificationResult(true,
+                    new SpecificationTrace(
+                        "CastSpecification<Double,Int32>(TrueMockComplexSpecification[Int32])",
+                        "Cast(TrueMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<double, int>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(true, typeof(TrueMockComplexSpecification<int>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", true }
+                        }, 0));
                 var sut = new CastSpecification<double, int>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -242,11 +326,20 @@ namespace FluentSpecification.Core.Tests.Composite
             public void FalseSpecification_ReturnExpectedResultObject()
             {
                 var candidate = 0;
-                var specification = MockSpecification<object>.False();
-                var expected = new SpecificationResult(2, false,
-                    "CastSpecification<Int32,Object>(FalseMockSpecification<Object>+Failed)+Failed",
-                    new SpecificationInfo(typeof(FalseMockSpecification<object>), candidate,
-                        "Specification [FalseMockSpecification<Object>] is not satisfied by candidate"));
+                var specification = MockComplexSpecification<object>.False();
+                var expected = new SpecificationResult(false,
+                    new SpecificationTrace("CastSpecification<Int32,Object>(FailedFalseMockComplexSpecification[Object])",
+                        "Cast(FailedFalseMockComplex)"),
+                    new SpecificationInfo(true, typeof(CastSpecification<int, object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Specification", specification }
+                        }, candidate),
+                    new SpecificationInfo(false, typeof(FalseMockComplexSpecification<object>), false,
+                        new Dictionary<string, object>
+                        {
+                            { "Result", false }
+                        }, candidate, "MockValidationSpecification is not satisfied"));
                 var sut = new CastSpecification<int, object>(specification);
 
                 var overall = sut.IsSatisfiedBy(candidate, out var result);
@@ -260,9 +353,10 @@ namespace FluentSpecification.Core.Tests.Composite
             {
                 IEnumerable<int> candidate = new int[0];
                 ISpecification<List<int>> specification = MockComplexSpecification<List<int>>.True();
-                var expected = new SpecificationResult(1, false,
-                    "CastSpecification<IEnumerable<Int32>,List<Int32>>()+Failed",
-                    new SpecificationInfo(typeof(CastSpecification<IEnumerable<int>, List<int>>),
+                var expected = new SpecificationResult(false,
+                    new SpecificationTrace("CastSpecification<IEnumerable<Int32>,List<Int32>>()+Failed",
+                        "Cast()+Failed"),
+                    new SpecificationInfo(false, typeof(CastSpecification<IEnumerable<int>, List<int>>), false,
                         new Dictionary<string, object>
                         {
                             {"Specification", specification}

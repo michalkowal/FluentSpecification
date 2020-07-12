@@ -1,28 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq.Expressions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core;
 using FluentSpecification.Integration.Tests.Data;
 
 namespace FluentSpecification.Integration.Tests.Logic
 {
-    internal sealed class ItemBigIdSpecification
-        : ComplexSpecification<Event>
+    internal sealed class ItemBigIdSpecification : 
+        ComplexSpecification<Event>,
+        IFailableSpecification<Event>,
+        IFailableNegatableSpecification<Event>
     {
         private const int BaseId = 100;
 
-        protected override string CreateFailedMessage(Event candidate)
+        public string GetFailedMessage(Event candidate)
         {
             return $"Item Id is lower than {BaseId}";
         }
 
-        protected override string CreateNegationFailedMessage(Event candidate)
+        public string GetFailedNegationMessage(Event candidate)
         {
             return $"Item Id is greater than or equal to {BaseId}";
-        }
-
-        protected override IReadOnlyDictionary<string, object> GetParameters()
-        {
-            return null;
         }
 
         protected override Expression BuildExpressionBody(Expression arg)

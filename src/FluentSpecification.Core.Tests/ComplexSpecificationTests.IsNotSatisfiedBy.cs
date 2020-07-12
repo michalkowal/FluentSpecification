@@ -82,7 +82,11 @@ namespace FluentSpecification.Core.Tests
             [Fact]
             public void Nullable_ReturnExpectedResultObject()
             {
-                var expected = new SpecificationResult("NotMockCommonSpecification<Nullable<Int32>>");
+                var expected = new SpecificationResult(true, 
+                    new SpecificationTrace("NotMockCommonSpecification<Nullable<Int32>>",
+                    "NotMockCommon"),
+                    new SpecificationInfo(true, typeof(MockCommonSpecification<int?>), true,
+                        0));
                 var sut = new MockCommonSpecification<int?>();
 
                 var overall = sut.IsNotSatisfiedBy(0, out var result);

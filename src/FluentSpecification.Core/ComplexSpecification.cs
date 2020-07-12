@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 namespace FluentSpecification.Core
 {
     /// <summary>
-    ///     Base implementation of <see cref="IComplexSpecification{T}" /> and <see cref="INegatableLinqSpecification{T}" />.
+    ///     Base implementation of <see cref="IComplexSpecification{T}" /> and <see cref="IComplexNegatableSpecification{T}" />.
     ///     Inherited functionality from <see cref="ValidationSpecification{T}" /> and
     ///     <see cref="NegatableValidationSpecification{T}" />.
     /// </summary>
@@ -17,7 +17,7 @@ namespace FluentSpecification.Core
     public abstract class ComplexSpecification<T> :
         NegatableValidationSpecification<T>,
         IComplexSpecification<T>,
-        INegatableLinqSpecification<T>
+        IComplexNegatableSpecification<T>
     {
         private readonly bool _isNullable = Nullable.GetUnderlyingType(typeof(T)) != null;
 
@@ -89,10 +89,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Expression<Func<T, bool>>([NotNull] ComplexSpecification<T> self)
+        [CanBeNull]
+        public static implicit operator Expression<Func<T, bool>>([CanBeNull] ComplexSpecification<T> self)
         {
-            return self.GetExpression();
+            return self?.GetExpression();
         }
 
         /// <summary>
@@ -101,10 +101,10 @@ namespace FluentSpecification.Core
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static explicit operator Expression([NotNull] ComplexSpecification<T> self)
+        [CanBeNull]
+        public static explicit operator Expression([CanBeNull] ComplexSpecification<T> self)
         {
-            return ((ILinqSpecification) self).GetExpression();
+            return ((ILinqSpecification) self)?.GetExpression();
         }
     }
 }

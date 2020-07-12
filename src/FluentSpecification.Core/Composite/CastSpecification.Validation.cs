@@ -29,20 +29,20 @@ namespace FluentSpecification.Core.Composite
         public bool IsSatisfiedBy(T candidate, out SpecificationResult result)
         {
             SpecificationResult specResult;
-            bool overall;
+            bool isSatisfiedBy = true;
             try
             {
                 TCast converted = ConvertCandidate(candidate);
-                overall = _specification.IsSatisfiedBy(converted, out specResult);
+                _specification.IsSatisfiedBy(converted, out specResult);
             }
             catch (InvalidCastException)
             {
                 specResult = null;
-                overall = false;
+                isSatisfiedBy = false;
             }
 
-            result = CreateResult(candidate, specResult, overall);
-            return overall;
+            result = CreateResult(candidate, specResult, isSatisfiedBy);
+            return result.OverallResult;
         }
 
         public string GetFailedMessage(T candidate)
@@ -56,7 +56,6 @@ namespace FluentSpecification.Core.Composite
                 $"[{typeof(TCast).GetShortName()}]";
         }
 
-        // TODO: Add Failed only when cast exception
         private SpecificationTrace CreateTraceMessage(SpecificationTrace castTrace, bool result)
         {
             var trace = new GroupingSpecificationTrace(this, result, castTrace);
@@ -76,8 +75,6 @@ namespace FluentSpecification.Core.Composite
         private SpecificationResult CreateResult([CanBeNull] T candidate,
             [CanBeNull] SpecificationResult propertyResult, bool isSatisfiedBy)
         {
-            // TODO: Add failed message only when cast exception
-
             var traceMessage = CreateTraceMessage(propertyResult?.Trace ?? SpecificationTrace.Empty, isSatisfiedBy);
             var infos = new List<SpecificationInfo>()
             {
@@ -87,7 +84,7 @@ namespace FluentSpecification.Core.Composite
             if (propertyResult != null)
                 infos.AddRange(propertyResult.Specifications);
 
-            var result = new SpecificationResult((propertyResult?.TotalSpecificationsCount ?? 0) + 1, isSatisfiedBy,
+            var result = new SpecificationResult(propertyResult?.OverallResult ?? isSatisfiedBy,
                 traceMessage, infos.ToArray());
             return result;
         }

@@ -138,10 +138,10 @@ namespace FluentSpecification.Core.Composite
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Expression<Func<T, bool>>([NotNull] CastSpecification<T, TCast> self)
+        [CanBeNull]
+        public static implicit operator Expression<Func<T, bool>>([CanBeNull] CastSpecification<T, TCast> self)
         {
-            return self.GetExpression();
+            return self?.GetExpression();
         }
 
         /// <summary>
@@ -150,10 +150,10 @@ namespace FluentSpecification.Core.Composite
         /// <param name="self">Converted object</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static implicit operator Func<T, bool>([NotNull] CastSpecification<T, TCast> self)
+        [CanBeNull]
+        public static implicit operator Func<T, bool>([CanBeNull] CastSpecification<T, TCast> self)
         {
-            return self.IsSatisfiedBy;
+            return self != null ? self.IsSatisfiedBy : (Func<T, bool>)null;
         }
 
         /// <summary>
@@ -162,10 +162,10 @@ namespace FluentSpecification.Core.Composite
         /// <param name="self">Converted object</param>
         /// <exception cref="NullReferenceException">Thrown when <paramref name="self" /> is null.</exception>
         [PublicAPI]
-        [NotNull]
-        public static explicit operator Expression([NotNull] CastSpecification<T, TCast> self)
+        [CanBeNull]
+        public static explicit operator Expression([CanBeNull] CastSpecification<T, TCast> self)
         {
-            return ((ILinqSpecification) self).GetExpression();
+            return ((ILinqSpecification) self)?.GetExpression();
         }
     }
 }

@@ -1,25 +1,29 @@
 ﻿using System;
 using FluentSpecification.Common;
+using FluentSpecification.Tests.Data;
+using FluentSpecification.Tests.Data.Factories;
+using FluentSpecification.Tests.Sdk;
+using FluentSpecification.Tests.Sdk.Framework;
 using JetBrains.Annotations;
 using Xunit;
 
 namespace FluentSpecification.Tests.Common
 {
     [UsedImplicitly]
-    public partial class StringContainsSpecificationTests
+    [SpecificationData(typeof(StringContainsData))]
+    [SpecificationFactoryData(typeof(StringContainsFactory))]
+    public class StringContainsSpecificationTests : ComplexNegatableSpecificationTests<StringContainsSpecificationTests>
     {
-        public class Constructor
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        [Trait("Category", "Constructor")]
+        public void Constructor_EmptyExpected_Exception(string expected)
         {
-            [Theory]
-            [InlineData("")]
-            [InlineData(null)]
-            public void EmptyExpected_Exception(string expected)
-            {
-                var exception = Record.Exception(() => new ContainsSpecification(expected));
+            var exception = Record.Exception(() => new ContainsSpecification(expected));
 
-                Assert.NotNull(exception);
-                Assert.IsType<ArgumentNullException>(exception);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
         }
     }
 }

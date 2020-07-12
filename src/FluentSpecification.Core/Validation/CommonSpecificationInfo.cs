@@ -10,13 +10,13 @@ namespace FluentSpecification.Core.Validation
     public class CommonSpecificationInfo<T> : SpecificationInfo
     {
         public CommonSpecificationInfo([NotNull] ISpecification<T> specification, [CanBeNull] T candidate, bool overallResult)
-            : this(specification, candidate, overallResult, true)
+            : this(specification, candidate, overallResult, false)
         {
         }
 
         internal CommonSpecificationInfo([NotNull] ISpecification<T> specification, [CanBeNull] T candidate, bool overallResult, bool isNegation)
             : base(overallResult, specification.GetType(), isNegation, GetParameters(specification),
-                candidate, GetErrorMessage(specification, candidate, overallResult, isNegation))
+                candidate, GetErrorMessages(specification, candidate, overallResult, isNegation))
         {
         }
 
@@ -34,11 +34,22 @@ namespace FluentSpecification.Core.Validation
         }
 
         [CanBeNull]
-        private static string GetErrorMessage<T>([NotNull] ISpecification<T> specification, T candidate,
+        private static string[] GetErrorMessages<T>([NotNull] ISpecification<T> specification, T candidate,
             bool overallResult, bool isNegation)
         {
             specification = specification ?? throw new ArgumentNullException(nameof(specification));
 
+            var error = GetErrorMessage(specification, candidate, overallResult, isNegation);
+            if (error == null)
+                return null;
+
+            return new[] {error};
+        }
+
+        [CanBeNull]
+        private static string GetErrorMessage<T>([NotNull] ISpecification<T> specification, T candidate,
+            bool overallResult, bool isNegation)
+        {
             if (overallResult)
                 return null;
 

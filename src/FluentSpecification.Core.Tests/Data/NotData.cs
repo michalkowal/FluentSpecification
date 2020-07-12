@@ -3,24 +3,27 @@ using FluentSpecification.Tests.Sdk.Data;
 
 namespace FluentSpecification.Core.Tests.Data
 {
-    public class NotData : SpecificationData<bool>
+    public class NotData : SpecificationData
     {
         public NotData()
         {
-            Valid(false)
-                .Result("Not(FailedFalseMockComplexSpecification)");
-            Valid(true)
-                .Result("NotFalseMockNegatableComplexSpecification");
+            AddValid()
+                .Result("Not(FailedFalseMockComplexSpecification)", "Not(FailedFalseMockComplex)", c => c
+                    .FailedSpecification(typeof(FalseMockComplexSpecification),
+                        "MockValidationSpecification is not satisfied")
+                    .AddParameter("Result", false))
+                .NegationResult("FailedNotTrueMockNegatableComplexSpecification", "FailedNotTrueMockNegatableComplex", c => c
+                    .FailedSpecification(typeof(TrueMockNegatableComplexSpecification),
+                        "NotMockNegatableValidationSpecification is satisfied")
+                    .AddParameter("Result", true));
 
-            Invalid(false)
-                .Result("Not(TrueMockComplexSpecification)");
-            Invalid(true)
-                .Result("FailedNotTrueMockNegatableComplexSpecification", c =>
-                {
-                    c.FailedSpecification(typeof(TrueMockNegatableComplexSpecification),
-                            "NotMockNegatableValidationSpecification is satisfied")
-                        .AddParameter("Result", true);
-                });
+            AddInvalid()
+                .Result("Not(TrueMockComplexSpecification)", "Not(TrueMockComplex)", c => c
+                    .Specification(typeof(TrueMockComplexSpecification))
+                    .AddParameter("Result", true))
+                .NegationResult("NotFalseMockNegatableComplexSpecification", "NotFalseMockNegatableComplex", c => c
+                    .Specification(typeof(FalseMockNegatableComplexSpecification))
+                    .AddParameter("Result", false));
         }
     }
 }

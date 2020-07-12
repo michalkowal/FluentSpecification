@@ -1,12 +1,15 @@
-﻿namespace FluentSpecification.Core.Tests.Mocks
+﻿using FluentSpecification.Abstractions.Validation;
+
+namespace FluentSpecification.Core.Tests.Mocks
 {
     internal class TrueMockNegatableValidationSpecification<T> : MockNegatableValidationSpecification<T>
     {
         public TrueMockNegatableValidationSpecification() : base(true)
         {
-            TraceMessage = $"TrueMockNegatableValidationSpecification[{typeof(T)}]";
+            TraceMessage = new SpecificationTrace($"TrueMockNegatableValidationSpecification[{typeof(T).Name}]",
+                "TrueMockNegatableValidation");
         }
 
-        protected override string TraceMessage { get; }
+        protected override SpecificationTrace TraceMessage { get; }
     }
 }

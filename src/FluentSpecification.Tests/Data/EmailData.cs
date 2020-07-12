@@ -1,52 +1,57 @@
-﻿using FluentSpecification.Abstractions.Validation;
-using FluentSpecification.Common;
+﻿using FluentSpecification.Tests.Data.Factories;
+using FluentSpecification.Tests.Data.Results.EmailSpecificationResults;
 using FluentSpecification.Tests.Sdk.Data;
 
 namespace FluentSpecification.Tests.Data
 {
-    public class EmailData : SpecificationData<string>
-    {
-        public EmailData()
+	public class EmailData : SpecificationData
+	{
+        private void Valid(string candidate)
         {
-            var result = new SpecificationResult(true, "EmailSpecification");
-            var invalidNegationResult = new SpecificationResult(false, "NotEmailSpecification+Failed",
-                new SpecificationInfo(typeof(EmailSpecification), null, (object) null, "String is valid email"));
-            Valid("email@example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("firstname.lastname@example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@subdomain.example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("firstname+lastname@example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@123.123.123.123").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@[123.123.123.123]").Result(result).NegationResult(invalidNegationResult);
-            Valid("\"email\"@example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("1234567890@example.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@example-one.com").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@example.name").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@example.museum").Result(result).NegationResult(invalidNegationResult);
-            Valid("email@example.co.jp").Result(result).NegationResult(invalidNegationResult);
-            Valid("firstname-lastname@example.com").Result(result).NegationResult(invalidNegationResult);
-
-            var invalidResult = new SpecificationResult(false, "EmailSpecification+Failed",
-                new SpecificationInfo(typeof(EmailSpecification), null, (object) null, "String is invalid email"));
-            var validNegationResult = new SpecificationResult(true, "NotEmailSpecification");
-            Invalid(null).Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid(" ").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("\t").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("plainAddress").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("#@%^%#$@#$@#.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("Joe Smith <email@example.com>").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email.example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email@example@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid(".email@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email.@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email..email@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("あいうえお@example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email@example.com (Joe Smith)").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email@example").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email@-example.com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("email@example..com").Result(invalidResult).NegationResult(validNegationResult);
-            Invalid("Abc..123@example.com").Result(invalidResult).NegationResult(validNegationResult);
+            AddValidWithResults<string, EmailValidResults, EmailNegationInvalidResults>(
+                candidate, new EmailFactory());
         }
-    }
+        private void Invalid(string candidate)
+        {
+            AddInvalidWithResults<string, EmailInvalidResults, EmailNegationValidResults>(
+                candidate, new EmailFactory());
+        }
+
+		public EmailData()
+		{
+			Valid("email@example.com");
+			Valid("firstname.lastname@example.com");
+			Valid("email@subdomain.example.com");
+			Valid("firstname+lastname@example.com");
+			Valid("email@123.123.123.123");
+			Valid("email@[123.123.123.123]");
+			Valid("\"email\"@example.com");
+			Valid("1234567890@example.com");
+			Valid("email@example-one.com");
+			Valid("email@example.name");
+			Valid("email@example.museum");
+			Valid("email@example.co.jp");
+			Valid("firstname-lastname@example.com");
+
+			Invalid(null);
+			Invalid("");
+			Invalid(" ");
+			Invalid("\t");
+			Invalid("plainAddress");
+			Invalid("#@%^%#$@#$@#.com");
+			Invalid("@example.com");
+			Invalid("Joe Smith <email@example.com>");
+			Invalid("email.example.com");
+			Invalid("email@example@example.com");
+			Invalid(".email@example.com");
+			Invalid("email.@example.com");
+			Invalid("email..email@example.com");
+			Invalid("あいうえお@example.com");
+			Invalid("email@example.com (Joe Smith)");
+			Invalid("email@example");
+			Invalid("email@-example.com");
+			Invalid("email@example..com");
+			Invalid("Abc..123@example.com");
+		}
+	}
 }

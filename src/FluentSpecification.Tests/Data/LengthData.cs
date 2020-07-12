@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using FluentSpecification.Common;
+﻿using System.Collections;
+using System.Collections.Generic;
+using FluentSpecification.Tests.Data.Factories;
+using FluentSpecification.Tests.Data.Results.LengthSpecificationResults;
 using FluentSpecification.Tests.Mocks;
 using FluentSpecification.Tests.Sdk.Data;
 
@@ -7,6 +9,20 @@ namespace FluentSpecification.Tests.Data
 {
     public class LengthData : SpecificationData
     {
+        private void Valid<T>(T candidate, int length)
+            where T : IEnumerable
+        {
+            AddValidWithResults<T, LengthValidResults, LengthNegationInvalidResults>(
+                candidate, new LengthFactory<T>(length));
+        }
+
+        private void Invalid<T>(T candidate, int length)
+            where T : IEnumerable
+        {
+            AddInvalidWithResults<T, LengthInvalidResults, LengthNegationValidResults>(
+                candidate, new LengthFactory<T>(length));
+        }
+
         public LengthData()
         {
             int[] emptyArr = new int[0], arr = {1, 2, 3};
@@ -15,115 +31,25 @@ namespace FluentSpecification.Tests.Data
             var ft = new FakeType {Fourth = new[] {1, 2, 3}};
             var ift = new InterFakeType();
 
-            AddValid("", 0)
-                .Result("LengthSpecification<String>")
-                .NegationResult("NotLengthSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<string>), "Object length is [0]")
-                    .Candidate("")
-                    .AddParameter("Length", 0));
-            AddValid("test", 4)
-                .Result("LengthSpecification<String>")
-                .NegationResult("NotLengthSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<string>), "Object length is [4]")
-                    .Candidate("test")
-                    .AddParameter("Length", 4));
-            AddValid(emptyArr, 0)
-                .Result("LengthSpecification<Int32[]>")
-                .NegationResult("NotLengthSpecification<Int32[]>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<int[]>), "Object length is [0]")
-                    .Candidate(emptyArr)
-                    .AddParameter("Length", 0));
-            AddValid(arr, 3)
-                .Result("LengthSpecification<Int32[]>")
-                .NegationResult("NotLengthSpecification<Int32[]>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<int[]>), "Object length is [3]")
-                    .Candidate(arr)
-                    .AddParameter("Length", 3));
-            AddValid(list, 3)
-                .Result("LengthSpecification<List<Int32>>")
-                .NegationResult("NotLengthSpecification<List<Int32>>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<List<int>>), "Object length is [3]")
-                    .Candidate(list)
-                    .AddParameter("Length", 3));
-            AddValid(dict, 2)
-                .Result("LengthSpecification<Dictionary<Int32,Boolean>>")
-                .NegationResult("NotLengthSpecification<Dictionary<Int32,Boolean>>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<Dictionary<int, bool>>), "Object length is [2]")
-                    .Candidate(dict)
-                    .AddParameter("Length", 2));
-            AddValid(ft, 3)
-                .Result("LengthSpecification<FakeType>")
-                .NegationResult("NotLengthSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<FakeType>), "Object length is [3]")
-                    .Candidate(ft)
-                    .AddParameter("Length", 3));
-            AddValid(ift, 1)
-                .Result("LengthSpecification<InterFakeType>")
-                .NegationResult("NotLengthSpecification<InterFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<InterFakeType>), "Object length is [1]")
-                    .Candidate(ift)
-                    .AddParameter("Length", 1));
+            Valid("", 0);
+            Valid("test", 4);
+            Valid(emptyArr, 0);
+            Valid(arr, 3);
+            Valid(list, 3);
+            Valid(dict, 2);
+            Valid(ft, 3);
+            Valid(ift, 1);
 
-            AddInvalid("", 1)
-                .NegationResult("NotLengthSpecification<String>")
-                .Result("LengthSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<string>), "Object length is not [1]")
-                    .Candidate("")
-                    .AddParameter("Length", 1));
-            AddInvalid("test", 10)
-                .NegationResult("NotLengthSpecification<String>")
-                .Result("LengthSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<string>), "Object length is not [10]")
-                    .Candidate("test")
-                    .AddParameter("Length", 10));
-            AddInvalid(emptyArr, 1)
-                .NegationResult("NotLengthSpecification<Int32[]>")
-                .Result("LengthSpecification<Int32[]>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<int[]>), "Object length is not [1]")
-                    .Candidate(emptyArr)
-                    .AddParameter("Length", 1));
-            AddInvalid(arr, 0)
-                .NegationResult("NotLengthSpecification<Int32[]>")
-                .Result("LengthSpecification<Int32[]>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<int[]>), "Object length is not [0]")
-                    .Candidate(arr)
-                    .AddParameter("Length", 0));
-            AddInvalid(list, 0)
-                .NegationResult("NotLengthSpecification<List<Int32>>")
-                .Result("LengthSpecification<List<Int32>>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<List<int>>), "Object length is not [0]")
-                    .Candidate(list)
-                    .AddParameter("Length", 0));
-            AddInvalid(dict, 5)
-                .NegationResult("NotLengthSpecification<Dictionary<Int32,Boolean>>")
-                .Result("LengthSpecification<Dictionary<Int32,Boolean>>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<Dictionary<int, bool>>), "Object length is not [5]")
-                    .Candidate(dict)
-                    .AddParameter("Length", 5));
-            AddInvalid(ft, 1)
-                .NegationResult("NotLengthSpecification<FakeType>")
-                .Result("LengthSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<FakeType>), "Object length is not [1]")
-                    .Candidate(ft)
-                    .AddParameter("Length", 1));
-            AddInvalid(ift, 3)
-                .NegationResult("NotLengthSpecification<InterFakeType>")
-                .Result("LengthSpecification<InterFakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<InterFakeType>), "Object length is not [3]")
-                    .Candidate(ift)
-                    .AddParameter("Length", 3));
-            AddInvalid("null", 1)
-                .NegationResult("NotLengthSpecification<String>")
-                .Result("LengthSpecification<String>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<string>), "Object length is not [1]")
-                    .Candidate(null)
-                    .AddParameter("Length", 1));
-            AddInvalid(new FakeType {Second = "null"}, 0)
-                .NegationResult("NotLengthSpecification<FakeType>")
-                .Result("LengthSpecification<FakeType>+Failed", c => c
-                    .FailedSpecification(typeof(LengthSpecification<FakeType>), "Object length is not [0]")
-                    .Candidate(null)
-                    .AddParameter("Length", 0));
+            Invalid("", 1);
+            Invalid("test", 10);
+            Invalid(emptyArr, 1);
+            Invalid(arr, 0);
+            Invalid(list, 0);
+            Invalid(dict, 5);
+            Invalid(ft, 1);
+            Invalid(ift, 3);
+            Invalid((string)null, 1);
+            Invalid((FakeType)null, 0);
         }
     }
 }

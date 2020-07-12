@@ -1,82 +1,83 @@
 ﻿using System;
-using FluentSpecification.Abstractions;
 using FluentSpecification.Common;
 using FluentSpecification.Tests.Data;
+using FluentSpecification.Tests.Data.Factories;
 using FluentSpecification.Tests.Sdk;
+using FluentSpecification.Tests.Sdk.Framework;
 using JetBrains.Annotations;
 using Xunit;
 
 namespace FluentSpecification.Tests.Common
 {
     [UsedImplicitly]
-    public partial class EmptySpecificationTests
+    [SpecificationData(typeof(EmptyData))]
+    [SpecificationFactoryData(typeof(EmptyFactory))]
+    public class EmptySpecificationTests : ComplexNegatableSpecificationTests<EmptySpecificationTests>
     {
-        public class GetExpression
+        [Fact]
+        [Trait("Category", "GetExpression")]
+        public void GetExpression_InvokeNullCollectionLinqToEntities_Exception()
         {
-            [Theory]
-            [CorrectData(typeof(EmptyData))]
-            public void InvokeEmptyCandidate_ReturnTrue<T>(T candidate)
-            {
-                candidate = candidate?.ToString() != "null" ? candidate : default;
-                var sut = new EmptySpecification<T>();
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(null));
 
-                var result = sut.GetExpression().Compile().Invoke(candidate);
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
 
-                Assert.True(result);
-            }
+        [Fact]
+        [Trait("Category", "GetNegationExpression")]
+        public void GetNegationExpression_InvokeNullCollectionLinqToEntities_Exception()
+        {
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.GetNegationExpression().Compile().Invoke(null));
 
-            [Theory]
-            [IncorrectData(typeof(EmptyData))]
-            public void InvokeNotEmptyCandidate_ReturnFalse<T>(T candidate)
-            {
-                var sut = new EmptySpecification<T>();
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
 
-                var result = sut.GetExpression().Compile().Invoke(candidate);
+        [Fact]
+        [Trait("Category", "IsNotSatisfiedBy")]
+        public void IsNotSatisfiedBy_InvokeNullCollectionLinqToEntities_Exception()
+        {
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.IsNotSatisfiedBy(null));
 
-                Assert.False(result);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
 
-            [Fact]
-            public void InvokeNullable_ReturnFalse()
-            {
-                var sut = new EmptySpecification<int?>();
+        [Fact]
+        [Trait("Category", "IsNotSatisfiedBy")]
+        public void IsNotSatisfiedByValidation_InvokeNullCollectionLinqToEntities_Exception()
+        {
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.IsNotSatisfiedBy(null, out _));
 
-                var result = sut.GetExpression().Compile().Invoke(0);
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
 
-                Assert.False(result);
-            }
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedBy_InvokeNullCollectionLinqToEntities_Exception()
+        {
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.IsSatisfiedBy(null));
 
-            [Fact]
-            public void InvokeNullable_ReturnTrue()
-            {
-                var sut = new EmptySpecification<int?>();
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
+        }
 
-                var result = sut.GetExpression().Compile().Invoke(null);
+        [Fact]
+        [Trait("Category", "IsSatisfiedBy")]
+        public void IsSatisfiedByValidation_InvokeNullCollectionLinqToEntities_Exception()
+        {
+            var sut = new EmptySpecification<int[]>(true);
+            var exception = Record.Exception(() => sut.IsSatisfiedBy(null, out _));
 
-                Assert.True(result);
-            }
-
-            [Fact]
-            public void InvokeNullCollectionLinqToEntities_Exception()
-            {
-                var sut = new EmptySpecification<int[]>(true);
-                var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(null));
-
-                Assert.NotNull(exception);
-                Assert.IsType<ArgumentNullException>(exception);
-            }
-
-            [Fact]
-            public void NonGenericILinqSpecification_ReturnExpressionAsAbstractExpression()
-            {
-                var sut = new EmptySpecification<string>();
-
-                var expected = sut.GetExpression().ToString();
-                var sutExpression = ((ILinqSpecification) sut).GetExpression();
-                var result = sutExpression.ToString();
-
-                Assert.Equal(expected, result);
-            }
+            Assert.NotNull(exception);
+            Assert.IsType<ArgumentNullException>(exception);
         }
     }
 }
