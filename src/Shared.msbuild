@@ -6,8 +6,8 @@
     <PlatformTarget>AnyCpu</PlatformTarget>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	<DebugType>pdbonly</DebugType>
-	<SignAssembly Condition="'$(AssemblyOriginatorKeyFile)'!=''">True</SignAssembly>
+	  <DebugType>pdbonly</DebugType>
+	  <SignAssembly Condition="'$(AssemblyOriginatorKeyFile)'!=''">True</SignAssembly>
     <DelaySign>False</DelaySign>
   </PropertyGroup>
 
@@ -18,7 +18,7 @@
     <Company />
 	<PackageProjectUrl>https://michalkowal.github.io/FluentSpecification</PackageProjectUrl>
     <RepositoryUrl>https://github.com/michalkowal/FluentSpecification</RepositoryUrl>
-    <PackageIconUrl>https://michalkowal.github.io/FluentSpecification/assets/img/icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Specification;Pattern;Fluent;DDD;Domain;Driven;Design</PackageTags>
@@ -32,6 +32,7 @@
 	  <Compile Include="$(MSBuildThisFileDirectory)\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <None Include="$(MSBuildThisFileDirectory)\images\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
