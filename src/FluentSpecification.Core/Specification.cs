@@ -272,5 +272,19 @@ namespace FluentSpecification.Core
         {
             return new OrNotFluentProxy<T>(self);
         }
+
+        /// <summary>
+        ///     Creates validation <c>Specification</c> proxy with specific error message where not satisfied by.
+        /// </summary>
+        /// <typeparam name="T">Type of candidate.</typeparam>
+        /// <param name="self">Self specification.</param>
+        /// <param name="message">Specific custom message.</param>
+        /// <returns>Validation <c>Specification</c> proxy object.</returns>
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, string message)
+        {
+            return new TranslatableSpecification<T>(self, message).AsComplexSpecification();
+        }
     }
 }
