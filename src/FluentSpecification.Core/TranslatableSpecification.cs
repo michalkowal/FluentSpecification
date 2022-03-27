@@ -27,24 +27,24 @@ namespace FluentSpecification.Core
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentException(nameof(message));
 
-            _baseSpecification = baseSpecification ?? throw new ArgumentNullException(nameof(baseSpecification)); ;
+            _baseSpecification = baseSpecification ?? throw new ArgumentNullException(nameof(baseSpecification));
             _message = message;
         }
 
         /// <inheritdoc />
-        public override bool IsSatisfiedBy([CanBeNull] T candidate)
+        public override bool IsSatisfiedBy(T candidate)
         {
             return _baseSpecification.IsSatisfiedBy(candidate);
         }
 
         /// <inheritdoc />
-        protected override string CreateFailedMessage([CanBeNull] T candidate)
+        protected override string CreateFailedMessage(T candidate)
         {
             return _message;
         }
 
         /// <inheritdoc />
-        protected override SpecificationResult CreateResult([CanBeNull] T candidate, bool isSatisfiedBy)
+        protected override SpecificationResult CreateResult(T candidate, bool isSatisfiedBy)
         {
             var traceMessage = CreateTraceMessage(candidate, isSatisfiedBy);
 
@@ -59,7 +59,7 @@ namespace FluentSpecification.Core
         }
 
         /// <inheritdoc />
-        protected override string CreateTraceMessage([CanBeNull] T candidate, bool result)
+        protected override string CreateTraceMessage(T candidate, bool result)
         {
             var message = SpecificationResultGenerator.GetSpecificationShortName(_baseSpecification);
             if (!result)

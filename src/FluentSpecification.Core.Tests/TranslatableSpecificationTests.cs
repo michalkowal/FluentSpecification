@@ -1,16 +1,18 @@
 ﻿using FluentSpecification.Core.Tests.Mocks;
+using JetBrains.Annotations;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace FluentSpecification.Core.Tests
 {
+    [UsedImplicitly]
     public partial class TranslatableSpecificationTests
     {
         public class Constructor
         {
             [Fact]
-            [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+            [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
             public void NullSpecification_ArgumentNullException()
             {
                 var exception = Record.Exception(() =>
