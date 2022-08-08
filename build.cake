@@ -30,6 +30,9 @@ ToolSettings.SetToolSettings(context: Context,
 		testCoverageFilter:
 			$"+[{title}*]* -[*.Tests*]* -[*]JetBrains.*");
 			
+ToolSettings.SetToolPreprocessorDirectives(
+    reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2019.2.1");
+			
 // Disable standard build
 BuildParameters.Tasks.DotNetCoreRestoreTask
 	.WithCriteria(false);
