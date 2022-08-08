@@ -1,3 +1,5 @@
+#tool nuget:?package=Newtonsoft.Json&version=12.0.3
+
 #load nuget:?package=Cake.Recipe&version=3.0.1
 #load signing.cake
 
