@@ -7,7 +7,7 @@ image: Visual Studio 2019
 #  Build Script                   #
 #---------------------------------#
 build_script:
-  - ps: .\build.ps1 -Target AppVeyor -Verbosity Diagnostic
+  - ps: .\build.ps1 --target=CI --verbosity=Diagnostic
 
 # Tests
 test: off

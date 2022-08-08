@@ -28,23 +28,20 @@ Task("DotNetCore-Signing-Build")
 	.IsDependentOn("Clean")
 	.IsDependentOn("Restore")
 	.IsDependentOn("Decrypt-Key")
-    .Does(() => {
+    .Does<BuildVersion>((context, buildVersion) => {
         Information("Building {0}", BuildParameters.SolutionFilePath);
 
-        var msBuildSettings = new DotNetCoreMSBuildSettings()
-                            .WithProperty("Version", BuildParameters.Version.SemVersion)
-                            .WithProperty("AssemblyVersion", BuildParameters.Version.Version)
-                            .WithProperty("FileVersion",  BuildParameters.Version.Version)
-                            .WithProperty("AssemblyInformationalVersion", BuildParameters.Version.InformationalVersion);
-
-        if(!IsRunningOnWindows())
+        // We need to clone the settings class, so we don't
+        // add additional properties to every other task.
+        var msBuildSettings = new DotNetCoreMSBuildSettings();
+        foreach (var kv in context.Data.Get<DotNetCoreMSBuildSettings>().Properties)
         {
-            var frameworkPathOverride = new FilePath(typeof(object).Assembly.Location).GetDirectory().FullPath + "/";
-
-            // Use FrameworkPathOverride when not running on Windows.
-            Information("Build will use FrameworkPathOverride={0} since not building on Windows.", frameworkPathOverride);
-            msBuildSettings.WithProperty("FrameworkPathOverride", frameworkPathOverride);
+            string value = string.Join(" ", kv.Value);
+            msBuildSettings.WithProperty(kv.Key, value);
         }
+        msBuildSettings.WithLogger("BinaryLogger," + context.Tools.Resolve("Cake.Issues.MsBuild*/**/StructuredLogger.dll"),
+            "",
+            BuildParameters.Paths.Files.BuildBinLogFilePath.ToString());
 		
 		if (FileExists(decryptedKey))
 		{
@@ -59,15 +56,14 @@ Task("DotNetCore-Signing-Build")
         DotNetCoreBuild(BuildParameters.SolutionFilePath.FullPath, new DotNetCoreBuildSettings
         {
             Configuration = BuildParameters.Configuration,
-            MSBuildSettings = msBuildSettings
+            MSBuildSettings = msBuildSettings,
+            NoRestore = true
         });
 
-        if(BuildParameters.ShouldExecuteGitLink)
-        {
-            ExecuteGitLink();
-        }
+		// We set this here, so we won't have a failure in case this task is never called
+        IssuesParameters.InputFiles.AddMsBuildBinaryLogFile(BuildParameters.Paths.Files.BuildBinLogFilePath);
 
-        CopyBuildOutput();
+        CopyBuildOutput(buildVersion);
     });
 
 Teardown(context =>
