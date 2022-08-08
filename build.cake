@@ -1,5 +1,3 @@
-#tool nuget:?package=Newtonsoft.Json&version=12.0.3
-
 #load nuget:?package=Cake.Recipe&version=3.0.1
 #load signing.cake
 
@@ -33,7 +31,7 @@ ToolSettings.SetToolSettings(context: Context,
 			$"+[{title}*]* -[*.Tests*]* -[*]JetBrains.*");
 			
 ToolSettings.SetToolPreprocessorDirectives(
-    reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2019.2.1");
+    reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2022.2.0");
 			
 // Disable standard build
 BuildParameters.Tasks.DotNetCoreRestoreTask
