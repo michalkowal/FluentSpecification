@@ -7,7 +7,7 @@ image: Visual Studio 2019
 #  Build Script                   #
 #---------------------------------#
 build_script:
-  - ps: .\build.ps1 --target=CI
+  - ps: .\build.ps1 -Target CI -Verbosity Diagnostic
 
 # Tests
 test: off
