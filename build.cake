@@ -20,6 +20,8 @@ BuildParameters.SetParameters(context: Context,
 
 							shouldCalculateVersion: true,
 							shouldRunDotNetCorePack: true,
+							shouldRunCoveralls: true,
+							shouldRunCodecov: false,
 							shouldPublishGitHub: true,
 							shouldGenerateDocumentation: true);
 
