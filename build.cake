@@ -31,6 +31,7 @@ ToolSettings.SetToolSettings(context: Context,
 			$"+[{title}*]* -[*.Tests*]* -[*]JetBrains.*");
 			
 ToolSettings.SetToolPreprocessorDirectives(
+	coverallsTool: "#tool nuget:?package=coveralls.net&version=4.0.1",
     reSharperTools: "#tool nuget:?package=JetBrains.ReSharper.CommandLineTools&version=2022.2.0");
 			
 // Disable standard build
