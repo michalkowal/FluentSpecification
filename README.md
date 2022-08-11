@@ -152,6 +152,47 @@ var dbResult = Context.Customers
     .Where(customerSpec.GetExpression()).ToList();    // Or customerSpec.AsExpression()
 ```
 
+#### Translations / Custom messages
+
+```csharp
+// Single error message for whole specifications chain
+customerSpec
+    .WithMessage("Validation failed: Incorrect Customer")
+    .IsSatisfiedBy(new Customer
+    {
+        CustomerId = 90,
+        LastName = "Jones",
+        IsActive = false,
+        Email = "mjones@hotmail.com",
+        Items = null,
+        CreditCard = new CreditCard
+        {
+            CardNumber = "5500 0000 1",
+            ValidityDate = DateTime.Parse("2019-03-01")
+        }
+    }, out var specResult);    // return false
+
+Console.WriteLine(specResult.ToString());
+// Validation failed: Incorrect Customer
+
+
+// Custom messages for each specification
+var idSpec = Specification
+    .NotEmpty<Customer, int>(c => c.CustomerId)
+    .WithMessage("Unknown Customer ID");
+
+var activeSpec = Specification
+    .True<Customer>(c => c.IsActive)
+    .WithMessage("Customer is archived");
+
+idSpec.And(activeSpec)
+    .IsSatisfiedBy(new Customer(), out var specResult);    // return false
+
+Console.WriteLine(specResult.ToString());
+// Unknown Customer ID
+// Customer is archived
+```
+
 ## Built-in Specifications
 - `And, AndNot` - join two specifications with logical AND
 - `Or, OrNot` - join two specifications with logical OR
