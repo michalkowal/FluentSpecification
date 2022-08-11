@@ -11,7 +11,7 @@ namespace FluentSpecification.Core
     ///     Extensions for <see cref="ISpecification{T}" />.
     /// </summary>
     [PublicAPI]
-    public static class Specification
+    public static class SpecificationCore
     {
         /// <summary>
         ///     Converts <c>Specification</c> to <see cref="Func{T,TResult}" /> predicate.
