@@ -160,7 +160,7 @@
 		<p>Finally, prepared <em>Specification</em> can be used for objects verification.<br>
 According to pattern, base method is <a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1/D6A7440D"><code>IsSatisfiedBy</code></a>.</p>
 <pre><code class="language-csharp">// All array elements must be greater than 0
-var allGreaterThanSpec = Specification
+var allGreaterThanSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .All&lt;int[], int&gt;(Specification
         .GreaterThan(0));
 
@@ -169,7 +169,7 @@ var result = allGreaterThanSpec
 </code></pre>
 <h2 id="aspredicate">AsPredicate</h2>
 <p>All <em>Specifications</em> can be transform to <code>Func&lt;T, bool&gt;</code> with <a href="/FluentSpecification/api/FluentSpecification.Core/Specification/05EB1639"><code>AsPredicate</code></a> extension method.</p>
-<pre><code class="language-csharp">var greaterThanSpec = Specification
+<pre><code class="language-csharp">var greaterThanSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .GreaterThan(0);
 
 var result = new[] {-1, 2, 0, 15, -123}
@@ -187,7 +187,7 @@ new[] {-1, 2, 0, 15, -123}
 <h1 id="validation">Validation</h1>
 <p><em>Specifications</em> that they implement <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> interface, can be used in validation scenarios.</p>
 <pre><code class="language-csharp">// All array elements must be greater than 0
-var allGreaterThanSpec = Specification
+var allGreaterThanSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .All&lt;int[], int&gt;(Specification
         .GreaterThan(0));
 
@@ -204,7 +204,7 @@ result.ToString();
 <h1 id="linq">Linq</h1>
 <p><code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1">ILinqSpecification&lt;T&gt;</a></code> types, can be used as <em>Linq expressions</em>, using <a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1/24066042"><code>GetExpression</code></a> method.</p>
 <pre><code class="language-csharp">// Find Mr. Smith
-ILinqSpecification&lt;Customer&gt; spec = Specification
+ILinqSpecification&lt;Customer&gt; spec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Equal&lt;Customer, string&gt;(c =&gt; c.LastName, "Smith");
 
 using (var ctx = new EfCoreDbContext())
@@ -251,12 +251,12 @@ Expression baseExpression = (Expression) validEmailSpec;
 <h2 id="linqtoentities">LinqToEntities</h2>
 <p>As mentioned above, some <em>Specifications</em> are not working at all with <em>LinqToEntities</em> (eg <em>Specifications</em> with Regex - Match, Email, CreditCard).<br>
 Some <em>Specifications</em> support partially <em>LinqToEntities</em>. These specifications, usually has special <code>linqToEntities</code> flag.</p>
-<pre><code class="language-csharp">// Specification check if collection is null or empty.
-var notEmptyItemsSpec = Specification
+<pre><code class="language-csharp">// <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> check if collection is null or empty.
+var notEmptyItemsSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, ICollection&lt;Item&gt;&gt;(c =&gt; c.Items);
-var notEmptyItemsSpecEFSupport = Specification
+var notEmptyItemsSpecEFSupport = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .ForProperty&lt;Customer, ICollection&lt;Item&gt;&gt;(c =&gt; c.Items,
-        // Specification do not check if collection is null. Only if empty.
+        // <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> do not check if collection is null. Only if empty.
         new EmptySpecification&lt;ICollection&lt;Item&gt;&gt;(linqToEntities: true).Not());
 
 using (var ctx = new EfDbContext())
@@ -276,7 +276,7 @@ After that, all <em>Specifications</em> with <code>linqToEntities</code> support
 <pre><code class="language-csharp">// Unblock 'LinqToEntities' support globally.
 <a href="/FluentSpecification/api/FluentSpecification/Specification/F0932233">Specification.LinqToEntities</a> = true;
 
-var notEmptyItemsSpec = Specification
+var notEmptyItemsSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, ICollection&lt;Item&gt;&gt;(c =&gt; c.Items);
 
 using (var ctx = new EfDbContext())

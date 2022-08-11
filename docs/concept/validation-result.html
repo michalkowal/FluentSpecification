@@ -157,7 +157,7 @@
 		<p><code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> interface provide special structure with validation result, error message and types of visited <em>Specification</em> - <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult">SpecificationResult</a></code>.<br>
 Below is description of each property with examples.</p>
 <p>We start of <em>Specification</em>:</p>
-<pre><code class="language-csharp">var spec = Specification
+<pre><code class="language-csharp">var spec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Length&lt;Dictionary&lt;int, string&gt;&gt;(3)
     .And()
     .Null(d =&gt; d.Comparer)

@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
-        <title>FluentSpecification - Specification</title>
+        <title>FluentSpecification - New Release - 1.2.1</title>
         <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
         <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet">
@@ -70,9 +70,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">                            
-                                    <li class="active"><a href="/FluentSpecification/docs">Documentation</a></li>
+                                    <li><a href="/FluentSpecification/docs">Documentation</a></li>
         <li><a href="/FluentSpecification/built-in">Built-in Specifications</a></li>
-        <li><a href="/FluentSpecification/blog">Blog</a></li>
+        <li class="active"><a href="/FluentSpecification/blog">Blog</a></li>
         <li><a href="/FluentSpecification/api">API</a></li>
  
                         </ul>       
@@ -87,8 +87,10 @@
             <aside class="main-sidebar ">
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     	
-        <div><p><a href="https://github.com/michalkowal/FluentSpecification/tree/master/docs/input/docs/custom-specifications/specification.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
-    <div id="infobar-headings"></div>
+        <div><p><a href="https://github.com/michalkowal/FluentSpecification/tree/master/docs/input/blog/new-release-1.2.1.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
+    <div id="infobar-headings"><h6>On This Page</h6><p><a href="#release">1.2.1 Release</a></p>
+<hr class="infobar-hidden">
+</div>
 
                 </section>
                 <section class="sidebar">    
@@ -98,43 +100,16 @@
                     <ul class="sidebar-menu">
                         
 
-                <li class="treeview">
-                    <a href="/FluentSpecification/docs/concept">Concept</a> <a href="#" class="expand"></a>
-                    <ul class="treeview-menu">
-                        
-                <li><a href="/FluentSpecification/docs/concept/specification-design-pattern">Specification Design Pattern</a></li>
-                <li><a href="/FluentSpecification/docs/concept/abstraction">Abstraction</a></li>
-                <li><a href="/FluentSpecification/docs/concept/validation-result">Validation Result</a></li>
-                <li><a href="/FluentSpecification/docs/concept/core-specifications">Core Specifications</a></li>
-                <li><a href="/FluentSpecification/docs/concept/common-specifications">Common Specifications</a></li>
-                <li><a href="/FluentSpecification/docs/concept/entity-framework-support">Entity Framework Support</a></li>
-
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="/FluentSpecification/docs/usage">Usage</a> <a href="#" class="expand"></a>
-                    <ul class="treeview-menu">
-                        
-                <li><a href="/FluentSpecification/docs/usage/installation">Installation</a></li>
-                <li><a href="/FluentSpecification/docs/usage/building-specifications">Building Specifications</a></li>
-                <li><a href="/FluentSpecification/docs/usage/candidate-verification">Candidate Verification</a></li>
-                <li><a href="/FluentSpecification/docs/usage/custom-validation-messages">Custom Validation Messages</a></li>
-
-                    </ul>
-                </li>
-                <li class="treeview active">
-                    <a href="/FluentSpecification/docs/custom-specifications">Custom Specifications</a> <a href="#" class="expand"></a>
-                    <ul class="treeview-menu">
-                        
-                <li class="selected"><a href="/FluentSpecification/docs/custom-specifications/specification">Specification</a></li>
-                <li><a href="/FluentSpecification/docs/custom-specifications/validation-specification">Validation Specification</a></li>
-                <li><a href="/FluentSpecification/docs/custom-specifications/linq-specification">Linq Specification</a></li>
-                <li><a href="/FluentSpecification/docs/custom-specifications/negatable-specification">Negatable Specification</a></li>
-                <li><a href="/FluentSpecification/docs/custom-specifications/all-in-one">All in one</a></li>
-                <li><a href="/FluentSpecification/docs/custom-specifications/extensions">Fluent API extensions</a></li>
-
-                    </ul>
-                </li>
+        <li class="header"><i class="fa fa-bookmark"></i> Categories</li>    
+            <li><a href="/FluentSpecification/blog/Release">Release</a></li>
+    
+    <li class="header"><i class="fa fa-calendar"></i> Archive</li>    
+        <li><a href="/FluentSpecification/blog/archive/2022/08">August, 2022</a></li>
+        <li><a href="/FluentSpecification/blog/archive/2019/08">August, 2019</a></li>
+        <li><a href="/FluentSpecification/blog/archive/2019/05">May, 2019</a></li>
+    
+        <li class="header"><i class="fa fa-user"></i> Authors</li>    
+            <li><a href="/FluentSpecification/blog/author/Micha%C5%82-Kowal">Michał Kowal</a></li>
 
                     </ul>
                             
@@ -148,31 +123,33 @@
 
 
 		<section class="content-header">
-			<h1 class="no-anchor">Specification</h1>
+			<h1 class="no-anchor">New Release - 1.2.1</h1>
 		</section>
 	<section class="content">
 		
 
 		 
-		<p>To create custom <em>Specification</em> type, just need to implement <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1">ISpecification&lt;T&gt;</a></code> interface from <a href="/FluentSpecification/api/FluentSpecification.Abstractions/"><code>FluentSpecification.Abstractions</code></a> package.</p>
-<pre><code class="language-csharp">public class VipCustomerSpecification :
-    ISpecification&lt;Customer&gt;
-{
-    public bool IsSatisfiedBy(Customer candidate)
-    {
-        return candidate
-            .Comments
-            .Split(new char[] {';'})
-            .Contains("Vip");
-    }
-}
-</code></pre>
-<p>Type, prepared in this way can be used with other, built-in <em>Specifications</em>.</p>
-<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
-    .NotNull&lt;Customer&gt;()
-    // Create 'VipCustomerSpecification' by parameterless constructor
-    .And&lt;Customer, VipCustomerSpecification&gt;();
-</code></pre>
+		
+
+
+
+<dl class="dl-horizontal" style="margin-bottom: 12px;">
+    <dt style="text-align: left;"><i class="fa fa-calendar"></i> Published</dt>
+    <dd>11 August 2022</dd>
+        <dt style="text-align: left;"><i class="fa fa-bookmark"></i> Category</dt>
+        <dd><a href="/FluentSpecification/blog/Release">Release</a></dd>
+            <dt style="text-align: left;"><i class="fa fa-user"></i> Author</dt>
+        <dd><a href="/FluentSpecification/blog/author/Micha%C5%82-Kowal">Michał Kowal</a></dd>
+</dl>
+
+
+<h1 id="release">1.2.1 Release</h1>
+<p>As part of this release we had <a href="https://github.com/michalkowal/FluentSpecification/compare/1.2.0...1.2.1">5 commits</a> which resulted in <a href="https://github.com/michalkowal/FluentSpecification/milestone/5?closed=1">1 issue</a> being closed.</p>
+<p><strong>Bug</strong></p>
+<ul>
+<li><a href="https://github.com/michalkowal/FluentSpecification/issues/24"><strong>#24</strong></a> 'Specification' is an ambiguous reference</li>
+</ul>
+
 
 	</section>
                 

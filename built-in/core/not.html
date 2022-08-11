@@ -180,7 +180,7 @@
 			<h1>Info</h1>
 			<p>Logical NOT <i>Specification</i> implementation.</p>
 		<h1 id="usage">Usage</h1>
-<pre><code class="language-csharp">var spec = Specification
+<pre><code class="language-csharp">var spec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Empty&lt;string&gt;();
 var negation = spec.Not();
     
@@ -194,18 +194,18 @@ negation.IsSatisfiedBy("lorem ipsum");    // true
 </code></pre>
 <h2 id="multiple-negation-ways">Multiple negation ways</h2>
 <p>Below all examples, generate the same result.</p>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .And()
     .NotEmail();
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .And(Specification
         .Email()
         .Not());
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .AndNot()
     .Email();
@@ -220,7 +220,7 @@ Below example describes how it works.</p>
 var expSpec = Specification.Expression&lt;bool&gt;(b =&gt; b);
 
 <a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult">SpecificationResult</a> result;
-// return false with error: Specification doesn't meet expression: [b =&gt; b]
+// return false with error: <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> doesn't meet expression: [b =&gt; b]
 expSpec.IsSatisfiedBy(false, out result);
 // return false without error message
 expSpec.Not().IsSatisfiedBy(true, out result);

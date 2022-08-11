@@ -166,11 +166,11 @@ public static IComplexSpecification&lt;CreditCard&gt; NotExpiredCreditCard(this 
     return self.Compose(new ExpiredCreditCardSpecification().Not());
 }
 
-var creditCardSpec1 = Specification
+var creditCardSpec1 = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Null&lt;CreditCard&gt;()
     .Or()
     .ExpiredCreditCard();
-var creditCardSpec2 = Specification
+var creditCardSpec2 = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;CreditCard&gt;()
     .And()
     .NotExpiredCreditCard();
@@ -194,11 +194,11 @@ public static <a href="/FluentSpecification/api/FluentSpecification.Abstractions
         new ExpiredCreditCardSpecification().Not()));
 }
 
-var customerSpec1 = Specification
+var customerSpec1 = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;()
     .And()
     .ExpiredCreditCard(c =&gt; c.CreditCard);
-var customerSpec2 = Specification
+var customerSpec2 = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Null&lt;Customer&gt;()
     .Or()
     .NotExpiredCreditCard(c =&gt; c.CreditCard);

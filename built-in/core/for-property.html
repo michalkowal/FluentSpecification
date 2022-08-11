@@ -202,7 +202,7 @@
 			<h1>Info</h1>
 			<p>Verifies if <i>Specification</i> is satisfied by candidate property value.</p>
 		<h1 id="usage">Usage</h1>
-<pre><code class="language-csharp">var spec = Specification
+<pre><code class="language-csharp">var spec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .ForProperty&lt;Customer, CreditCard&gt;(c =&gt; c.CreditCard, 
         Specification.NotNull&lt;CreditCard&gt;());
 
@@ -213,7 +213,7 @@ spec.IsSatisfiedBy(
 
 
 // With sub property
-var emailSpec = Specification
+var emailSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .ForProperty&lt;Customer, string&gt;(c =&gt; c.Caretaker.Email,
         Specification.Email());
 
@@ -228,7 +228,7 @@ spec.IsSatisfiedBy(
 </code></pre>
 <h2 id="extensions">Extensions</h2>
 <p>Every built-in <em>Specification</em> has extension with <code><a href="/FluentSpecification/api/FluentSpecification.Core.Composite/PropertySpecification_2">PropertySpecification&lt;T, TProperty&gt;</a></code>.</p>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .ForProperty&lt;Customer, int&gt;(c =&gt; c.CustomerId,
         Specification.GreaterThan(0));
 
@@ -239,10 +239,10 @@ Specification.GreaterThan&lt;Customer, int&gt;(
 <h2 id="null-support">Null support</h2>
 <p><code><a href="/FluentSpecification/api/FluentSpecification.Core.Composite/PropertySpecification_2">PropertySpecification&lt;T, TProperty&gt;</a></code> doesn't throw <code>NullReferenceException</code>, when candidate or his sub-property is <code>null</code>, but returns <code>false</code>.<br>
 <code>Null</code> as value of property works normally.</p>
-<pre><code class="language-csharp">var spec = Specification
+<pre><code class="language-csharp">var spec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .CreditCard&lt;Customer&gt;(c =&gt; c.CreditCard.CardNumber);
 
-spec.IsSatisfiedBy(new Customer {CreditCard = new CreditCard {CardNumber = null}}); // return false, because Specification result
+spec.IsSatisfiedBy(new Customer {CreditCard = new CreditCard {CardNumber = null}}); // return false, because <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> result
 spec.IsSatisfiedBy(new Customer {CreditCard = null});   // return false
 spec.IsSatisfiedBy(null);   // return false
 </code></pre>

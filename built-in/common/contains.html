@@ -279,12 +279,12 @@ arraySpec.IsSatisfiedBy(new Customer { Email = null }); // true
 <em>LinqToEntities</em> cannot create const value of non primitive. Instead of <em>Contains</em>, <a href="/FluentSpecification/built-in/common/any">AnySpecification</a> will be better solution.</p>
 <pre><code class="language-csharp">using (var context = new EfDbContext())
 {
-    var containsSpec = Specification
+    var containsSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
         .Contains&lt;Customer, Item&gt;(c =&gt; c.Items, new Item {ItemId = 1000});
     // var customers = context.Customers.Where(containsSpec.GetExpression()).ToList();   // Exception!
 
     <a href="/FluentSpecification/api/FluentSpecification/Specification/F0932233">Specification.LinqToEntities</a> = true;
-    var anySpec = Specification
+    var anySpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
         .Any&lt;Customer, Item&gt;(c =&gt; c.Items, 
             Specification.Equal&lt;Item, int&gt;(i =&gt; i.ItemId, 1000));
     var customers = context.Customers.Where(anySpec.GetExpression()).ToList();   // Works!

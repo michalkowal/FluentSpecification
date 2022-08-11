@@ -181,19 +181,19 @@
 			<h1>Info</h1>
 			<p>Join <i>Specifications</i> as logical AND.</p>
 		<h1 id="usage-a-b">Usage (A &amp;&amp; B)</h1>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True()
     .And()
     .True()
     .IsSatisfiedBy(true);   // true
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True()
     .And()
     .False()
     .IsSatisfiedBy(true);   // false
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .False()
     .And()
     .False()
@@ -201,24 +201,24 @@ Specification
 </code></pre>
 <h2 id="multiple-composition-ways">Multiple composition ways</h2>
 <p>Below all examples, generate the same result.</p>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .And()
     .NotEmail();
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .And(Specification
         .Email());
 
 // Create <a href="/FluentSpecification/api/FluentSpecification.Common/EmailSpecification">EmailSpecification</a> with parameter-less constructor
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;string&gt;()
     .And&lt;string, <a href="/FluentSpecification/api/FluentSpecification.Common/EmailSpecification">EmailSpecification</a>&gt;();
 </code></pre>
 <h2 id="grouping">Grouping</h2>
 <h3 id="a-b-c">A &amp;&amp; (B || C)</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;string&gt;()
     .And(Specification
         .Contains("lorem")
@@ -226,39 +226,39 @@ Specification
         .Contains("ipsum"));
 </code></pre>
 <h3 id="a-b-c-1">(A || B) &amp;&amp; C</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .And(Specification
             .Contains("lorem")
             .Or()
             .Contains("ipsum"), 
-        Specification
+        <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
             .NotEmpty&lt;string&gt;());
 </code></pre>
 <h3 id="a-b-c-d">(A || B) &amp;&amp; (C || D)</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .And(Specification
             .Length&lt;string&gt;(3)
             .Or()
             .MinLength(10),
-        Specification
+        <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
             .Contains("lorem")
             .Or()
             .Contains("ipsum"));
 </code></pre>
 <h1 id="and-not-a-b">And Not (A &amp;&amp; !B)</h1>
-<pre><code class="language-chsarp">Specification
+<pre><code class="language-chsarp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True()
     .AndNot()
     .True()
     .IsSatisfiedBy(true);   // false
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True()
     .AndNot()
     .False()
     .IsSatisfiedBy(true);   // true
 
-Specification
+<a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .False()
     .AndNot()
     .False()
@@ -266,7 +266,7 @@ Specification
 </code></pre>
 <h2 id="grouping-1">Grouping</h2>
 <h3 id="a-b-c-2">A &amp;&amp; !(B || C)</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;string&gt;()
     .AndNot(Specification
         .Contains("lorem")
@@ -274,21 +274,21 @@ Specification
         .Contains("ipsum"));
 </code></pre>
 <h3 id="a-b-c-3">(A || B) &amp;&amp; !C</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .AndNot(Specification
             .Contains("lorem")
             .Or()
             .Contains("ipsum"), 
-        Specification
+        <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
             .NotEmpty&lt;string&gt;());
 </code></pre>
 <h3 id="a-b-c-d-1">(A || B) &amp;&amp; !(C || D)</h3>
-<pre><code class="language-csharp">Specification
+<pre><code class="language-csharp"><a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .AndNot(Specification
             .Length&lt;string&gt;(3)
             .Or()
             .MinLength(10),
-        Specification
+        <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
             .Contains("lorem")
             .Or()
             .Contains("ipsum"));

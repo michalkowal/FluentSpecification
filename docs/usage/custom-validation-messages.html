@@ -160,7 +160,7 @@
 <p>Every <em>Specification</em> that implements <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1">ISpecification&lt;T&gt;</a></code> interface, can be assigned custom validation error message.<br>
 To do that <a href="/FluentSpecification/api/FluentSpecification.Core/Specification/F70EB3F8"><code>WithMessage</code></a> extension method can be used.<br>
 <strong>BE AWARE!</strong> If <em>Specification</em> implements <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> interface, <em>WithMessage</em> method will override error message by provided parameter.</p>
-<pre><code class="language-csharp">var customerSpec = Specification
+<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;()
     .WithMessage("Customer not found");
 
@@ -172,15 +172,15 @@ result.ToString();
 </code></pre>
 <h2 id="customize-specifications-error-messages">Customize specifications error messages</h2>
 <p>Validation error messages could be provided for every single <em>Specification</em> and use together in a chain:</p>
-<pre><code class="language-csharp">var idSpec = Specification
+<pre><code class="language-csharp">var idSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, int&gt;(c =&gt; c.CustomerId)
     .WithMessage("Unknown Customer ID");
 
-var activeSpec = Specification
+var activeSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True&lt;Customer&gt;(c =&gt; c.IsActive)
     .WithMessage("Customer is archived");
 	
-var emailSpec = Specification
+var emailSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .Email&lt;Customer&gt;(c =&gt; c.Email)
     .WithMessage("Incorrect Customer email address");
 	
@@ -196,7 +196,7 @@ result.ToString();
 </code></pre>
 <h2 id="single-error-message-for-specifications-chain">Single error message for specifications chain</h2>
 <p>Multiple <em>Specifications</em> in a chain, could have single error message for whole group:</p>
-<pre><code class="language-csharp">var customerSpec = Specification
+<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;()
     .And()
     .NotEmpty(c =&gt; c.CustomerId)
@@ -214,7 +214,7 @@ result.ToString();
 </code></pre>
 <h2 id="fluent-api-awareness">Fluent API awareness</h2>
 <p>In fluent API <em>WithMessage</em> invocation, override all others custom messages declared before:</p>
-<pre><code class="language-csharp">var customerSpec = Specification
+<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;()
     .And()
     .GreaterThan(c =&gt; c.CustomerId, 0)
@@ -246,16 +246,16 @@ result.ToString();
 // "Customer is archived" - ouch !!! We expected "Incorrect Customer ID"
 </code></pre>
 <p>In case presented above, specifications with correct validation messages, should be defined in groups:</p>
-<pre><code class="language-csharp">var customerSpec = Specification
+<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;();
 
-var idSpec = Specification
+var idSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .GreaterThan&lt;Customer, int&gt;(c =&gt; c.CustomerId, 0)
     .And()
     .LessThan(c =&gt; c.CustomerId, 10000)
     .WithMessage("Incorrect Customer ID");
 
-var dataSpec = Specification
+var dataSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, string&gt;(c =&gt; c.FirstName)
     .And()
     .NotEmpty(c =&gt; c.LastName)
@@ -263,7 +263,7 @@ var dataSpec = Specification
     .Email(c =&gt; c.Email)
     .WithMessage("Missing Customer data");
 
-var activeSpec = Specification
+var activeSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True&lt;Customer&gt;(c =&gt; c.IsActive)
     .WithMessage("Customer is archived");
 	

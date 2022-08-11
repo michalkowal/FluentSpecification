@@ -5,8 +5,23 @@
 		<link>http://michalkowal.github.io/FluentSpecification</link>
 		<description />
 		<copyright>2022</copyright>
-		<pubDate>Thu, 11 Aug 2022 19:26:11 GMT</pubDate>
-		<lastBuildDate>Thu, 11 Aug 2022 19:26:11 GMT</lastBuildDate>
+		<pubDate>Thu, 11 Aug 2022 20:39:35 GMT</pubDate>
+		<lastBuildDate>Thu, 11 Aug 2022 20:39:35 GMT</lastBuildDate>
+		<item>
+			<title>New Release - 1.2.1</title>
+			<link>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.2.1</link>
+			<description>&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.2.0...1.2.1"&gt;5 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/5?closed=1"&gt;1 issue&lt;/a&gt; being closed.&lt;/p&gt;</description>
+			<author>Michał Kowal</author>
+			<guid>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.2.1</guid>
+			<pubDate>Thu, 11 Aug 2022 00:00:00 GMT</pubDate>
+			<content:encoded>&lt;h1 id="release"&gt;1.2.1 Release&lt;/h1&gt;
+&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.2.0...1.2.1"&gt;5 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/5?closed=1"&gt;1 issue&lt;/a&gt; being closed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bug&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/michalkowal/FluentSpecification/issues/24"&gt;&lt;strong&gt;#24&lt;/strong&gt;&lt;/a&gt; 'Specification' is an ambiguous reference&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded>
+		</item>
 		<item>
 			<title>New Release - 1.2.0</title>
 			<link>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.2.0</link>

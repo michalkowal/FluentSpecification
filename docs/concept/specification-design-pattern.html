@@ -209,7 +209,7 @@ It is also so general that it doesn't communicate intent as much as more special
 </code></pre>
 <pre><code class="language-java">public boolean accountIsDelinquent(Customer customer) {
     Date today = new Date();
-    Specification delinquentSpec =
+    <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> delinquentSpec =
         new DelinquentInvoiceSpecification(today);
         
     Iterator it = customer.getInvoices().iterator();

@@ -196,7 +196,7 @@ All built-in <em>Specifications</em> are "complex" and implements <code><a href=
 After conversion, created <em>Specification</em> supports <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> and <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1">ILinqSpecification&lt;T&gt;</a></code>, regardless of whether the base <em>Specification</em> implements these interfaces.</p>
 <p><strong>BE AWARE!</strong> As described in <a href="/FluentSpecification/docs/concept/core-specifications#everything-is-complex">Concept section</a> <em>Linq expressions</em> produced in this way, will not work with <em>LinqToEntities</em> (<code>Ef 6</code> scenarios). In <code>EF Core</code> should works fine.<br>
 For <code>EF 6</code>, <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ILinqSpecification_1">ILinqSpecification&lt;T&gt;</a></code> implementation with special <em>expressions</em> building is necessary. See <a href="/FluentSpecification/docs/custom-specifications/linq-specification">Linq Specification implementing</a>.</p>
-<pre><code class="language-csharp">// Simple Specification implementation
+<pre><code class="language-csharp">// Simple <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a> implementation
 public class VipCustomerSpecification :
     ISpecification&lt;Customer&gt;
 {

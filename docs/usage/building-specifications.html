@@ -202,7 +202,7 @@ var andSpec = activeSpec
 <p>To prevent use constructors, there is a special <em>static class</em> <a href="/FluentSpecification/api/FluentSpecification/Specification/"><code>Specification</code></a> in <a href="/FluentSpecification/api/FluentSpecification/"><code>FluentSpecification</code></a> namespaces, and this is formall "entry point".<br>
 <a href="/FluentSpecification/api/FluentSpecification/Specification/"><code>Specification</code></a> contains creation methods for all <em>built-in Specifications</em> and also negations for some of them.</p>
 <pre><code class="language-csharp">// Previous examples in flatten version
-var finalSpec = Specification
+var finalSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True&lt;Customer&gt;(c =&gt; c.IsActive)
     .And()
     .NotEmpty(c =&gt; c.Comments);

@@ -1,21 +1,19 @@
-﻿<!DOCTYPE html>
-<html>
-    <head>
+﻿<!DOCTYPE html><html><head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-        <meta name="description" />
-        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="description">
+        <meta name="keywords" content="static content generator,static site generator,static site,HTML,web development,.NET,C#,Razor,Markdown,YAML">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/FluentSpecification/assets/img/favicon.ico" type="image/x-icon">
         <title>FluentSpecification - Home</title>
         <link href="/FluentSpecification/assets/css/highlight.css" rel="stylesheet">
-        <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet" />
-        <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet" />
-        <link href="/FluentSpecification/assets/css/theme/theme.css" rel="stylesheet" />
+        <link href="/FluentSpecification/assets/css/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/adminlte/AdminLTE.css" rel="stylesheet">
+        <link href="/FluentSpecification/assets/css/theme/theme.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700|Roboto:400,400i,700,700i" rel="stylesheet">
         <link href="/FluentSpecification/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="/FluentSpecification/assets/css/override.css" rel="stylesheet" />
+        <link href="/FluentSpecification/assets/css/override.css" rel="stylesheet">
         <script src="/FluentSpecification/assets/js/jquery-2.2.3.min.js"></script>
         <script src="/FluentSpecification/assets/js/bootstrap.min.js"></script>        
         <script src="/FluentSpecification/assets/js/app.min.js"></script>         
@@ -30,7 +28,7 @@
         <![endif]-->  
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-139052199-1"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139052199-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -113,7 +111,7 @@
         <p><b>FluentSpecification</b> is implementation of <i>Specification design pattern</i> with many small, built-in reusable specifications, 
         perfect for validation of <i>Domain Model</i> in <i>Domain-Driven-Design</i> approach and other similar, where system is built around domain objects.</p>
         <p>
-            <a class="btn btn-primary btn-lg" href="docs/usage/building-specifications" role="button">Get Started &raquo;</a>
+            <a class="btn btn-primary btn-lg" href="docs/usage/building-specifications" role="button">Get Started »</a>
         </p>
     </div>
 </div>
@@ -148,11 +146,11 @@
 
 <div class="container">
     <h1>Usage</h1>
-    <hr />
+    <hr>
 <pre><code class="language-csharp hljs"><span class="hljs-keyword">using</span> FluentSpecification;
 <span class="hljs-keyword">using</span> FluentSpecification.Core;
 
-<span class="hljs-keyword">var</span> customerSpec = Specification
+<span class="hljs-keyword">var</span> customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     <span class="hljs-comment">// Specify not null Customer</span>
     .NotNull&lt;Customer&gt;()
 
@@ -169,7 +167,7 @@
     .True(c =&gt; c.IsActive)
 
     <span class="hljs-comment">// and Customer property "Email" is ...</span>
-    .And(Specification.ForProperty&lt;Customer, <span class="hljs-keyword">string</span>&gt;(c =&gt; c.Email, Specification
+    .And(Specification.ForProperty&lt;Customer, <span class="hljs-keyword">string</span>&gt;(c =&gt; c.Email, <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
         <span class="hljs-comment">// ... valid email</span>
         .Email()
 
@@ -183,7 +181,7 @@
 
     <span class="hljs-comment">// with not empty Item collection ...</span>
     .And()
-    .ForProperty(c =&gt; c.Items, Specification
+    .ForProperty(c =&gt; c.Items, <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
         .NotEmpty&lt;ICollection&lt;Item&gt;&gt;()
 
         <span class="hljs-comment">// ... contains Item '1000'</span>
@@ -289,11 +287,11 @@ Console.WriteLine(specResult.ToString());
 
 
 <span class="hljs-comment">// Custom messages for each specification</span>
-<span class="hljs-keyword">var</span> idSpec = Specification
+<span class="hljs-keyword">var</span> idSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, <span class="hljs-keyword">int</span>&gt;(c =&gt; c.CustomerId)
     .WithMessage(<span class="hljs-string">"Unknown Customer ID"</span>);
 
-<span class="hljs-keyword">var</span> activeSpec = Specification
+<span class="hljs-keyword">var</span> activeSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True&lt;Customer&gt;(c =&gt; c.IsActive)
     .WithMessage(<span class="hljs-string">"Customer is archived"</span>);
 
@@ -305,10 +303,10 @@ Console.WriteLine(specResult.ToString());
 <span class="hljs-comment">// Customer is archived</span></code></pre>
 </div>
 
-<br />
+<br>
 <div class="container">
     <a href="https://github.com/michalkowal/FluentSpecification/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/michalkowal/FluentSpecification.svg?color=%23545894&style=popout-square&logo=apache&logoColor=%23D22128" alt="License" /></a>
+    <img src="https://img.shields.io/github/license/michalkowal/FluentSpecification.svg?color=%23545894&amp;style=popout-square&amp;logo=apache&amp;logoColor=%23D22128" alt="License"></a>
 </div>                
             </div>           
             
@@ -321,9 +319,9 @@ Console.WriteLine(specResult.ToString());
             <footer class="bottom-footer">
                 <p class="text-muted">
     <a href="https://github.com/michalkowal/FluentSpecification"><i class="fa fa-github"></i> GitHub</a>
-    <br/>
-    Copyright &copy; <a href="https://github.com/michalkowal">Michał Kowal</a>.
-    <br/>
+    <br>
+    Copyright © <a href="https://github.com/michalkowal">Michał Kowal</a>.
+    <br>
     Generated by <a href="http://wyam.io">Wyam</a>
 </p>
             </footer>
@@ -405,5 +403,5 @@ Console.WriteLine(specResult.ToString());
                 }, 500);
             });
         </script>
-    </body>
-</html>
+    
+</body></html>
