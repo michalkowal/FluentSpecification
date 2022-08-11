@@ -154,7 +154,7 @@
 
 <span class="hljs-keyword">var</span> customerSpec = Specification
     <span class="hljs-comment">// Specify not null Customer</span>
-    .NotNull()
+    .NotNull&lt;Customer&gt;()
 
     <span class="hljs-comment">// with Id between 100 and 200</span>
     .And()
@@ -169,7 +169,7 @@
     .True(c =&gt; c.IsActive)
 
     <span class="hljs-comment">// and Customer property "Email" is ...</span>
-    .And(Specification.ForProperty(c =&gt; c.Email, Specification
+    .And(Specification.ForProperty&lt;Customer, <span class="hljs-keyword">string</span>&gt;(c =&gt; c.Email, Specification
         <span class="hljs-comment">// ... valid email</span>
         .Email()
 
@@ -184,7 +184,7 @@
     <span class="hljs-comment">// with not empty Item collection ...</span>
     .And()
     .ForProperty(c =&gt; c.Items, Specification
-        .NotEmpty&gt;()
+        .NotEmpty&lt;ICollection&lt;Item&gt;&gt;()
 
         <span class="hljs-comment">// ... contains Item '1000'</span>
         .And()
@@ -200,7 +200,7 @@
 
     <span class="hljs-comment">// and credit card is valid between 2019-03-12 ...</span>
     .And(Specification
-        .GreaterThanOrEqual(c =&gt; c.CreditCard.ValidityDate, 
+        .GreaterThanOrEqual&lt;Customer, DateTime&gt;(c =&gt; c.CreditCard.ValidityDate, 
             <span class="hljs-keyword">new</span> DateTime(<span class="hljs-number">2019</span>, <span class="hljs-number">3</span>, <span class="hljs-number">12</span>))
         
         <span class="hljs-comment">// ... and 2019-05-31</span>
@@ -216,7 +216,7 @@
     Email = <span class="hljs-string">"asmith@gmail.com"</span>,
     Items = <span class="hljs-keyword">new</span> List()
     {
-        <span class="hljs-keyword">new</span> Item { ItemId= <span class="hljs-number">1000</span> }
+        <span class="hljs-keyword">new</span> Item { ItemId = <span class="hljs-number">1000</span> }
     },
     CreditCard = <span class="hljs-keyword">new</span> CreditCard
     {
@@ -256,7 +256,7 @@ Console.WriteLine(specResult.ToString());
 <span class="hljs-comment">// Field 'CreditCard.CardNumber': [Value is not correct credit card number]</span></code></pre>
 
     <h2>Querying</h2>
-<pre><code class="language-csharp hljs"><span class="hljs-keyword">var</span> customers = <span class="hljs-keyword">new</span> List()
+<pre><code class="language-csharp hljs"><span class="hljs-keyword">var</span> customers = <span class="hljs-keyword">new</span> List&lt;Customer&gt;()
 {
     <span class="hljs-comment">// fill customers</span>
 };
@@ -265,6 +265,44 @@ Console.WriteLine(specResult.ToString());
 
 <span class="hljs-keyword">var</span> dbResult = Context.Customers
     .Where(customerSpec.GetExpression()).ToList();    <span class="hljs-comment">// Or customerSpec.AsExpression()</span></code></pre>
+
+    <h2>Translations / Custom messages</h2>
+<pre><code class="language-csharp hljs"><span class="hljs-comment">// Single error message for whole specifications chain</span>
+customerSpec
+    .WithMessage(<span class="hljs-string">"Validation failed: Incorrect Customer"</span>)
+    .IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer
+    {
+        CustomerId = <span class="hljs-number">90</span>,
+        LastName = <span class="hljs-string">"Jones"</span>,
+        IsActive = <span class="hljs-literal">false</span>,
+        Email = <span class="hljs-string">"mjones@hotmail.com"</span>,
+        Items = <span class="hljs-literal">null</span>,
+        CreditCard = <span class="hljs-keyword">new</span> CreditCard
+        {
+            CardNumber = <span class="hljs-string">"5500 0000 1"</span>,
+            ValidityDate = DateTime.Parse(<span class="hljs-string">"2019-03-01"</span>)
+        }
+    }, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> specResult);    <span class="hljs-comment">// return false</span>
+
+Console.WriteLine(specResult.ToString());
+<span class="hljs-comment">// Validation failed: Incorrect Customer</span>
+
+
+<span class="hljs-comment">// Custom messages for each specification</span>
+<span class="hljs-keyword">var</span> idSpec = Specification
+    .NotEmpty&lt;Customer, <span class="hljs-keyword">int</span>&gt;(c =&gt; c.CustomerId)
+    .WithMessage(<span class="hljs-string">"Unknown Customer ID"</span>);
+
+<span class="hljs-keyword">var</span> activeSpec = Specification
+    .True&lt;Customer&gt;(c =&gt; c.IsActive)
+    .WithMessage(<span class="hljs-string">"Customer is archived"</span>);
+
+idSpec.And(activeSpec)
+    .IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer(), <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> specResult);    <span class="hljs-comment">// return false</span>
+
+Console.WriteLine(specResult.ToString());
+<span class="hljs-comment">// Unknown Customer ID</span>
+<span class="hljs-comment">// Customer is archived</span></code></pre>
 </div>
 
 <br />

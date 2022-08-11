@@ -225,9 +225,9 @@
 								<dd>
 									<ul class="list-unstyled">
 											<li><a href="/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1">Min<wbr>Length<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
-											<li><a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1">Max<wbr>Length<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
 											<li><a href="/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1">Length<wbr>Between<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
 											<li><a href="/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1">LengthSpecification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1">Max<wbr>Length<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
 									</ul>
 								</dd>			
 							
@@ -255,12 +255,12 @@
 class Type type-node
 	Derived0["MinLengthSpecification&lt;T&gt;"]--&gt;Type
 	click Derived0 "/FluentSpecification/api/FluentSpecification.Common/MinLengthSpecification_1"
-	Derived1["MaxLengthSpecification&lt;T&gt;"]--&gt;Type
-	click Derived1 "/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1"
-	Derived2["LengthBetweenSpecification&lt;T&gt;"]--&gt;Type
-	click Derived2 "/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1"
-	Derived3["LengthSpecification&lt;T&gt;"]--&gt;Type
-	click Derived3 "/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1"
+	Derived1["LengthBetweenSpecification&lt;T&gt;"]--&gt;Type
+	click Derived1 "/FluentSpecification/api/FluentSpecification.Common/LengthBetweenSpecification_1"
+	Derived2["LengthSpecification&lt;T&gt;"]--&gt;Type
+	click Derived2 "/FluentSpecification/api/FluentSpecification.Common/LengthSpecification_1"
+	Derived3["MaxLengthSpecification&lt;T&gt;"]--&gt;Type
+	click Derived3 "/FluentSpecification/api/FluentSpecification.Common/MaxLengthSpecification_1"
 
 						</div>
 					</div>
@@ -592,6 +592,16 @@ public abstract class BaseLengthSpecification&lt;T&gt; : ComplexSpecification&lt
 								<td>
 									<div>
         Creates logical OR <code class="cs">Specification</code> with negated <span name="other" class="paramref">other</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/F70EB3F8">WithMessage<wbr>&lt;T&gt;<wbr><wbr>(string)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates validation <code class="cs">Specification</code> proxy with specific error message where not satisfied by.
     </div>
 										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
 								</td>

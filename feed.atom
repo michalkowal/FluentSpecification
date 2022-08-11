@@ -3,8 +3,25 @@
 	<id>http://michalkowal.github.io/FluentSpecification</id>
 	<title>FluentSpecification</title>
 	<link rel="self" href="http://michalkowal.github.io/FluentSpecification" />
-	<rights>2019</rights>
-	<updated>2019-08-25T17:58:45Z</updated>
+	<rights>2022</rights>
+	<updated>2022-08-11T19:26:11Z</updated>
+	<entry>
+		<id>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.2.0</id>
+		<title>New Release - 1.2.0</title>
+		<author>
+			<name>Michał Kowal</name>
+		</author>
+		<link href="http://michalkowal.github.io/FluentSpecification/blog/new-release-1.2.0" />
+		<updated>2022-08-11T00:00:00Z</updated>
+		<content>&lt;h1 id="release"&gt;1.2.0 Release&lt;/h1&gt;
+&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.1.0...1.2.0"&gt;7 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/4?closed=1"&gt;2 issues&lt;/a&gt; being closed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Feature&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/michalkowal/FluentSpecification/issues/14"&gt;&lt;strong&gt;#14&lt;/strong&gt;&lt;/a&gt; Localization support for validation&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+		<summary>&lt;p&gt;As part of this release we had &lt;a href="https://github.com/michalkowal/FluentSpecification/compare/1.1.0...1.2.0"&gt;7 commits&lt;/a&gt; which resulted in &lt;a href="https://github.com/michalkowal/FluentSpecification/milestone/4?closed=1"&gt;2 issues&lt;/a&gt; being closed.&lt;/p&gt;</summary>
+	</entry>
 	<entry>
 		<id>http://michalkowal.github.io/FluentSpecification/blog/new-release-1.1.0</id>
 		<title>New Release - 1.1.0</title>

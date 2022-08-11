@@ -287,7 +287,7 @@ public sealed class LessThanOrEqualSpecification&lt;T&gt; : BaseLessCompareSpeci
         <code class="cs">Specification</code> for comparison use:
         <ol>
             <li>
-                <span class="term">Comparer</span><span class="description"><code class="cs"><a href="/FluentSpecification">IComparer&lt;T&gt;</a></code> - if available.</span>
+                <span class="term">Comparer</span><span class="description"><code class="cs">System.Collections.Generic.IComparer`1</code> - if available.</span>
             </li>
             <li>
                 <span class="term">LessThan operator</span><span class="description">if defined for <span name="T" class="typeparamref">T</span>.</span>
@@ -618,6 +618,16 @@ public sealed class LessThanOrEqualSpecification&lt;T&gt; : BaseLessCompareSpeci
 								<td>
 									<div>
         Creates logical OR <code class="cs">Specification</code> with negated <span name="other" class="paramref">other</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/Specification/F70EB3F8">WithMessage<wbr>&lt;T&gt;<wbr><wbr>(string)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates validation <code class="cs">Specification</code> proxy with specific error message where not satisfied by.
     </div>
 										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/Specification">Specification</a></em></small></div>
 								</td>
