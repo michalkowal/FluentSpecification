@@ -23,7 +23,7 @@ BuildParameters.SetParameters(context: Context,
 							shouldRunCoveralls: true,
 							shouldRunCodecov: false,
 							shouldPublishGitHub: true,
-							shouldGenerateDocumentation: true);
+							shouldGenerateDocumentation: false);
 
 BuildParameters.PrintParameters(Context);
 
