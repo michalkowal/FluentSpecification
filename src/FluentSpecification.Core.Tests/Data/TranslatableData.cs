@@ -13,7 +13,8 @@ namespace FluentSpecification.Core.Tests.Data
             Invalid("Custom mock message")
                 .Result("FalseMockValidationSpecification+Failed", c => c
                     .FailedSpecification(typeof(FalseMockValidationSpecification),
-                        "Custom mock message"));
+                        "Custom mock message")
+                    .AddParameter("Result", false));
         }
     }
 }
