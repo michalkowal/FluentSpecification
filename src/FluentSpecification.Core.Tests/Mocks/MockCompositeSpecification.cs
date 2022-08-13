@@ -36,9 +36,9 @@ namespace FluentSpecification.Core.Tests.Mocks
             return new FalseMockCompositeSpecification<T>();
         }
 
-        private static IComplexSpecification<T> CreateBaseSpecification(bool result)
+        private static IValidationSpecification<T> CreateBaseSpecification(bool result)
         {
-            return MockComplexSpecification<T>.Create(result);
+            return MockValidationSpecification<T>.Create(result);
         }
     }
 

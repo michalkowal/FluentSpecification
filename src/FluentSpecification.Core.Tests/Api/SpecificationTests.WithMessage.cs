@@ -12,18 +12,14 @@ namespace FluentSpecification.Core.Tests.Api
         public class WithMessage
         {
             [Fact]
-            public void CorrectSpecification_ReturnOrSpecificationObject()
+            public void CorrectSpecification_ReturnTrasnlatableSpecificationObject()
             {
                 var sut = MockSpecification.True();
 
                 var withMessage = sut.WithMessage("Message");
 
-                var fieldInfo = withMessage.GetType().GetTypeInfo()
-                    .GetField("_baseSpecification", BindingFlags.Instance | BindingFlags.NonPublic);
-                var result = fieldInfo.GetValue(withMessage);
-
-                Assert.NotNull(result);
-                Assert.IsType<TranslatableSpecification<object>>(result);
+                Assert.NotNull(withMessage);
+                Assert.IsType<TranslatableSpecification<object>>(withMessage);
             }
 
             [Fact]

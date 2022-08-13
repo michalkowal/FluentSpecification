@@ -1,8 +1,10 @@
-﻿using FluentSpecification.Abstractions.Generic;
+﻿using FluentSpecification.Abstractions;
+using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
-using FluentSpecification.Core.Validation;
 using JetBrains.Annotations;
 using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace FluentSpecification.Core
 {
@@ -10,9 +12,9 @@ namespace FluentSpecification.Core
     ///     Internal adapter, extends <c>ValidationSpecification</c> object by custom error message.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class TranslatableSpecification<T> : ValidationSpecification<T>
+    internal class TranslatableSpecification<T> : IComplexSpecification<T>
     {
-        private readonly ISpecification<T> _baseSpecification;
+        private readonly IComplexSpecification<T> _baseSpecification;
         private readonly string _message;
 
         /// <summary>
@@ -27,45 +29,39 @@ namespace FluentSpecification.Core
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentException(nameof(message));
 
-            _baseSpecification = baseSpecification ?? throw new ArgumentNullException(nameof(baseSpecification));
+            _baseSpecification = baseSpecification?.AsComplexSpecification() ?? throw new ArgumentNullException(nameof(baseSpecification));
             _message = message;
         }
 
         /// <inheritdoc />
-        public override bool IsSatisfiedBy(T candidate)
+        public Expression<Func<T, bool>> GetExpression()
+        {
+            return _baseSpecification.GetExpression();
+        }
+
+        /// <inheritdoc />
+        public bool IsSatisfiedBy(T candidate, out SpecificationResult result)
+        {
+            var overall = _baseSpecification.IsSatisfiedBy(candidate, out var baseResult);
+
+            result = overall ?
+                baseResult :
+                new SpecificationResult(baseResult.TotalSpecificationsCount, baseResult.OverallResult,
+                    new string[] { _message }, baseResult.Trace, baseResult.FailedSpecifications.ToArray());
+
+            return overall;
+        }
+
+        /// <inheritdoc />
+        public bool IsSatisfiedBy(T candidate)
         {
             return _baseSpecification.IsSatisfiedBy(candidate);
         }
 
         /// <inheritdoc />
-        protected override string CreateFailedMessage(T candidate)
+        Expression ILinqSpecification.GetExpression()
         {
-            return _message;
-        }
-
-        /// <inheritdoc />
-        protected override SpecificationResult CreateResult(T candidate, bool isSatisfiedBy)
-        {
-            var traceMessage = CreateTraceMessage(candidate, isSatisfiedBy);
-
-            SpecificationResult result;
-            if (isSatisfiedBy)
-                result = new SpecificationResult(true, traceMessage);
-            else
-                result = new SpecificationResult(false, traceMessage,
-                    new FailedSpecification(_baseSpecification.GetType(), GetParameters(), candidate, CreateFailedMessage(candidate)));
-
-            return result;
-        }
-
-        /// <inheritdoc />
-        protected override string CreateTraceMessage(T candidate, bool result)
-        {
-            var message = SpecificationResultGenerator.GetSpecificationShortName(_baseSpecification);
-            if (!result)
-                message += "+Failed";
-
-            return message;
+            return GetExpression();
         }
     }
 }
