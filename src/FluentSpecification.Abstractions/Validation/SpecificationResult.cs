@@ -52,6 +52,15 @@ namespace FluentSpecification.Abstractions.Validation
         {
         }
 
+        /// <summary>
+        ///     Create result for single <c>Specification</c> with custom errors.
+        /// </summary>
+        /// <param name="overallResult">Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.</param>
+        /// <param name="errors">Custom errors collection, independent of failedSpecifications.</param>
+        /// <param name="failedSpecifications">
+        ///     <para>List of failed <c>Specifications</c>.</para>
+        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// </param>
         [PublicAPI]
         public SpecificationResult(bool overallResult, [CanBeNull][ItemNotNull] string[] errors,
             [CanBeNull][ItemNotNull] params FailedSpecification[] failedSpecifications) :
@@ -78,6 +87,19 @@ namespace FluentSpecification.Abstractions.Validation
         {
         }
 
+        /// <summary>
+        ///     Create result with trace, for single <c>Specification</c> with custom errors.
+        /// </summary>
+        /// <param name="overallResult">Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.</param>
+        /// <param name="errors">Custom errors collection, independent of failedSpecifications.</param>
+        /// <param name="trace">
+        ///     <para>Trace message.</para>
+        ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
+        /// </param>
+        /// <param name="failedSpecifications">
+        ///     <para>List of failed <c>Specifications</c>.</para>
+        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// </param>
         [PublicAPI]
         public SpecificationResult(bool overallResult,
             [CanBeNull][ItemNotNull] string[] errors, [CanBeNull] string trace,
@@ -106,6 +128,20 @@ namespace FluentSpecification.Abstractions.Validation
         {
         }
 
+        /// <summary>
+        ///     Create result for combined multiple <c>Specifications</c> with custom errors.
+        /// </summary>
+        /// <param name="totalSpecificationsCount">Count of all executed <c>Specifications</c> in chain.</param>
+        /// <param name="overallResult">Overall result returned by <c>IsSatisfiedBy</c> or <c>IsNotSatisfiedBy</c> method.</param>
+        /// <param name="errors">Custom errors collection, independent of failedSpecifications.</param>
+        /// <param name="trace">
+        ///     <para>Trace message.</para>
+        ///     <para>Should contains short identifier of executed <c>Specifications</c> and relation between them.</para>
+        /// </param>
+        /// <param name="failedSpecifications">
+        ///     <para>List of failed <c>Specifications</c>.</para>
+        ///     <para>For definition of "failed" see <see cref="FailedSpecification" />.</para>
+        /// </param>
         [PublicAPI]
         public SpecificationResult(int totalSpecificationsCount, bool overallResult,
             string[] errors, string trace,
