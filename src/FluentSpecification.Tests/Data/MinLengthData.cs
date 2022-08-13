@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentSpecification.Common;
 using FluentSpecification.Tests.Mocks;
 using FluentSpecification.Tests.Sdk.Data;
@@ -9,7 +10,7 @@ namespace FluentSpecification.Tests.Data
     {
         public MinLengthData()
         {
-            int[] emptyArr = new int[0], arr = {1, 2, 3};
+            int[] emptyArr = Array.Empty<int>(), arr = {1, 2, 3};
             var list = new List<int> {1, 2, 3};
             var dict = new Dictionary<int, bool> {{1, false}, {2, true}};
             var ft = new FakeType {Fourth = new[] {1, 2, 3}};

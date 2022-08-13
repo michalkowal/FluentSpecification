@@ -7,7 +7,7 @@ namespace FluentSpecification.Integration.Tests.Logic
     {
         public bool IsSatisfiedBy(Customer candidate)
         {
-            return candidate.CaretakerId == null;
+            return candidate != null && candidate.CaretakerId == null;
         }
     }
 }

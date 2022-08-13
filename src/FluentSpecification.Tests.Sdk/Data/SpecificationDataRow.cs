@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 
 namespace FluentSpecification.Tests.Sdk.Data
 {
+    [PublicAPI]
     public class SpecificationDataRow : ISpecificationResultCreator
     {
         private readonly object[] _data;
@@ -41,7 +42,6 @@ namespace FluentSpecification.Tests.Sdk.Data
             return this;
         }
 
-        [PublicAPI]
         public SpecificationDataRow Result(int totalSpecificationsCount, string trace,
             Action<ISpecificationResultCreator> creator = null)
         {
@@ -66,7 +66,6 @@ namespace FluentSpecification.Tests.Sdk.Data
             return this;
         }
 
-        [PublicAPI]
         public SpecificationDataRow NegationResult(int totalSpecificationsCount, string trace,
             Action<ISpecificationResultCreator> creator = null)
         {

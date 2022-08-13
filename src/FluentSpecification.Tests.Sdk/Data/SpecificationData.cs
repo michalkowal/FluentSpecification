@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace FluentSpecification.Tests.Sdk.Data
 {
+    [PublicAPI]
     public abstract class SpecificationData
     {
         protected const string DateTimeRegexPattern =
@@ -13,7 +14,7 @@ namespace FluentSpecification.Tests.Sdk.Data
 
         private readonly List<SpecificationDataRow> _valid = new List<SpecificationDataRow>();
 
-        [PublicAPI] public bool AsNegation { get; set; }
+        public bool AsNegation { get; set; }
 
         protected SpecificationDataRow AddValid(params object[] data)
         {
@@ -46,45 +47,42 @@ namespace FluentSpecification.Tests.Sdk.Data
         }
     }
 
+    [PublicAPI]
     public class SpecificationData<T> : SpecificationData
     {
-        [PublicAPI]
         public SpecificationDataRow Valid(T p)
         {
             return AddValid(p);
         }
 
-        [PublicAPI]
         public SpecificationDataRow Invalid(T p)
         {
             return AddInvalid(p);
         }
     }
 
+    [PublicAPI]
     public class SpecificationData<T1, T2> : SpecificationData
     {
-        [PublicAPI]
         public SpecificationDataRow Valid(T1 p1, T2 p2)
         {
             return AddValid(p1, p2);
         }
 
-        [PublicAPI]
         public SpecificationDataRow Invalid(T1 p1, T2 p2)
         {
             return AddInvalid(p1, p2);
         }
     }
 
+    [PublicAPI]
     public class SpecificationData<T1, T2, T3> : SpecificationData
     {
-        [PublicAPI]
         public SpecificationDataRow Valid(T1 p1, T2 p2, T3 p3)
         {
             return AddValid(p1, p2, p3);
         }
 
-        [PublicAPI]
         public SpecificationDataRow Invalid(T1 p1, T2 p2, T3 p3)
         {
             return AddInvalid(p1, p2, p3);
@@ -94,13 +92,11 @@ namespace FluentSpecification.Tests.Sdk.Data
     [PublicAPI]
     public class SpecificationData<T1, T2, T3, T4> : SpecificationData
     {
-        [PublicAPI]
         public SpecificationDataRow Valid(T1 p1, T2 p2, T3 p3, T4 p4)
         {
             return AddValid(p1, p2, p3, p4);
         }
 
-        [PublicAPI]
         public SpecificationDataRow Invalid(T1 p1, T2 p2, T3 p3, T4 p4)
         {
             return AddInvalid(p1, p2, p3, p4);

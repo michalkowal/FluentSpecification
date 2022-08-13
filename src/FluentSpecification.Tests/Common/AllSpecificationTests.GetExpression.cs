@@ -74,7 +74,7 @@ namespace FluentSpecification.Tests.Common
                 var exception = Record.Exception(() =>
                 {
                     var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
-                    sut.GetExpression().Compile().Invoke(new EquatableFakeType[0]);
+                    sut.GetExpression().Compile().Invoke(Array.Empty<EquatableFakeType>());
                 });
 
                 Assert.Null(exception);

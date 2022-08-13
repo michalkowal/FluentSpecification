@@ -58,7 +58,7 @@ namespace FluentSpecification.Tests.Common
                 var exception = Record.Exception(() =>
                 {
                     var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
-                    sut.IsSatisfiedBy(new EquatableFakeType[0]);
+                    sut.IsSatisfiedBy(Array.Empty<EquatableFakeType>());
                 });
 
                 Assert.Null(exception);
@@ -119,7 +119,7 @@ namespace FluentSpecification.Tests.Common
                 var exception = Record.Exception(() =>
                 {
                     var sut = new AllSpecification<IEnumerable<EquatableFakeType>, EquatableFakeType>(specification);
-                    sut.IsSatisfiedBy(new EquatableFakeType[0], out _);
+                    sut.IsSatisfiedBy(Array.Empty<EquatableFakeType>(), out _);
                 });
 
                 Assert.Null(exception);

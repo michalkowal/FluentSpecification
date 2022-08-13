@@ -63,17 +63,17 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
         }
 
-        public static new IComplexSpecification<object> Create(bool result)
+        public new static IComplexSpecification<object> Create(bool result)
         {
             return result ? True() : False();
         }
 
-        public static new IComplexSpecification<object> True()
+        public new static IComplexSpecification<object> True()
         {
             return new TrueMockCompositeSpecification();
         }
 
-        public static new IComplexSpecification<object> False()
+        public new static IComplexSpecification<object> False()
         {
             return new FalseMockCompositeSpecification();
         }

@@ -26,10 +26,12 @@ namespace FluentSpecification.Core
         /// <exception cref="ArgumentException">Thrown when <paramref name="message" /> is null or empty.</exception>
         public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification, [NotNull] string message)
         {
+            if (baseSpecification == null)
+                throw new ArgumentNullException(nameof(baseSpecification));
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentException(nameof(message));
 
-            _baseSpecification = baseSpecification?.AsComplexSpecification() ?? throw new ArgumentNullException(nameof(baseSpecification));
+            _baseSpecification = baseSpecification.AsComplexSpecification();
             _message = message;
         }
 
@@ -47,7 +49,7 @@ namespace FluentSpecification.Core
             result = overall ?
                 baseResult :
                 new SpecificationResult(baseResult.TotalSpecificationsCount, baseResult.OverallResult,
-                    new string[] { _message }, baseResult.Trace, baseResult.FailedSpecifications.ToArray());
+                    new [] { _message }, baseResult.Trace, baseResult.FailedSpecifications.ToArray());
 
             return overall;
         }

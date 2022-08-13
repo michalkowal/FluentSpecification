@@ -2,7 +2,6 @@
 using FluentSpecification.Core.Tests.Mocks;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using Xunit;
 
 namespace FluentSpecification.Core.Tests.Api

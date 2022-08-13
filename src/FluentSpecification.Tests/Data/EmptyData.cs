@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentSpecification.Common;
 using FluentSpecification.Tests.Mocks;
 using FluentSpecification.Tests.Sdk.Data;
@@ -9,7 +10,7 @@ namespace FluentSpecification.Tests.Data
     {
         public EmptyData()
         {
-            var emptyArr = new int[0];
+            var emptyArr = Array.Empty<int>();
             var emptyList = new List<string>();
             var emptyDict = new Dictionary<string, bool>();
             var emptyFake = new FakeType();

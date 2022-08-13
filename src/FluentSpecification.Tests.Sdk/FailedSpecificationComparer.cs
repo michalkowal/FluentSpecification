@@ -8,11 +8,11 @@ using Xunit;
 
 namespace FluentSpecification.Tests.Sdk
 {
+    [PublicAPI]
     public class FailedSpecificationComparer : IEqualityComparer<FailedSpecification>
     {
-        [UsedImplicitly] public object Candidate { get; set; }
+        public object Candidate { get; set; }
 
-        [UsedImplicitly]
         public IReadOnlyDictionary<string, object> Parameters { get; set; } = new Dictionary<string, object>();
 
         public bool Equals(FailedSpecification x, FailedSpecification y)

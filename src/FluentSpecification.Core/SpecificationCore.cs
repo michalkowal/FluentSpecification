@@ -63,9 +63,8 @@ namespace FluentSpecification.Core
         public static IComplexSpecification<T> AsComplexSpecification<T>([NotNull] this ISpecification<T> self)
         {
             self = self ?? throw new NullReferenceException();
-            var complexSpecification = self is IComplexSpecification<T> specification
-                ? specification
-                : new SpecificationAdapter<T>(self);
+            var complexSpecification = self as IComplexSpecification<T>
+                ?? new SpecificationAdapter<T>(self);
 
             return complexSpecification;
         }
