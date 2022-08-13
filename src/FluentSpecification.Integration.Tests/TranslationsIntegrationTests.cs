@@ -3,6 +3,7 @@ using FluentSpecification.Core;
 using System;
 using Xunit;
 using System.Collections.Generic;
+using FluentSpecification.Integration.Tests.Logic;
 
 namespace FluentSpecification.Integration.Tests
 {
@@ -38,15 +39,15 @@ namespace FluentSpecification.Integration.Tests
         [Fact]
         public void IncorrectCustomer_ShouldReturnAllErrors()
         {
-            var childSpec = Specification
-               .Null<Customer, int?>(c => c.CaretakerId)
-               .WithMessage("Customer cannot be child");
+            var childSpec = new CustomerHasNotChildSpecification()
+               .WithMessage("Customer cannot have child");
             var creditCardSpec = Specification
-               .NotNull<Customer, CreditCard>(c => c.CreditCard)
-               .And()
-               .CreditCard(c => c.CreditCard.CardNumber)
-               .And()
-               .GreaterThanOrEqual(c => c.CreditCard.ValidityDate, new DateTime(2019, 1, 1))
+               .Null<Customer, CreditCard>(c => c.CreditCard)
+               .Or()
+               .NotCreditCard(c => c.CreditCard.CardNumber)
+               .Or()
+               .NotGreaterThanOrEqual(c => c.CreditCard.ValidityDate, new DateTime(2019, 1, 1))
+               .Not()   // Negate all
                .WithMessage("Customer should have valid credit card");
             var itemSpec = Specification
                .NotEmpty<Customer, ICollection<Item>>(c => c.Items)
@@ -61,7 +62,7 @@ namespace FluentSpecification.Integration.Tests
 
             Assert.False(overall);
             Assert.Equal(3, result.Errors.Count);
-            Assert.Equal("Customer cannot be child", result.Errors[0]);
+            Assert.Equal("Customer cannot have child", result.Errors[0]);
             Assert.Equal("Customer should have valid credit card", result.Errors[1]);
             Assert.Equal("Customer shoud have at least one unpaid item", result.Errors[2]);
         }
@@ -69,9 +70,8 @@ namespace FluentSpecification.Integration.Tests
         [Fact]
         public void IncorrectCustomer_ShouldReturnOnlyLastError()
         {
-            var sut = Specification
-               .Null<Customer, int?>(c => c.CaretakerId)
-               .WithMessage("Customer cannot be child")
+            var sut = new CustomerHasNotChildSpecification()
+               .WithMessage("Customer cannot have child")
                .And()
                .NotNull(c => c.CreditCard)
                .And()
@@ -96,9 +96,8 @@ namespace FluentSpecification.Integration.Tests
         [Fact]
         public void CorrectCustomer_ShouldReturnNoError()
         {
-            var childSpec = Specification
-               .Null<Customer, int?>(c => c.CaretakerId)
-               .WithMessage("Customer cannot be child");
+            var childSpec = new CustomerHasNotChildSpecification()
+               .WithMessage("Customer cannot have child");
             var creditCardSpec = Specification
                .NotNull<Customer, CreditCard>(c => c.CreditCard)
                .And()

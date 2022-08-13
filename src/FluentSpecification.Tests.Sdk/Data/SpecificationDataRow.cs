@@ -6,12 +6,15 @@ using JetBrains.Annotations;
 
 namespace FluentSpecification.Tests.Sdk.Data
 {
+    [PublicAPI]
     public class SpecificationDataRow : ISpecificationResultCreator
     {
         private readonly object[] _data;
 
         private readonly List<FailedSpecificationDataRow> _failedSpecificationDataRows
             = new List<FailedSpecificationDataRow>();
+        private readonly List<string> _customErrors
+            = new List<string>();
 
         private readonly bool _overall;
         private SpecificationResult _dataResult;
@@ -32,14 +35,21 @@ namespace FluentSpecification.Tests.Sdk.Data
             return row;
         }
 
-        [PublicAPI]
+        ISpecificationResultCreator ISpecificationResultCreator.CustomError(string error)
+        {
+            _customErrors.Add(error);
+
+            return this;
+        }
+
         public SpecificationDataRow Result(int totalSpecificationsCount, string trace,
             Action<ISpecificationResultCreator> creator = null)
         {
             _failedSpecificationDataRows.Clear();
+            _customErrors.Clear();
             creator?.Invoke(this);
 
-            _dataResult = new SpecificationResult(totalSpecificationsCount, _overall, trace,
+            _dataResult = new SpecificationResult(totalSpecificationsCount, _overall, _customErrors.ToArray(), trace,
                 _failedSpecificationDataRows.Select(dr => dr.CreateFailedSpecification()).ToArray());
             return this;
         }
@@ -56,14 +66,14 @@ namespace FluentSpecification.Tests.Sdk.Data
             return this;
         }
 
-        [PublicAPI]
         public SpecificationDataRow NegationResult(int totalSpecificationsCount, string trace,
             Action<ISpecificationResultCreator> creator = null)
         {
             _failedSpecificationDataRows.Clear();
+            _customErrors.Clear();
             creator?.Invoke(this);
 
-            _negationDataResult = new SpecificationResult(totalSpecificationsCount, !_overall, trace,
+            _negationDataResult = new SpecificationResult(totalSpecificationsCount, !_overall, _customErrors.ToArray(), trace,
                 _failedSpecificationDataRows.Select(dr => dr.CreateFailedSpecification()).ToArray());
             return this;
         }

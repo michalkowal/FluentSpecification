@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentSpecification.Abstractions.Validation;
+using JetBrains.Annotations;
 
 namespace FluentSpecification.Tests.Sdk.Data
 {
+    [PublicAPI]
     public class FailedSpecificationDataRow
     {
         private readonly string[] _errors;

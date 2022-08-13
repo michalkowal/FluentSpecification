@@ -8,8 +8,6 @@ namespace FluentSpecification.Core.Tests.Mocks
         IComparable<ComparableFakeType>,
         IComparable
     {
-        private readonly int _id = 0;
-
         public int CompareTo(object obj)
         {
             if (ReferenceEquals(null, obj)) return 1;
@@ -23,14 +21,14 @@ namespace FluentSpecification.Core.Tests.Mocks
         {
             if (ReferenceEquals(this, other)) return 0;
             if (ReferenceEquals(null, other)) return 1;
-            return _id.CompareTo(other._id);
+            return 0;
         }
 
         public bool Equals(ComparableFakeType other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return _id == other._id;
+            return true;
         }
 
         public override bool Equals(object obj)
@@ -43,7 +41,7 @@ namespace FluentSpecification.Core.Tests.Mocks
 
         public override int GetHashCode()
         {
-            return _id;
+            return 0;
         }
 
         public static bool operator ==(ComparableFakeType left, ComparableFakeType right)

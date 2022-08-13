@@ -24,15 +24,7 @@ SOFTWARE. */
 using System;
 
 #pragma warning disable 1591
-// ReSharper disable UnusedMember.Global
-// ReSharper disable MemberCanBePrivate.Global
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-// ReSharper disable IntroduceOptionalParameters.Global
-// ReSharper disable MemberCanBeProtected.Global
-// ReSharper disable InconsistentNaming
-// ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
-// ReSharper disable IdentifierTypo
-// ReSharper disable CheckNamespace
+// ReSharper disable All
 
 namespace JetBrains.Annotations
 {
@@ -1250,3 +1242,5 @@ namespace JetBrains.Annotations
     {
     }
 }
+
+// ReSharper restore All

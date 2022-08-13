@@ -7,6 +7,7 @@ using Xunit.Sdk;
 namespace FluentSpecification.Tests.Sdk
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [PublicAPI]
     public abstract class SpecificationDataAttribute : DataAttribute
     {
         protected SpecificationDataAttribute(Type @class)
@@ -16,9 +17,9 @@ namespace FluentSpecification.Tests.Sdk
             Class = @class;
         }
 
-        [PublicAPI] public Type Class { get; }
+        public Type Class { get; }
 
-        [PublicAPI] public bool AsNegation { get; set; }
+        public bool AsNegation { get; set; }
 
         protected SpecificationData GetSpecificationData()
         {

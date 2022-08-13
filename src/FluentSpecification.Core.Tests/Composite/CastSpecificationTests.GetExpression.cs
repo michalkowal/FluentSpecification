@@ -137,7 +137,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var specification = MockSpecification<List<int>>.True();
                 var sut = new CastSpecification<IEnumerable<int>, List<int>>(specification);
 
-                var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(new int[0]));
+                var exception = Record.Exception(() => sut.GetExpression().Compile().Invoke(Array.Empty<int>()));
 
                 Assert.NotNull(exception);
                 Assert.IsType<InvalidCastException>(exception);

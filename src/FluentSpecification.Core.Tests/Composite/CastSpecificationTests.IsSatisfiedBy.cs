@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
 using FluentSpecification.Core.Composite;
@@ -114,7 +115,7 @@ namespace FluentSpecification.Core.Tests.Composite
                 var specification = MockSpecification<List<int>>.True();
                 var sut = new CastSpecification<IEnumerable<int>, List<int>>(specification);
 
-                var result = sut.IsSatisfiedBy(new int[0]);
+                var result = sut.IsSatisfiedBy(Array.Empty<int>());
 
                 Assert.False(result);
             }
@@ -258,7 +259,7 @@ namespace FluentSpecification.Core.Tests.Composite
             [Fact]
             public void InvalidTypeCandidate_ReturnExpectedResultObject()
             {
-                IEnumerable<int> candidate = new int[0];
+                IEnumerable<int> candidate = Array.Empty<int>();
                 ISpecification<List<int>> specification = MockComplexSpecification<List<int>>.True();
                 var expected = new SpecificationResult(1, false,
                     "CastSpecification<IEnumerable<Int32>,List<Int32>>()+Failed",

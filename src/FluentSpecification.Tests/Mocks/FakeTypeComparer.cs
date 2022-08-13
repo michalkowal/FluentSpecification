@@ -13,12 +13,12 @@ namespace FluentSpecification.Tests.Mocks
             if (ReferenceEquals(null, y)) return 1;
             if (ReferenceEquals(null, x)) return -1;
 
-            if (!(y is FakeType))
+            if (x is FakeType xFake && y is FakeType yFake)
+                return Compare(xFake, yFake);
+            else if (!(y is FakeType))
                 return 1;
-            if (!(x is FakeType))
+            else
                 return -1;
-
-            return Compare((FakeType) x, (FakeType) y);
         }
 
         public int Compare(FakeType x, FakeType y)

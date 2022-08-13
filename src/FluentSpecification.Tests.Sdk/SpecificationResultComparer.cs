@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using FluentSpecification.Abstractions.Validation;
+using JetBrains.Annotations;
 using Xunit;
 
 // ReSharper disable PossibleNullReferenceException
 namespace FluentSpecification.Tests.Sdk
 {
+    [PublicAPI]
     public class SpecificationResultComparer : IEqualityComparer<SpecificationResult>
     {
         private readonly object _candidate;

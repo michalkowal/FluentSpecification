@@ -89,6 +89,33 @@ namespace FluentSpecification.Core.Tests
             }
 
             [Theory]
+            [CorrectValidationData(typeof(TranslatableCompositeData))]
+            public void TrueCompositeSpecification_ReturnExpectedResultObject(string message, SpecificationResult expected)
+            {
+                var specification = MockCompositeSpecification.True();
+                var sut = new TranslatableSpecification<object>(specification, message);
+
+                var overall = sut.IsSatisfiedBy(new object(), out var result);
+
+                Assert.True(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer());
+            }
+
+            [Theory]
+            [IncorrectValidationData(typeof(TranslatableCompositeData))]
+            public void FalseCompositeSpecification_ReturnExpectedResultObject(string message, SpecificationResult expected)
+            {
+                var dum = new object();
+                var specification = MockCompositeSpecification.False();
+                var sut = new TranslatableSpecification<object>(specification, message);
+
+                var overall = sut.IsSatisfiedBy(dum, out var result);
+
+                Assert.False(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer(dum));
+            }
+
+            [Theory]
             [CorrectData(typeof(TranslatableData))]
             public void NullCandidate_NoException(string message)
             {

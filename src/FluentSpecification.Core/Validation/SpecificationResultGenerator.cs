@@ -49,12 +49,16 @@ namespace FluentSpecification.Core.Validation
 
             var totalSpecificationsCount = 0;
             var failedSpecifications = new List<FailedSpecification>();
+            var errors = new List<string>();
             var traces = new List<string>();
             foreach (var res in results)
             {
                 totalSpecificationsCount += res.TotalSpecificationsCount;
                 if (!overallResult)
+                {
                     failedSpecifications.AddRange(res.FailedSpecifications);
+                    errors.AddRange(res.Errors);
+                }
                 if (!string.IsNullOrEmpty(res.Trace))
                     traces.Add(res.Trace);
             }
@@ -64,6 +68,7 @@ namespace FluentSpecification.Core.Validation
             var mergeResult = new SpecificationResult(
                 totalSpecificationsCount,
                 overallResult,
+                errors.ToArray(),
                 finalTrace,
                 failedSpecifications.ToArray());
 
