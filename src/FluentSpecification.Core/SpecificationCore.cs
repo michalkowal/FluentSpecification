@@ -284,7 +284,7 @@ namespace FluentSpecification.Core
         [NotNull]
         public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, string message)
         {
-            return new TranslatableSpecification<T>(self, message).AsComplexSpecification();
+            return new TranslatableSpecification<T>(self, message);
         }
     }
 }

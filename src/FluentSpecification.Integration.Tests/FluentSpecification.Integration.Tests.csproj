@@ -261,6 +261,7 @@
     <Compile Include="EfCoreIntegrationTests.cs" />
     <Compile Include="Logic\ActiveItemsSpecification.cs" />
     <Compile Include="Logic\CodeStartsWithSpecification.cs" />
+    <Compile Include="Logic\CustomerHasNotChildSpecification.cs" />
     <Compile Include="Logic\FavouriteItemSpecification.cs" />
     <Compile Include="Logic\ItemBigIdSpecification.cs" />
     <Compile Include="Logic\NameContainsSpecification.cs" />
