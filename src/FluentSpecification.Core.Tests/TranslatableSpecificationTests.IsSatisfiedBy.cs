@@ -2,6 +2,7 @@
 using FluentSpecification.Core.Tests.Data;
 using FluentSpecification.Core.Tests.Mocks;
 using FluentSpecification.Tests.Sdk;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -86,6 +87,33 @@ namespace FluentSpecification.Core.Tests
 
                 Assert.False(overall);
                 Assert.Equal(expected, result, new SpecificationResultComparer(dum));
+            }
+
+            [Theory]
+            [IncorrectValidationData(typeof(TranslatableWithFactoryData))]
+            public void FalseSpecificationWithMessageFactory_ReturnExpectedResultObject(int candidate, Func<int, string> messageFactory, SpecificationResult expected)
+            {
+                var specification = MockValidationSpecification<int>.False();
+                var sut = new TranslatableSpecification<int>(specification, messageFactory);
+
+                var overall = sut.IsSatisfiedBy(candidate, out var result);
+
+                Assert.False(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer(candidate));
+            }
+
+            [Theory]
+            [IncorrectValidationData(typeof(TranslatableWithFactoryAndParametersData))]
+            public void FalseSpecificationWithMessageFactoryAndParameters_ReturnExpectedResultObject(int candidate,
+                Func<int, IReadOnlyDictionary<string, object>, string> messageFactory, SpecificationResult expected)
+            {
+                var specification = MockValidationSpecification<int>.False();
+                var sut = new TranslatableSpecification<int>(specification, messageFactory);
+
+                var overall = sut.IsSatisfiedBy(candidate, out var result);
+
+                Assert.False(overall);
+                Assert.Equal(expected, result, new SpecificationResultComparer(candidate));
             }
 
             [Theory]
