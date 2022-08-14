@@ -11,9 +11,9 @@ namespace FluentSpecification.Core.Tests.Data
         public TranslatableWithFactoryAndParametersData()
         {
             Invalid(145, (c, p) => $"Passed value = {c}; With parameter = {p["Result"]}")
-                .Result("FailedFalseMockValidationSpecification", c => c
+                .Result("FailedFalseMockValidationSpecification[System.Int32]", c => c
                     .CustomError("Passed value = 145; With parameter = False")
-                    .FailedSpecification(typeof(FalseMockValidationSpecification),
+                    .FailedSpecification(typeof(FalseMockValidationSpecification<int>),
                         "MockValidationSpecification is not satisfied")
                     .Candidate(145)
                     .AddParameter("Result", false));

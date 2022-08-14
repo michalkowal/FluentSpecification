@@ -9,9 +9,9 @@ namespace FluentSpecification.Core.Tests.Data
         public TranslatableWithFactoryData()
         {
             Invalid(145, c => $"Passed value = {c}")
-                .Result("FailedFalseMockValidationSpecification", c => c
+                .Result("FailedFalseMockValidationSpecification[System.Int32]", c => c
                     .CustomError("Passed value = 145")
-                    .FailedSpecification(typeof(FalseMockValidationSpecification),
+                    .FailedSpecification(typeof(FalseMockValidationSpecification<int>),
                         "MockValidationSpecification is not satisfied")
                     .Candidate(145)
                     .AddParameter("Result", false));
