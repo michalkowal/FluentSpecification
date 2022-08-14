@@ -3,6 +3,7 @@ using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Abstractions.Validation;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -33,6 +34,17 @@ namespace FluentSpecification.Core
 
             _baseSpecification = baseSpecification.AsComplexSpecification();
             _message = message;
+        }
+
+        public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification, [NotNull] Func<T, string> messageFactory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification,
+            [NotNull] Func<T, IReadOnlyDictionary<string, object>, string> messageFactory)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

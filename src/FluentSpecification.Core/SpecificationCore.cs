@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core.Composite;
@@ -281,9 +282,24 @@ namespace FluentSpecification.Core
         /// <returns>Validation <c>Specification</c> proxy object.</returns>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, string message)
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, [NotNull] string message)
         {
             return new TranslatableSpecification<T>(self, message);
+        }
+
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, [NotNull] Func<T, string> messageFactory)
+        {
+            return new TranslatableSpecification<T>(self, messageFactory);
+        }
+
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self,
+            [NotNull] Func<T, IReadOnlyDictionary<string, object>, string> messageFactory)
+        {
+            return new TranslatableSpecification<T>(self, messageFactory);
         }
     }
 }
