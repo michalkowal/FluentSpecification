@@ -3,7 +3,7 @@ using FluentSpecification.Integration.Tests.Data;
 
 namespace FluentSpecification.Integration.Tests.Logic
 {
-    internal class CustomerHasNotChildSpecification : ISpecification<Customer>
+    internal class CustomerIsNotChildSpecification : ISpecification<Customer>
     {
         public bool IsSatisfiedBy(Customer candidate)
         {

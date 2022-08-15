@@ -8,18 +8,20 @@ namespace FluentSpecification.Core.Tests.Data
         public TranslatableCompositeData()
         {
             Valid("Custom mock message")
-                .Result(2, "TrueMockValidationSpecification[System.Object] Mock TrueMockValidationSpecification[System.Object]");
+                .Result(2, "MockCompositeInternalSpecification Mock MockCompositeInternalSpecification");
 
             Invalid("Custom mock message")
-                .Result(2, "FailedFalseMockValidationSpecification[System.Object] Mock FailedFalseMockValidationSpecification[System.Object]", c =>
+                .Result(2, "FailedMockCompositeInternalSpecification Mock FailedMockCompositeInternalSpecification", c =>
                 {
                     c.CustomError("Custom mock message");
-                    c.FailedSpecification(typeof(FalseMockValidationSpecification<object>),
+                    c.FailedSpecification(typeof(FalseMockCompositeSpecification<object>.InternalSpecification),
                             "MockValidationSpecification is not satisfied")
-                        .AddParameter("Result", false);
-                    c.FailedSpecification(typeof(FalseMockValidationSpecification<object>),
+                        .AddParameter("Result", false)
+                        .AddParameter("External", 0);
+                    c.FailedSpecification(typeof(FalseMockCompositeSpecification<object>.InternalSpecification),
                             "MockValidationSpecification is not satisfied")
-                        .AddParameter("Result", false);
+                        .AddParameter("Result", false)
+                        .AddParameter("External", 0);
                 });
         }
     }

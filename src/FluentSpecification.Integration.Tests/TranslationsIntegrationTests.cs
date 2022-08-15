@@ -14,8 +14,7 @@ namespace FluentSpecification.Integration.Tests
         [Fact]
         public void IncorrectCustomer_ShouldReturnError()
         {
-            var sut = Specification
-               .Null<Customer, int?>(c => c.CaretakerId)
+            var sut = new CustomerIsNotChildSpecification()
                .And()
                .NotNull(c => c.CreditCard)
                .And()
@@ -25,7 +24,7 @@ namespace FluentSpecification.Integration.Tests
                .And()
                .NotEmpty(c => c.Items)
                .And()
-               .Any(c => c.Items, Specification.False<Item>(i => i.Paid))
+               .MinLength(c => c.Items, 3)
                .WithMessage("Invalid customer");
 
             var candidate = _fixture.Customers[2];
@@ -39,8 +38,8 @@ namespace FluentSpecification.Integration.Tests
         [Fact]
         public void IncorrectCustomer_ShouldReturnAllErrors()
         {
-            var childSpec = new CustomerHasNotChildSpecification()
-               .WithMessage("Customer cannot have child");
+            var childSpec = new CustomerIsNotChildSpecification()
+               .WithMessage(c => $"Customer cannot be a child. Caretaker ID: '{c.CaretakerId}'");
             var creditCardSpec = Specification
                .Null<Customer, CreditCard>(c => c.CreditCard)
                .Or()
@@ -52,8 +51,8 @@ namespace FluentSpecification.Integration.Tests
             var itemSpec = Specification
                .NotEmpty<Customer, ICollection<Item>>(c => c.Items)
                .And()
-               .Any(c => c.Items, Specification.False<Item>(i => i.Paid))
-               .WithMessage("Customer shoud have at least one unpaid item");
+               .MinLength(c => c.Items, 3)
+               .WithMessage(CreateItemsMessage);
 
             var sut = childSpec.And(creditCardSpec).And(itemSpec);
 
@@ -62,16 +61,16 @@ namespace FluentSpecification.Integration.Tests
 
             Assert.False(overall);
             Assert.Equal(3, result.Errors.Count);
-            Assert.Equal("Customer cannot have child", result.Errors[0]);
+            Assert.Equal("Customer cannot be a child. Caretaker ID: '152'", result.Errors[0]);
             Assert.Equal("Customer should have valid credit card", result.Errors[1]);
-            Assert.Equal("Customer shoud have at least one unpaid item", result.Errors[2]);
+            Assert.Equal("Customer should have minimum 3 items but has 1", result.Errors[2]);
         }
 
         [Fact]
         public void IncorrectCustomer_ShouldReturnOnlyLastError()
         {
-            var sut = new CustomerHasNotChildSpecification()
-               .WithMessage("Customer cannot have child")
+            var sut = new CustomerIsNotChildSpecification()
+               .WithMessage(c => $"Customer cannot be a child. Caretaker ID: '{c.CaretakerId}'")
                .And()
                .NotNull(c => c.CreditCard)
                .And()
@@ -82,22 +81,22 @@ namespace FluentSpecification.Integration.Tests
                .And()
                .NotEmpty(c => c.Items)
                .And()
-               .Any(c => c.Items, Specification.False<Item>(i => i.Paid))
-               .WithMessage("Customer shoud have at least one unpaid item");
+               .MinLength(c => c.Items, 3)
+               .WithMessage(CreateItemsMessage);
 
             var candidate = _fixture.Customers[2];
             var overall = sut.IsSatisfiedBy(candidate, out var result);
 
             Assert.False(overall);
             Assert.Equal(1, result.Errors.Count);
-            Assert.Equal("Customer shoud have at least one unpaid item", result.Errors[0]);
+            Assert.Equal("Customer should have minimum 3 items but has 1", result.Errors[0]);
         }
 
         [Fact]
         public void CorrectCustomer_ShouldReturnNoError()
         {
-            var childSpec = new CustomerHasNotChildSpecification()
-               .WithMessage("Customer cannot have child");
+            var childSpec = new CustomerIsNotChildSpecification()
+               .WithMessage(c => $"Customer cannot be a child. Caretaker ID: '{c.CaretakerId}'");
             var creditCardSpec = Specification
                .NotNull<Customer, CreditCard>(c => c.CreditCard)
                .And()
@@ -108,8 +107,8 @@ namespace FluentSpecification.Integration.Tests
             var itemSpec = Specification
                .NotEmpty<Customer, ICollection<Item>>(c => c.Items)
                .And()
-               .Any(c => c.Items, Specification.False<Item>(i => i.Paid))
-               .WithMessage("Customer shoud have at least one unpaid item");
+               .MinLength(c => c.Items, 3)
+               .WithMessage(CreateItemsMessage);
 
             var sut = childSpec.And(creditCardSpec).And(itemSpec);
 
@@ -118,6 +117,11 @@ namespace FluentSpecification.Integration.Tests
 
             Assert.True(overall);
             Assert.Equal(0, result.Errors.Count);
+        }
+
+        private string CreateItemsMessage(Customer candidate, IReadOnlyDictionary<string, object> parameters)
+        {
+            return $"Customer should have minimum {parameters["MinLength"]} items but has {candidate.Items.Count}";
         }
     }
 }

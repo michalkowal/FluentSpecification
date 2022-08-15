@@ -34,7 +34,7 @@ namespace FluentSpecification.Core.Tests.Mocks
             return overall;
         }
 
-        protected IReadOnlyDictionary<string, object> GetParameters()
+        protected virtual IReadOnlyDictionary<string, object> GetParameters()
         {
             return new Dictionary<string, object>
             {

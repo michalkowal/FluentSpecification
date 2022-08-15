@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core.Composite;
@@ -279,11 +280,46 @@ namespace FluentSpecification.Core
         /// <param name="self">Self specification.</param>
         /// <param name="message">Specific custom message.</param>
         /// <returns>Validation <c>Specification</c> proxy object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="message" /> is null or empty.</exception>
         [PublicAPI]
         [NotNull]
-        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, string message)
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, [NotNull] string message)
         {
             return new TranslatableSpecification<T>(self, message);
+        }
+
+        /// <summary>
+        ///     Creates validation <c>Specification</c> proxy with specific error message factory where not satisfied by.
+        /// </summary>
+        /// <typeparam name="T">Type of candidate.</typeparam>
+        /// <param name="self">Self specification.</param>
+        /// <param name="messageFactory">Custom message factory based on candidate value.</param>
+        /// <returns>Validation <c>Specification</c> proxy object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageFactory" /> is null.</exception>
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self, [NotNull] Func<T, string> messageFactory)
+        {
+            return new TranslatableSpecification<T>(self, messageFactory);
+        }
+
+        /// <summary>
+        ///     Creates validation <c>Specification</c> proxy with specific error message factory where not satisfied by.
+        /// </summary>
+        /// <typeparam name="T">Type of candidate.</typeparam>
+        /// <param name="self">Self specification.</param>
+        /// <param name="messageFactory">Custom message factory based on candidate value and parameters dictionary.</param>
+        /// <returns>Validation <c>Specification</c> proxy object.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="self" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageFactory" /> is null.</exception>
+        [PublicAPI]
+        [NotNull]
+        public static IComplexSpecification<T> WithMessage<T>([NotNull] this ISpecification<T> self,
+            [NotNull] Func<T, IReadOnlyDictionary<string, object>, string> messageFactory)
+        {
+            return new TranslatableSpecification<T>(self, messageFactory);
         }
     }
 }
