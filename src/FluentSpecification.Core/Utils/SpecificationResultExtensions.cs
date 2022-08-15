@@ -24,7 +24,7 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="failedSpecifications">Failed specifications collection</param>
         /// <returns>Merged parameters</returns>
-        public static IReadOnlyDictionary<string, object> MergeParameters(this IEnumerable<FailedSpecification> failedSpecifications)
+        private static IReadOnlyDictionary<string, object> MergeParameters(this IEnumerable<FailedSpecification> failedSpecifications)
         {
             return failedSpecifications.SelectMany(s => s.Parameters).Merge();
         }
@@ -35,7 +35,7 @@ namespace FluentSpecification.Core.Utils
         /// </summary>
         /// <param name="dictionary">Collection with parameters dictionary</param>
         /// <returns>Merged parameters</returns>
-        public static IReadOnlyDictionary<string, object> Merge(this IEnumerable<KeyValuePair<string, object>> dictionary)
+        private static IReadOnlyDictionary<string, object> Merge(this IEnumerable<KeyValuePair<string, object>> dictionary)
         {
             var result = new Dictionary<string, List<object>>();
 

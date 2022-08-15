@@ -57,13 +57,10 @@ namespace FluentSpecification.Core
         public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification,
             [NotNull] Func<T, IReadOnlyDictionary<string, object>, string> messageFactory)
         {
-            if (baseSpecification == null)
-                throw new ArgumentNullException(nameof(baseSpecification));
-            if (messageFactory == null)
+            _baseSpecification = (baseSpecification ?? throw new ArgumentNullException(nameof(baseSpecification)))
+                .AsComplexSpecification();
+            _messageFactory = messageFactory ??
                 throw new ArgumentNullException(nameof(messageFactory));
-
-            _baseSpecification = baseSpecification.AsComplexSpecification();
-            _messageFactory = messageFactory;
         }
 
         /// <inheritdoc />
