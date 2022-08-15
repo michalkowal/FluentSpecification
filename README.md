@@ -157,7 +157,7 @@ var dbResult = Context.Customers
 ```csharp
 // Single error message for whole specifications chain
 customerSpec
-    .WithMessage("Validation failed: Incorrect Customer")
+    .WithMessage(c => $"Validation failed: Incorrect Customer - ID '{c.CustomerId}'")
     .IsSatisfiedBy(new Customer
     {
         CustomerId = 90,
@@ -173,13 +173,13 @@ customerSpec
     }, out var specResult);    // return false
 
 Console.WriteLine(specResult.ToString());
-// Validation failed: Incorrect Customer
+// Validation failed: Incorrect Customer - ID '90'
 
 
 // Custom messages for each specification
 var idSpec = Specification
     .NotEmpty<Customer, int>(c => c.CustomerId)
-    .WithMessage("Unknown Customer ID");
+    .WithMessage(c => $"Unknown Customer ID: '{c.CustomerId}'");
 
 var activeSpec = Specification
     .True<Customer>(c => c.IsActive)
@@ -189,7 +189,7 @@ idSpec.And(activeSpec)
     .IsSatisfiedBy(new Customer(), out var specResult);    // return false
 
 Console.WriteLine(specResult.ToString());
-// Unknown Customer ID
+// Unknown Customer ID: '0'
 // Customer is archived
 ```
 
