@@ -89,6 +89,7 @@
                     	
         <div><p><a href="https://github.com/michalkowal/FluentSpecification/tree/master/docs/input/docs/usage/custom-validation-messages.md"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit Content</a></p></div>
     <div id="infobar-headings"><h6>On This Page</h6><p><a href="#withmessage">WithMessage</a></p>
+<p><a href="#examples">Examples</a></p>
 <hr class="infobar-hidden">
 </div>
 
@@ -160,6 +161,7 @@
 <p>Every <em>Specification</em> that implements <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/ISpecification_1">ISpecification&lt;T&gt;</a></code> interface, can be assigned custom validation error message.<br>
 To do that <a href="/FluentSpecification/api/FluentSpecification.Core/Specification/F70EB3F8"><code>WithMessage</code></a> extension method can be used.<br>
 <strong>BE AWARE!</strong> If <em>Specification</em> implements <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code> interface, <em>WithMessage</em> method will override error message by provided parameter.</p>
+<h2 id="const-message">Const message</h2>
 <pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotNull&lt;Customer&gt;()
     .WithMessage("Customer not found");
@@ -170,6 +172,74 @@ var overall = customerSpec
 result.ToString();
 // "Customer not found" instead of "Object is null"
 </code></pre>
+<h2 id="message-based-on-candidate-object">Message based on candidate object</h2>
+<pre><code class="language-csharp">var emailSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .Email&lt;Customer&gt;()
+    .WithMessage(c =&gt; $"Incorrect email: '{c.Email}'");
+
+var overall = emailSpec
+    .IsSatisfiedBy(new Customer
+	{
+	   Email = "lorem ipsum"
+	}, out var result);  // false
+	
+result.ToString();
+// "Incorrect email: 'lorem ipsum'"
+</code></pre>
+<h2 id="message-based-on-candidate-object-and-specification-parameters">Message based on candidate object and specification parameters</h2>
+<p><em>Specifications</em> which based on <code><a href="/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1">ValidationSpecification&lt;T&gt;</a></code>, could provide information about additional parameters used during validation.<br>
+To do that, <em>Specification</em> has to override <a href="/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1/5F755E39"><code>GetParameters</code></a>.<br>
+Then, validation message could be customized based on this parameters.</p>
+<p>If <em>Specification</em> is not based on <code><a href="/FluentSpecification/api/FluentSpecification.Core/ValidationSpecification_1">ValidationSpecification&lt;T&gt;</a></code> but implement <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1">IValidationSpecification&lt;T&gt;</a></code>, additional parameters could be provide with <code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/SpecificationResult">SpecificationResult</a></code> during validation
+(<a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IValidationSpecification_1/DCBDBED1"><code>IsSatisfiedBy</code></a>).<br>
+<code><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/FailedSpecification">FailedSpecification</a></code> brings specific constructor with additional parameters: <a href="/FluentSpecification/api/FluentSpecification.Abstractions.Validation/FailedSpecification/ECA19D55"><code>ctor</code></a>.</p>
+<p>Many of built-in <em>Specifications</em> provide additional parameters e.q. <a href="/FluentSpecification/built-in/common/max-length#parameters"><code>MaxLength</code></a>:</p>
+<pre><code class="language-csharp">var lengthSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .MaxLength&lt;string&gt;(10)
+    .WithMessage((c, p) =&gt; $"Value cannot be longer than {p["MaxLength"]} characters. Specified value is {c.Length} characters long.");
+
+var overall = lengthSpec
+    .IsSatisfiedBy("lorem ipsum", out var result);  // false
+	
+result.ToString();
+// "Value cannot be longer than 10 characters. Specified value is 11 characters long."
+</code></pre>
+<p>If there is more than one <em>Specification</em> in chain, parameters will be marge into single Dictionary.</p>
+<pre><code class="language-chsarp">var lengthSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .MinLength&lt;string&gt;(3)
+    .And()
+    .MaxLength(10)    // Equivalent of "InclusiveBetweenSpecification"
+    .WithMessage((c, p) =&gt; $"Value length must be between {p["MinLength"]} and {p["MaxLength"]} characters");
+</code></pre>
+<p>When multiple <em>Specifications</em> provide parameter with the same key:</p>
+<ul>
+<li>if values of parameter are equal, then only single unique value is used</li>
+<li>if values are different, all unique values is stored as array</li>
+</ul>
+<pre><code class="language-csharp">var customerSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .MinLength&lt;Customer, string&gt;(c =&gt; c.FirstName, 3)
+    .And()
+    .MinLength(c =&gt; c.LastName, 3)
+    .WithMessage((c, p) =&gt; $"FirstName and LastName must be greater than {p["MinLength"]}");    // MinLength is 3
+	
+var lengthSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .MinLength&lt;string&gt;(3)
+    .And()
+    .MinLength(10)
+    .WithMessage((c, p) =&gt; $"Value should be longer than {((object[])p["MinLength"]).Cast&lt;int&gt;().Max()} characters"});
+</code></pre>
+<p><strong>BE AWARE!</strong> Dictionary contains only parameters from failed <em>Specifications</em>:</p>
+<pre><code class="language-csharp">var lengthSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
+    .MinLength&lt;string&gt;(3)
+    .And()
+    .MaxLength(10)
+    .WithMessage((c, p) =&gt; $"Value length must be between {p["MinLength"]} and {p["MaxLength"]} characters");
+	
+lengthSpec.IsSatisfiedBy("lorem ipsum", out var result);
+// "KeyNotFoundException" because MinLengthSpecification "is satisfied"
+</code></pre>
+<p>In this case, function that provide custom message should be enhanced with parameters check.</p>
+<h1 id="examples">Examples</h1>
 <h2 id="customize-specifications-error-messages">Customize specifications error messages</h2>
 <p>Validation error messages could be provided for every single <em>Specification</em> and use together in a chain:</p>
 <pre><code class="language-csharp">var idSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>

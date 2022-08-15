@@ -225,8 +225,8 @@
 								<dt>Derived Types</dt>
 								<dd>
 									<ul class="list-unstyled">
-											<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1">Base<wbr>Less<wbr>Compare<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
 											<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1">Base<wbr>Greater<wbr>Compare<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
+											<li><a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1">Base<wbr>Less<wbr>Compare<wbr>Specification</a><wbr>&lt;<a href="/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1#typeparam-T">T</a>&gt;<wbr></li>								
 									</ul>
 								</dd>			
 							
@@ -252,10 +252,10 @@
 	click Interface8 "/FluentSpecification/api/FluentSpecification.Abstractions/ISpecification"
 	Type["BaseCompareSpecification&lt;T&gt;"]
 class Type type-node
-	Derived0["BaseLessCompareSpecification&lt;T&gt;"]--&gt;Type
-	click Derived0 "/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1"
-	Derived1["BaseGreaterCompareSpecification&lt;T&gt;"]--&gt;Type
-	click Derived1 "/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1"
+	Derived0["BaseGreaterCompareSpecification&lt;T&gt;"]--&gt;Type
+	click Derived0 "/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseGreaterCompareSpecification_1"
+	Derived1["BaseLessCompareSpecification&lt;T&gt;"]--&gt;Type
+	click Derived1 "/FluentSpecification/api/FluentSpecification.Common.Abstractions/BaseLessCompareSpecification_1"
 
 						</div>
 					</div>
@@ -637,6 +637,26 @@ public abstract class BaseCompareSpecification&lt;T&gt; : ComplexSpecification&l
 								<td>
 									<div>
         Creates logical OR <code class="cs">Specification</code> with negated <span name="other" class="paramref">other</span>.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/SpecificationCore">SpecificationCore</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/SpecificationCore/48DE98BD">WithMessage<wbr>&lt;T&gt;<wbr><wbr>(Func<wbr>&lt;T, <wbr>IReadOnlyDictionary<wbr>&lt;string, <wbr>object&gt;<wbr>, <wbr>string&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates validation <code class="cs">Specification</code> proxy with specific error message factory where not satisfied by.
+    </div>
+										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/SpecificationCore">SpecificationCore</a></em></small></div>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Core/SpecificationCore/E0846086">WithMessage<wbr>&lt;T&gt;<wbr><wbr>(Func<wbr>&lt;T, <wbr>string&gt;<wbr>)<wbr></a></td>
+								<td><a href="/FluentSpecification/api/FluentSpecification.Abstractions.Generic/IComplexSpecification_1">I<wbr>Complex<wbr>Specification</a><wbr>&lt;T&gt;<wbr></td>
+								<td>
+									<div>
+        Creates validation <code class="cs">Specification</code> proxy with specific error message factory where not satisfied by.
     </div>
 										<div><small><em>From <a href="/FluentSpecification/api/FluentSpecification.Core/SpecificationCore">SpecificationCore</a></em></small></div>
 								</td>

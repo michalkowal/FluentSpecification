@@ -267,7 +267,7 @@ Console.WriteLine(specResult.ToString());
     <h2>Translations / Custom messages</h2>
 <pre><code class="language-csharp hljs"><span class="hljs-comment">// Single error message for whole specifications chain</span>
 customerSpec
-    .WithMessage(<span class="hljs-string">"Validation failed: Incorrect Customer"</span>)
+    .WithMessage(c =&gt; <span class="hljs-string">$"Validation failed: Incorrect Customer - ID '<span class="hljs-subst">{c.CustomerId}</span>'"</span>)
     .IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer
     {
         CustomerId = <span class="hljs-number">90</span>,
@@ -283,13 +283,13 @@ customerSpec
     }, <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> specResult);    <span class="hljs-comment">// return false</span>
 
 Console.WriteLine(specResult.ToString());
-<span class="hljs-comment">// Validation failed: Incorrect Customer</span>
+<span class="hljs-comment">// Validation failed: Incorrect Customer - ID '90'</span>
 
 
 <span class="hljs-comment">// Custom messages for each specification</span>
 <span class="hljs-keyword">var</span> idSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .NotEmpty&lt;Customer, <span class="hljs-keyword">int</span>&gt;(c =&gt; c.CustomerId)
-    .WithMessage(<span class="hljs-string">"Unknown Customer ID"</span>);
+    .WithMessage(c =&gt; <span class="hljs-string">$"Unknown Customer ID: '<span class="hljs-subst">{c.CustomerId}</span>'"</span>);
 
 <span class="hljs-keyword">var</span> activeSpec = <a href="/FluentSpecification/api/FluentSpecification/Specification">Specification</a>
     .True&lt;Customer&gt;(c =&gt; c.IsActive)
@@ -299,7 +299,7 @@ idSpec.And(activeSpec)
     .IsSatisfiedBy(<span class="hljs-keyword">new</span> Customer(), <span class="hljs-keyword">out</span> <span class="hljs-keyword">var</span> specResult);    <span class="hljs-comment">// return false</span>
 
 Console.WriteLine(specResult.ToString());
-<span class="hljs-comment">// Unknown Customer ID</span>
+<span class="hljs-comment">// Unknown Customer ID: '0'</span>
 <span class="hljs-comment">// Customer is archived</span></code></pre>
 </div>
 
