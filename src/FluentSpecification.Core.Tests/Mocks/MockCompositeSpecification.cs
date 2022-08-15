@@ -1,15 +1,37 @@
 ﻿using FluentSpecification.Abstractions.Generic;
 using FluentSpecification.Core.Composite;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace FluentSpecification.Core.Tests.Mocks
 {
     internal abstract class MockCompositeSpecification<T> : CompositeSpecification<T>
     {
+        public class InternalSpecification : MockValidationSpecification<T>
+        {
+            private readonly int _externalParam;
+
+            public InternalSpecification(bool result, int externalParam) : base(result)
+            {
+                _externalParam = externalParam;
+            }
+
+            protected override string TraceMessage => "MockCompositeInternalSpecification";
+
+            protected override IReadOnlyDictionary<string, object> GetParameters()
+            {
+                var result = base.GetParameters().ToDictionary(kv => kv.Key, kv => kv.Value);
+                result.Add("External", _externalParam);
+
+                return result;
+            }
+        }
+
         protected readonly bool Result;
 
-        protected MockCompositeSpecification(bool result) 
-            : base(CreateBaseSpecification(result), CreateBaseSpecification(result), Expression.AndAlso)
+        protected MockCompositeSpecification(bool result, int leftParam, int rightParam)
+            : base(new InternalSpecification(result, leftParam), new InternalSpecification(result, rightParam), Expression.AndAlso)
         {
             Result = result;
         }
@@ -21,74 +43,73 @@ namespace FluentSpecification.Core.Tests.Mocks
             return Result;
         }
 
-        public static IComplexSpecification<T> Create(bool result)
+        public static IComplexSpecification<T> Create(bool result, int leftParam = 0, int rightParam = 0)
         {
-            return result ? True() : False();
+            return result ? True(leftParam, rightParam) : False(leftParam, rightParam);
         }
 
-        public static IComplexSpecification<T> True()
+        public static IComplexSpecification<T> True(int leftParam = 0, int rightParam = 0)
         {
-            return new TrueMockCompositeSpecification<T>();
+            return new TrueMockCompositeSpecification<T>(leftParam, rightParam);
         }
 
-        public static IComplexSpecification<T> False()
+        public static IComplexSpecification<T> False(int leftParam = 0, int rightParam = 0)
         {
-            return new FalseMockCompositeSpecification<T>();
-        }
-
-        private static IValidationSpecification<T> CreateBaseSpecification(bool result)
-        {
-            return MockValidationSpecification<T>.Create(result);
+            return new FalseMockCompositeSpecification<T>(leftParam, rightParam);
         }
     }
 
     internal class TrueMockCompositeSpecification<T> : MockCompositeSpecification<T>
     {
-        public TrueMockCompositeSpecification() : base(true)
+        public TrueMockCompositeSpecification(int leftParam, int rightParam)
+            : base(true, leftParam, rightParam)
         {
         }
     }
 
     internal class FalseMockCompositeSpecification<T> : MockCompositeSpecification<T>
     {
-        public FalseMockCompositeSpecification() : base(false)
+        public FalseMockCompositeSpecification(int leftParam, int rightParam)
+            : base(false, leftParam, rightParam)
         {
         }
     }
 
     internal abstract class MockCompositeSpecification : MockCompositeSpecification<object>
     {
-        protected MockCompositeSpecification(bool result)
-            : base(result)
+        protected MockCompositeSpecification(bool result, int leftParam, int rightParam)
+            : base(result, leftParam, rightParam)
         {
         }
 
-        public new static IComplexSpecification<object> Create(bool result)
+        public new static IComplexSpecification<object> Create(bool result, int leftParam = 0, int rightParam = 0)
         {
-            return result ? True() : False();
+            return result ? True(leftParam, rightParam) : False(leftParam, rightParam);
         }
 
-        public new static IComplexSpecification<object> True()
+        public new static IComplexSpecification<object> True(int leftParam = 0, int rightParam = 0)
         {
-            return new TrueMockCompositeSpecification();
+            return new TrueMockCompositeSpecification(leftParam, rightParam);
         }
 
-        public new static IComplexSpecification<object> False()
+        public new static IComplexSpecification<object> False(int leftParam = 0, int rightParam = 0)
         {
-            return new FalseMockCompositeSpecification();
+            return new FalseMockCompositeSpecification(leftParam, rightParam);
         }
     }
 
     internal class TrueMockCompositeSpecification : MockCompositeSpecification
     {
-        public TrueMockCompositeSpecification() : base(true)
+        public TrueMockCompositeSpecification(int leftParam, int rightParam)
+            : base(true, leftParam, rightParam)
         {
         }
     }
 
     internal class FalseMockCompositeSpecification : MockCompositeSpecification
     {
-        public FalseMockCompositeSpecification() : base(false)
+        public FalseMockCompositeSpecification(int leftParam, int rightParam)
+            : base(false, leftParam, rightParam)
         {
         }
     }

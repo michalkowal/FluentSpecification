@@ -143,6 +143,55 @@ namespace FluentSpecification.Core.Tests
                 Assert.Equal(expected, result, new SpecificationResultComparer(dum));
             }
 
+            [Fact]
+            public void FalseCompositeSpecification_UniqueParametersInMessageFactory()
+            {
+                var candidate = new object();
+                var specification = MockCompositeSpecification.False(10, 10);
+
+                object expectedCandidate = null;
+                IReadOnlyDictionary<string, object> expectedParameters = null;
+                var sut = new TranslatableSpecification<object>(specification, (c, p) =>
+                {
+                    expectedCandidate = c;
+                    expectedParameters = p;
+                    return string.Empty;
+                });
+
+                sut.IsSatisfiedBy(candidate, out var _);
+
+                Assert.Same(candidate, expectedCandidate);
+                Assert.NotNull(expectedParameters);
+                Assert.Equal(2, expectedParameters.Count);
+                Assert.IsType<int>(expectedParameters["External"]);
+                Assert.Equal(10, (int)expectedParameters["External"]);
+            }
+
+            [Fact]
+            public void FalseCompositeSpecification_ListWithMultipleParametersInMessageFactory()
+            {
+                var candidate = new object();
+                var specification = MockCompositeSpecification.False(1278, 145);
+
+                object expectedCandidate = null;
+                IReadOnlyDictionary<string, object> expectedParameters = null;
+                var sut = new TranslatableSpecification<object>(specification, (c, p) =>
+                {
+                    expectedCandidate = c;
+                    expectedParameters = p;
+                    return string.Empty;
+                });
+
+                sut.IsSatisfiedBy(candidate, out var _);
+
+                Assert.Same(candidate, expectedCandidate);
+                Assert.NotNull(expectedParameters);
+                Assert.Equal(2, expectedParameters.Count);
+                Assert.IsType<object[]>(expectedParameters["External"]);
+                Assert.Equal(1278, ((object[])expectedParameters["External"])[0]);
+                Assert.Equal(145, ((object[])expectedParameters["External"])[1]);
+            }
+
             [Theory]
             [CorrectData(typeof(TranslatableData))]
             public void NullCandidate_NoException(string message)
