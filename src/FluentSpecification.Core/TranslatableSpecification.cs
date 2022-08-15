@@ -20,7 +20,7 @@ namespace FluentSpecification.Core
         private readonly Func<T, IReadOnlyDictionary<string, object>, string> _messageFactory;
 
         /// <summary>
-        ///     Creates adapter.
+        ///     Creates decorator.
         /// </summary>
         /// <param name="baseSpecification">Base adapted <c>Specification</c>.</param>
         /// <param name="message">Custom error message.</param>
@@ -33,6 +33,13 @@ namespace FluentSpecification.Core
                 throw new ArgumentException(nameof(message));
         }
 
+        /// <summary>
+        ///     Creates decorator.
+        /// </summary>
+        /// <param name="baseSpecification">Base adapted <c>Specification</c>.</param>
+        /// <param name="messageFactory">Custom message factory based on candidate value.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseSpecification" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageFactory" /> is null.</exception>
         public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification, [NotNull] Func<T, string> messageFactory)
             : this(baseSpecification, (c, p) => messageFactory(c))
         {
@@ -40,6 +47,13 @@ namespace FluentSpecification.Core
                 throw new ArgumentNullException(nameof(messageFactory));
         }
 
+        /// <summary>
+        ///     Creates decorator.
+        /// </summary>
+        /// <param name="baseSpecification">Base adapted <c>Specification</c>.</param>
+        /// <param name="messageFactory">Custom message factory based on candidate value and parameters dictionary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="baseSpecification" /> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messageFactory" /> is null.</exception>
         public TranslatableSpecification([NotNull] ISpecification<T> baseSpecification,
             [NotNull] Func<T, IReadOnlyDictionary<string, object>, string> messageFactory)
         {
